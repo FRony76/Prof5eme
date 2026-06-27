@@ -100,6 +100,27 @@ Le modèle est `gemini-3.5-flash`, configuré **côté serveur** dans `api/gemin
 
 Le format de réponse attendu est toujours du JSON pur. Il est garanti côté API par `generationConfig.responseMimeType:"application/json"` et renforcé par le system prompt (`"JSON VALIDE UNIQUEMENT, zéro backtick"`). Ne pas casser cette contrainte, sinon le `JSON.parse()` côté client échouera.
 
+### Barème de correction (3 critères)
+
+`validate` et `checkBankAnswer` utilisent un barème à trois critères évalués séparément par l'IA :
+
+```json
+{
+  "result_correct": true,      // résultat final exact avec unité
+  "formula_recalled": true,    // formule(s) de cours rappelée(s) ; null si aucune formule requise
+  "well_written": true,        // réponse rédigée (étapes en phrases, pas un résultat brut)
+  "feedback": "...",
+  "correct_answer": "..."      // validate uniquement
+}
+```
+
+La dérivation `ok`/`half`/points se fait **côté client** (déterministe) :
+- **Excellent** (`ok`) : les 3 critères vrais → `level × 10 + streakBonus + 2`
+- **Presque** (`half`) : résultat juste mais formule ou rédaction absente → `level × 3`
+- **Pas tout à fait** : résultat faux → 0 pt
+
+`formula_recalled: null` (question sans formule) est traité comme `true` — jamais bloquant. En mode photo, si la formule est illisible, l'IA renvoie `false` et le mentionne dans le feedback.
+
 ## Conventions de code
 
 - **Pas de commentaires** sauf si le pourquoi est non-évident.

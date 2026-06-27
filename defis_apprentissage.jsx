@@ -929,9 +929,9 @@ Exigences :
 - ${level === 1 ? "2 étapes de raisonnement" : level === 2 ? "3 à 4 étapes, formule(s) physique ET calcul mathématique" : "4 à 5 étapes, raisonnement rigoureux, plusieurs formules, résultat avec unité"}
 - Le problème doit être RÉSOLVABLE avec le programme de 5ème uniquement
 
-JSON EXACT : {"question":"énoncé complet avec toutes les données","hint":"quelle(s) formule(s) et méthode(s) utiliser","answer_guide":"démarche complète pas à pas avec résultat et unité"}`
+JSON EXACT : {"question":"énoncé complet avec toutes les données","hint":"quelle(s) formule(s) et méthode(s) utiliser","answer_guide":"formule(s) de cours utilisées + démarche complète rédigée pas à pas + résultat final avec unité"}`
       : `Génère 1 question de ${SUBS[subj].label} niveau ${level}/3 (${LVL[level]}: ${LVL_D[level]}) sur le thème "${topic}".
-JSON EXACT : {"question":"énoncé complet","hint":"indice utile sans donner la réponse","answer_guide":"éléments attendus dans la bonne réponse"}`;
+JSON EXACT : {"question":"énoncé complet","hint":"indice utile sans donner la réponse","answer_guide":"formule(s) de cours attendue(s) + démarche rédigée pas à pas + résultat final avec unité"}`;
     try {
       const d = await callGemini(sys, msg);
       setQData(d);
@@ -946,17 +946,22 @@ JSON EXACT : {"question":"énoncé complet","hint":"indice utile sans donner la 
     setLoading(true);
     try {
       const system = "Tu corriges la réponse d'un élève de 5ème. Bienveillant et pédagogue."
-        + (answerMode === "photo" ? " La réponse est fournie en photo : c'est la copie manuscrite de l'élève. Lis attentivement les calculs et le raisonnement écrits à la main, même raturés ou peu nets." : "")
+        + " Évalue selon TROIS critères : 1. RÉSULTAT — le résultat final est-il exact avec la bonne unité ? 2. FORMULE — l'élève a-t-il explicitement rappelé la ou les formules de cours ? Réponds null UNIQUEMENT si la question ne nécessite aucune formule."
+        + (answerMode === "photo" ? " 3. RÉDACTION — la réponse est-elle rédigée avec étapes ? En mode photo : si la formule est présente mais illisible, réponds false à formula_recalled et mentionne-le dans le feedback." : " 3. RÉDACTION — la réponse est-elle rédigée avec étapes et non un simple résultat brut ?")
         + " JSON VALIDE UNIQUEMENT, zéro backtick.";
       const userMsg = answerMode === "photo"
-        ? `Question : "${qData.question}"\nGuide : "${qData.answer_guide}"\nLa réponse de l'élève est la photo jointe (copie manuscrite). Analyse la démarche et le résultat visibles sur la photo.\nJSON : {"correct":true,"partially_correct":false,"feedback":"2-3 phrases encourageantes, précise si un passage était illisible","correct_answer":"réponse complète si faux ou partiel"}`
-        : `Question : "${qData.question}"\nGuide : "${qData.answer_guide}"\nRéponse élève : "${answer}"\nJSON : {"correct":true,"partially_correct":false,"feedback":"2-3 phrases encourageantes","correct_answer":"réponse complète si faux ou partiel"}`;
+        ? `Question : "${qData.question}"\nGuide : "${qData.answer_guide}"\nLa réponse de l'élève est la photo jointe (copie manuscrite). Analyse la démarche et le résultat visibles sur la photo.\nJSON : {"result_correct":true,"formula_recalled":true,"well_written":true,"feedback":"2-3 phrases encourageantes qui disent précisément ce qui manque si nécessaire, précise si un passage était illisible","correct_answer":"rédaction modèle complète : formule(s) + étapes + résultat avec unité, si faux ou partiel"}`
+        : `Question : "${qData.question}"\nGuide : "${qData.answer_guide}"\nRéponse élève : "${answer}"\nJSON : {"result_correct":true,"formula_recalled":true,"well_written":true,"feedback":"2-3 phrases encourageantes qui disent précisément ce qui manque si nécessaire","correct_answer":"rédaction modèle complète : formule(s) + étapes + résultat avec unité, si faux ou partiel"}`;
       const d = await callGemini(system, userMsg, answerMode === "photo" ? photo.base64 : null, answerMode === "photo" ? photo.mediaType : undefined);
-      const ok = d.correct === true || d.correct === "true";
-      const half = !ok && (d.partially_correct === true || d.partially_correct === "true");
+      const resultOk  = d.result_correct === true || d.result_correct === "true";
+      const formulaOk = d.formula_recalled !== false && d.formula_recalled !== "false";
+      const writtenOk = d.well_written === true || d.well_written === "true";
+      const ok   = resultOk && formulaOk && writtenOk;
+      const half = !ok && resultOk;
       const streakBonus = ok && streak >= 2 ? 5 : 0;
-      const pts = ok ? level * 10 + streakBonus : half ? level * 3 : 0;
+      const pts = ok ? level * 10 + streakBonus + 2 : half ? level * 3 : 0;
       d._ok = ok; d._half = half; d._pts = pts;
+      d._formulaOk = formulaOk; d._writtenOk = writtenOk;
       setFeedback(d); setPhase("fb"); setCount(k => k + 1);
       if (ok) { setScore(s => s + pts); setStreak(s => s + 1); setCelebrated(true); }
       else { if (half) setScore(s => s + pts); setStreak(0); }
@@ -970,15 +975,19 @@ JSON EXACT : {"question":"énoncé complet","hint":"indice utile sans donner la 
     setBankChecking(true);
     try {
       const system = "Tu corriges la réponse d'un élève de 5ème par rapport à un corrigé de référence. Bienveillant et pédagogue."
-        + (bankAnswerMode === "photo" ? " La réponse est fournie en photo : c'est la copie manuscrite de l'élève. Lis attentivement les calculs et le raisonnement écrits à la main, même raturés ou peu nets." : "")
+        + " Évalue selon TROIS critères : 1. RÉSULTAT — le résultat final est-il exact avec la bonne unité ? 2. FORMULE — l'élève a-t-il explicitement rappelé la ou les formules de cours ? Réponds null UNIQUEMENT si l'exercice ne nécessite aucune formule."
+        + (bankAnswerMode === "photo" ? " 3. RÉDACTION — la réponse est-elle rédigée avec étapes ? En mode photo : si la formule est présente mais illisible, réponds false à formula_recalled et mentionne-le dans le feedback." : " 3. RÉDACTION — la réponse est-elle rédigée avec étapes et non un simple résultat brut ?")
         + " JSON VALIDE UNIQUEMENT, zéro backtick.";
       const userMsg = bankAnswerMode === "photo"
-        ? `Exercice : "${ex.q}"\nCorrigé de référence : "${ex.a}"\nLa réponse de l'élève est la photo jointe (copie manuscrite). Analyse la démarche et le résultat visibles sur la photo, en te basant sur le corrigé de référence.\nJSON : {"correct":true,"partially_correct":false,"feedback":"2-3 phrases encourageantes, précise si un passage était illisible"}`
-        : `Exercice : "${ex.q}"\nCorrigé de référence : "${ex.a}"\nRéponse élève : "${bankAnswer}"\nJSON : {"correct":true,"partially_correct":false,"feedback":"2-3 phrases encourageantes"}`;
+        ? `Exercice : "${ex.q}"\nCorrigé de référence : "${ex.a}"\nLa réponse de l'élève est la photo jointe (copie manuscrite). Analyse la démarche et le résultat visibles sur la photo, en te basant sur le corrigé de référence.\nJSON : {"result_correct":true,"formula_recalled":true,"well_written":true,"feedback":"2-3 phrases encourageantes qui disent précisément ce qui manque si nécessaire, précise si un passage était illisible"}`
+        : `Exercice : "${ex.q}"\nCorrigé de référence : "${ex.a}"\nRéponse élève : "${bankAnswer}"\nJSON : {"result_correct":true,"formula_recalled":true,"well_written":true,"feedback":"2-3 phrases encourageantes qui disent précisément ce qui manque si nécessaire"}`;
       const d = await callGemini(system, userMsg, bankAnswerMode === "photo" ? bankPhoto.base64 : null, bankAnswerMode === "photo" ? bankPhoto.mediaType : undefined);
-      const ok = d.correct === true || d.correct === "true";
-      const half = !ok && (d.partially_correct === true || d.partially_correct === "true");
-      setBankFeedback({ _ok: ok, _half: half, feedback: d.feedback });
+      const resultOk  = d.result_correct === true || d.result_correct === "true";
+      const formulaOk = d.formula_recalled !== false && d.formula_recalled !== "false";
+      const writtenOk = d.well_written === true || d.well_written === "true";
+      const ok   = resultOk && formulaOk && writtenOk;
+      const half = !ok && resultOk;
+      setBankFeedback({ _ok: ok, _half: half, feedback: d.feedback, _formulaOk: formulaOk, _writtenOk: writtenOk });
     } catch {
       setBankFeedback({ _ok: false, _half: false, feedback: "Erreur de correction, réessaie." });
     }
@@ -1048,10 +1057,13 @@ JSON EXACT : {"question":"énoncé complet","hint":"indice utile sans donner la 
               </div>
 
               {bankAnswerMode === "text" ? (
-                <textarea value={bankAnswer} onChange={e => setBankAnswer(e.target.value)}
-                  placeholder="Écris ta réponse ici…" rows={3}
-                  style={{ width: "100%", boxSizing: "border-box", background: "white", border: "1.5px solid #E5E7EB", borderRadius: 8, padding: "12px 14px", color: "#111827", fontSize: 14, resize: "vertical", outline: "none", fontFamily: "inherit", lineHeight: 1.65, marginBottom: 10 }}
-                />
+                <>
+                  <textarea value={bankAnswer} onChange={e => setBankAnswer(e.target.value)}
+                    placeholder="Écris ta réponse ici…" rows={3}
+                    style={{ width: "100%", boxSizing: "border-box", background: "white", border: "1.5px solid #E5E7EB", borderRadius: 8, padding: "12px 14px", color: "#111827", fontSize: 14, resize: "vertical", outline: "none", fontFamily: "inherit", lineHeight: 1.65, marginBottom: 4 }}
+                  />
+                  <p style={{ margin: "0 0 10px", fontSize: 11.5, color: "#9CA3AF" }}>Rappelle la formule du cours et rédige ta démarche (résultat + unité).</p>
+                </>
               ) : (
                 <PhotoCapture photo={bankPhoto} setPhoto={setBankPhoto} color={bp.pri} />
               )}
@@ -1071,7 +1083,13 @@ JSON EXACT : {"question":"énoncé complet","hint":"indice utile sans donner la 
                       <span style={{ fontSize: 16 }}>{bankFeedback._ok ? "✅" : bankFeedback._half ? "⚡" : "❌"}</span>
                       <span style={{ fontWeight: 700, color: fc.txt, fontSize: 13 }}>{bankFeedback._ok ? "Excellent !" : bankFeedback._half ? "Presque !" : "Pas tout à fait…"}</span>
                     </div>
-                    <p style={{ margin: 0, fontSize: 13, color: "#374151", lineHeight: 1.6 }}>{bankFeedback.feedback}</p>
+                    <p style={{ margin: 0, fontSize: 13, color: "#374151", lineHeight: 1.6, marginBottom: (!bankFeedback._formulaOk || !bankFeedback._writtenOk) ? 8 : 0 }}>{bankFeedback.feedback}</p>
+                    {(!bankFeedback._formulaOk || !bankFeedback._writtenOk) && (
+                      <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
+                        {!bankFeedback._formulaOk && <span style={{ fontSize: 12, color: P.warn.txt }}>⚠️ Pense à rappeler la ou les formules du cours.</span>}
+                        {!bankFeedback._writtenOk && <span style={{ fontSize: 12, color: P.warn.txt }}>⚠️ Rédige ta réponse : étapes + résultat avec l'unité.</span>}
+                      </div>
+                    )}
                   </div>
                 );
               })()}
@@ -1372,13 +1390,16 @@ JSON EXACT : {"question":"énoncé complet","hint":"indice utile sans donner la 
             </div>
 
             {answerMode === "text" ? (
-              <textarea ref={taRef} value={answer} onChange={e => setAnswer(e.target.value)}
-                onKeyDown={e => { if (e.key === "Enter" && e.ctrlKey) validate(); }}
-                placeholder="Écris ta réponse ici… (Ctrl+Entrée pour valider)" rows={3}
-                style={{ width: "100%", boxSizing: "border-box", background: "white", border: "1.5px solid #E5E7EB", borderRadius: 8, padding: "12px 14px", color: "#111827", fontSize: 14, resize: "vertical", outline: "none", fontFamily: "inherit", lineHeight: 1.65, marginBottom: 10, transition: "border-color 0.2s" }}
-                onFocus={e => e.target.style.borderColor = c.pri}
-                onBlur={e => e.target.style.borderColor = "#E5E7EB"}
-              />
+              <>
+                <textarea ref={taRef} value={answer} onChange={e => setAnswer(e.target.value)}
+                  onKeyDown={e => { if (e.key === "Enter" && e.ctrlKey) validate(); }}
+                  placeholder="Écris ta réponse ici… (Ctrl+Entrée pour valider)" rows={3}
+                  style={{ width: "100%", boxSizing: "border-box", background: "white", border: "1.5px solid #E5E7EB", borderRadius: 8, padding: "12px 14px", color: "#111827", fontSize: 14, resize: "vertical", outline: "none", fontFamily: "inherit", lineHeight: 1.65, marginBottom: 4, transition: "border-color 0.2s" }}
+                  onFocus={e => e.target.style.borderColor = c.pri}
+                  onBlur={e => e.target.style.borderColor = "#E5E7EB"}
+                />
+                <p style={{ margin: "0 0 10px", fontSize: 11.5, color: "#9CA3AF" }}>Rappelle la formule du cours et rédige ta démarche (résultat + unité).</p>
+              </>
             ) : (
               <PhotoCapture photo={photo} setPhoto={setPhoto} color={c.pri} />
             )}
@@ -1407,7 +1428,13 @@ JSON EXACT : {"question":"énoncé complet","hint":"indice utile sans donner la 
                 <span style={{ fontWeight: 700, color: fbc.txt, fontSize: 15 }}>{feedback._ok ? "Excellent !" : feedback._half ? "Presque !" : "Pas tout à fait…"}</span>
                 {feedback._pts > 0 && <span style={{ marginLeft: "auto", background: P.ok.pri, color: "white", borderRadius: 20, padding: "2px 12px", fontSize: 12, fontWeight: 700 }}>+{feedback._pts} pts</span>}
               </div>
-              <p style={{ color: "#374151", fontSize: 14, lineHeight: 1.7, margin: 0, marginBottom: (!feedback._ok && feedback.correct_answer) ? 10 : 0 }}>{feedback.feedback}</p>
+              <p style={{ color: "#374151", fontSize: 14, lineHeight: 1.7, margin: 0, marginBottom: ((!feedback._ok && feedback.correct_answer) || (!feedback._formulaOk || !feedback._writtenOk)) ? 10 : 0 }}>{feedback.feedback}</p>
+              {(!feedback._formulaOk || !feedback._writtenOk) && (
+                <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: (!feedback._ok && feedback.correct_answer) ? 8 : 0 }}>
+                  {!feedback._formulaOk && <span style={{ fontSize: 12.5, color: P.warn.txt }}>⚠️ Pense à rappeler la ou les formules du cours.</span>}
+                  {!feedback._writtenOk && <span style={{ fontSize: 12.5, color: P.warn.txt }}>⚠️ Rédige ta réponse : étapes + résultat avec l'unité.</span>}
+                </div>
+              )}
               {!feedback._ok && feedback.correct_answer && (
                 <div style={{ background: "rgba(0,0,0,0.04)", borderRadius: 6, padding: "10px 12px", fontSize: 13 }}>
                   <span style={{ color: "#9CA3AF" }}>Réponse : </span>
