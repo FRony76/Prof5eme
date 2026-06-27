@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "hash-password": "node scripts/hash-password.mjs",
+    "test": "node scripts/test-auth.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",

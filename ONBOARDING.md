@@ -16,39 +16,33 @@ Il n'y a **pas** de backend, pas de base de données, pas de système d'authenti
 ## 2. Mise en place locale
 
 ```bash
-# 1. Cloner / récupérer le repo
+# 1. Cloner le repo
 git clone <url>
 cd Prof5eme
 
-# 2. Créer un projet React (si pas déjà fait)
-npm create vite@latest mon-app -- --template react
-cd mon-app
-
-# 3. Copier le composant
-cp ../defis_apprentissage.jsx src/
-
-# 4. Installer les dépendances
+# 2. Installer les dépendances + la CLI Vercel (pour les fonctions /api)
 npm install
+npm i -g vercel
 
-# 5. Configurer la clé API Google Gemini
-echo "VITE_GEMINI_API_KEY=AIza..." >> .env.local
+# 3. Configurer les variables d'environnement
+cp .env.example .env.local
+npm run hash-password "monMotDePasse"   # → AUTH_PASSWORD_HASH
+node -e "console.log(require('node:crypto').randomBytes(32).toString('hex'))"   # → SESSION_SECRET
+# renseigner aussi GEMINI_API_KEY et AUTH_USERNAME dans .env.local
 
-# 6. Lancer
-npm run dev
+# 4. Lancer le full-stack (front + /api)
+vercel dev      # port 3000
 ```
+
+> `npm run dev` (Vite seul) sert l'UI mais **pas** les routes `/api` : la connexion échouera. Utiliser `vercel dev`.
 
 ### Comment la clé est lue
 
-Dans `defis_apprentissage.jsx`, la fonction `callGemini` (ligne ~606) effectue un fetch vers `generativelanguage.googleapis.com`. La clé est injectée via le header `x-goog-api-key` :
+La clé Gemini reste **côté serveur**. Le client appelle `callGemini` → `POST /api/gemini`, et c'est `api/gemini.js` qui ajoute le header `x-goog-api-key` avec `process.env.GEMINI_API_KEY` après avoir vérifié la session. Aucun secret n'est présent dans le bundle navigateur.
 
-```js
-headers: {
-  "Content-Type": "application/json",
-  "x-goog-api-key": import.meta.env.VITE_GEMINI_API_KEY ?? "",
-}
-```
+### Authentification
 
-Aucun header supplémentaire n'est requis : l'endpoint Gemini autorise les appels navigateur (CORS) avec une clé API.
+`api/login.js` vérifie l'identifiant (`AUTH_USERNAME`) et le mot de passe (hash scrypt `AUTH_PASSWORD_HASH`), puis pose un cookie de session signé (HMAC via `SESSION_SECRET`). Le client teste la session au montage via `GET /api/session` et affiche `LoginScreen` si 401.
 
 ## 3. Orientation dans le code
 
@@ -57,14 +51,15 @@ Le fichier est organisé de haut en bas dans cet ordre :
 | Lignes (approx.) | Contenu |
 |---|---|
 | 1–10 | Palette de couleurs `P` |
-| 11–18 | Sujets et thèmes `SUBS` |
-| 19–20 | Niveaux `LVL` / `LVL_D` |
-| 21–135 | Fiches de révision `CARDS` |
-| 138–604 | Banque d'exercices `EXERCISES` |
-| 606–630 | Fonction API `callGemini` (+ constante `GEMINI_MODEL`) |
-| 634–664 | Downscale image `downscaleToResult` |
-| 666–789 | Composant `PhotoCapture` (caméra live + fichier) |
-| 727–fin | Composant principal `App` |
+| 11–20 | Sujets `SUBS` / niveaux `LVL` |
+| 21–604 | Contenu `CARDS` (fiches) + `EXERCISES` (banque) |
+| ~606 | `callGemini()` → `POST /api/gemini` (client) |
+| ~632 | Downscale image `downscaleToResult` |
+| ~666 | Composant `PhotoCapture` (caméra live + fichier) |
+| ~780 | Composant `LoginScreen` |
+| ~810 → fin | Composant principal `App` (gate d'auth + écrans) |
+
+Côté serveur : `api/login.js`, `api/session.js`, `api/logout.js`, `api/gemini.js`, `api/_lib/auth.js`.
 
 ## 4. Comprendre la navigation
 

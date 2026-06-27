@@ -2,14 +2,40 @@
 
 ## Vue d'ensemble
 
-Application React mono-composant (`App`) sans backend propre. L'IA est appelée directement depuis le navigateur via l'API Google Gemini.
+Front React (Vite) + **fonctions serverless Vercel** (`/api`). L'IA n'est jamais appelée directement par le navigateur : un proxy serveur détient la clé et exige une session authentifiée.
 
 ```
-defis_apprentissage.jsx
+defis_apprentissage.jsx (client)
 ├── Données statiques   CARDS, EXERCISES, SUBS, P (palette)
-├── Utilitaires         callGemini(), downscaleToResult()
-├── Composant           PhotoCapture
-└── Composant principal App  (navigation par état `screen`)
+├── Utilitaires         callGemini() → /api/gemini, downscaleToResult()
+├── Composants          LoginScreen, PhotoCapture
+└── Composant principal App  (gate d'auth + navigation par état `screen`)
+
+api/ (serverless)
+├── login.js     POST  vérifie identifiants → pose le cookie de session
+├── session.js   GET   200 si session valide, 401 sinon
+├── logout.js    POST  efface le cookie
+├── gemini.js    POST  vérifie session → relaie vers Gemini (clé serveur)
+└── _lib/auth.js helpers : cookies, HMAC, scrypt, rate limit, sameOrigin
+```
+
+## Authentification & flux réseau
+
+```
+Au montage de App :
+  GET /api/session ──► 200 {authed:true}  → rend l'app
+                  └──► 401                → rend <LoginScreen>
+
+Connexion :
+  LoginScreen → POST /api/login {username,password}
+    → safeEqualStr(user) ET verifyPassword(scrypt)   (toujours les deux)
+    → Set-Cookie session=<body>.<HMAC>  (HttpOnly, Secure, SameSite=Strict, 7 j)
+
+Appel IA :
+  callGemini → POST /api/gemini {system,userMsg,imageBase64?}
+    → verifySession(cookie) sinon 401 (→ event "auth-expired" → LoginScreen)
+    → fetch Gemini avec GEMINI_API_KEY (jamais envoyée au client)
+    → { text } → JSON.parse côté client
 ```
 
 ## Navigation (machine d'états `screen`)
@@ -67,17 +93,9 @@ defis_apprentissage.jsx
 
 ## Fonctions clés
 
-### `callGemini(system, userMsg, imageBase64?, imageMediaType?)`
+### `callGemini(system, userMsg, imageBase64?, imageMediaType?)` (client)
 
-Appel direct à `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent` (header `x-goog-api-key`). Accepte du texte **ou** une image en base64.
-
-```
-system      → system_instruction.parts[0].text
-Texte seul  → contents[0].parts = [{ text: userMsg }]
-Avec image  → parts += { inline_data: { mime_type, data: base64 } }
-```
-
-Retourne un objet JSON parsé. Le mode JSON natif (`generationConfig.responseMimeType:"application/json"`) garantit une sortie propre ; le strip de fences markdown reste comme filet de sécurité. Le modèle est isolé dans la constante `GEMINI_MODEL`.
+`POST /api/gemini` avec `{ system, userMsg, imageBase64, imageMediaType }`. Sur **401** émet l'event `auth-expired` (→ retour au `LoginScreen`). Retourne `JSON.parse(text)`. La construction de la requête Gemini (`system_instruction`, `contents/parts`, `inline_data`, `responseMimeType:"application/json"`) et la clé API sont **côté serveur** dans `api/gemini.js` ; le modèle vient de l'env `GEMINI_MODEL`.
 
 ### `downscaleToResult(source, maxDim=1600, quality=0.8)`
 

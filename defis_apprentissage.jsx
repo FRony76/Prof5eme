@@ -603,30 +603,21 @@ const EXERCISES = {
   },
 };
 
-const GEMINI_MODEL = "gemini-3.5-flash"; // modèle cible — point unique à ajuster si besoin
-
+// Appelle le proxy serverless /api/gemini (la clé API reste côté serveur).
 async function callGemini(system, userMsg, imageBase64 = null, imageMediaType = "image/jpeg") {
-  const parts = [{ text: userMsg }];
-  if (imageBase64) parts.push({ inline_data: { mime_type: imageMediaType, data: imageBase64 } });
-  const res = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-goog-api-key": import.meta.env.VITE_GEMINI_API_KEY ?? "",
-      },
-      body: JSON.stringify({
-        system_instruction: { parts: [{ text: system }] },
-        contents: [{ role: "user", parts }],
-        generationConfig: { maxOutputTokens: 1500, responseMimeType: "application/json" },
-      }),
-    }
-  );
+  const res = await fetch("/api/gemini", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ system, userMsg, imageBase64, imageMediaType }),
+  });
+  if (res.status === 401) {
+    // Session expirée → repasser à l'écran de connexion
+    window.dispatchEvent(new Event("auth-expired"));
+    throw new Error("Non authentifié");
+  }
   if (!res.ok) throw new Error(`API ${res.status}`);
-  const data = await res.json();
-  const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "{}";
-  return JSON.parse(text.replace(/```(?:json)?\s*|\s*```/g, "").trim());
+  const { text } = await res.json();
+  return JSON.parse((text || "{}").replace(/```(?:json)?\s*|\s*```/g, "").trim());
 }
 
 async function downscaleToResult(source, maxDim = 1600, quality = 0.8) {
@@ -813,7 +804,61 @@ function FlashCard({ card, c }) {
   );
 }
 
+function LoginScreen({ onSuccess }) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [err, setErr] = useState("");
+  const [busy, setBusy] = useState(false);
+  const a = P.maths;
+
+  const submit = async (e) => {
+    e.preventDefault();
+    if (busy || !username || !password) return;
+    setBusy(true); setErr("");
+    try {
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
+      if (res.ok) { onSuccess(); return; }
+      const d = await res.json().catch(() => ({}));
+      setErr(d.error || "Connexion impossible.");
+    } catch {
+      setErr("Connexion impossible.");
+    }
+    setBusy(false);
+  };
+
+  const field = { width: "100%", boxSizing: "border-box", background: "white", border: "1.5px solid #E5E7EB", borderRadius: 8, padding: "11px 14px", color: "#111827", fontSize: 14, outline: "none", fontFamily: "inherit", marginBottom: 10 };
+
+  return (
+    <div style={{ minHeight: "100vh", background: "#F9FAFB", display: "flex", alignItems: "center", justifyContent: "center", padding: "1.5rem", fontFamily: "system-ui, -apple-system, sans-serif" }}>
+      <form onSubmit={submit} style={{ width: "100%", maxWidth: 360, background: "white", border: "1.5px solid #E5E7EB", borderRadius: 12, padding: "2rem 1.75rem" }}>
+        <div style={{ fontSize: 30, textAlign: "center", marginBottom: 6 }}>📐</div>
+        <h1 style={{ fontSize: 20, fontWeight: 700, color: "#111827", margin: "0 0 4px", textAlign: "center" }}>Défis d'apprentissage</h1>
+        <p style={{ fontSize: 13, color: "#6B7280", margin: "0 0 1.5rem", textAlign: "center" }}>Connecte-toi pour commencer</p>
+
+        <input type="text" value={username} onChange={e => setUsername(e.target.value)}
+          placeholder="Identifiant" autoComplete="username" autoFocus
+          style={field} onFocus={e => e.target.style.borderColor = a.pri} onBlur={e => e.target.style.borderColor = "#E5E7EB"} />
+        <input type="password" value={password} onChange={e => setPassword(e.target.value)}
+          placeholder="Mot de passe" autoComplete="current-password"
+          style={field} onFocus={e => e.target.style.borderColor = a.pri} onBlur={e => e.target.style.borderColor = "#E5E7EB"} />
+
+        {err && <p style={{ color: P.err.pri, fontSize: 13, margin: "0 0 10px" }}>{err}</p>}
+
+        <button type="submit" disabled={busy || !username || !password}
+          style={{ width: "100%", padding: "11px", background: (busy || !username || !password) ? "#E5E7EB" : a.pri, border: "none", borderRadius: 8, color: (busy || !username || !password) ? "#9CA3AF" : "white", fontWeight: 700, cursor: (busy || !username || !password) ? "not-allowed" : "pointer", fontSize: 14, fontFamily: "inherit" }}>
+          {busy ? "Connexion…" : "Se connecter"}
+        </button>
+      </form>
+    </div>
+  );
+}
+
 export default function App() {
+  const [authed, setAuthed] = useState(null); // null = en cours de vérification
   const [screen, setScreen] = useState("home");
   const [subj, setSubj] = useState(null);
   const [topic, setTopic] = useState(null);
@@ -844,6 +889,23 @@ export default function App() {
   const [bankFeedback, setBankFeedback] = useState(null);
   const [bankChecking, setBankChecking] = useState(false);
   const taRef = useRef(null);
+
+  // Vérifie la session au montage et écoute les expirations émises par callGemini
+  useEffect(() => {
+    let alive = true;
+    fetch("/api/session", { headers: { Accept: "application/json" } })
+      .then(r => (r.ok ? r.json() : { authed: false }))
+      .then(d => { if (alive) setAuthed(!!d.authed); })
+      .catch(() => { if (alive) setAuthed(false); });
+    const onExpired = () => setAuthed(false);
+    window.addEventListener("auth-expired", onExpired);
+    return () => { alive = false; window.removeEventListener("auth-expired", onExpired); };
+  }, []);
+
+  const logout = async () => {
+    try { await fetch("/api/logout", { method: "POST" }); } catch { /* ignore */ }
+    setAuthed(false);
+  };
 
   const S = subj ? SUBS[subj] : null;
   const c = subj ? P[subj] : null;
@@ -930,6 +992,16 @@ JSON EXACT : {"question":"énoncé complet","hint":"indice utile sans donner la 
     color: selected ? (P[color]?.txt || "#5B21B6") : "#374151",
     fontWeight: selected ? 600 : 400, transition: "all 0.15s"
   });
+
+  // ── AUTHENTIFICATION ────────────────────────────────────────────────────────
+  if (authed === null) {
+    return (
+      <div style={{ minHeight: "100vh", background: "#F9FAFB", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "system-ui, -apple-system, sans-serif", color: "#9CA3AF", fontSize: 14 }}>
+        Chargement…
+      </div>
+    );
+  }
+  if (!authed) return <LoginScreen onSuccess={() => setAuthed(true)} />;
 
   // ── BANK VIEW (liste d'exercices) ──────────────────────────────────────────
   if (screen === "bank-view") {
@@ -1144,7 +1216,12 @@ JSON EXACT : {"question":"énoncé complet","hint":"indice utile sans donner la 
   if (screen === "home") return (
     <div style={{ minHeight: "100vh", background: "#F9FAFB", padding: px, fontFamily: "system-ui, -apple-system, sans-serif" }}>
       <div style={{ maxWidth: 580, margin: "0 auto" }}>
-        <h1 style={{ fontSize: 24, fontWeight: 700, color: "#111827", margin: "0 0 4px" }}>Défis d'apprentissage</h1>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12 }}>
+          <h1 style={{ fontSize: 24, fontWeight: 700, color: "#111827", margin: "0 0 4px" }}>Défis d'apprentissage</h1>
+          <button onClick={logout} style={{ flexShrink: 0, marginTop: 2, padding: "6px 12px", background: "white", border: "1.5px solid #E5E7EB", borderRadius: 8, color: "#6B7280", cursor: "pointer", fontSize: 12, fontFamily: "inherit" }}>
+            Se déconnecter
+          </button>
+        </div>
         <p style={{ fontSize: 13, color: "#6B7280", margin: "0 0 1.75rem" }}>Programme officiel 5ème — exercices générés et corrigés par IA</p>
 
         <p style={{ fontSize: 11, fontWeight: 700, color: "#9CA3AF", textTransform: "uppercase", letterSpacing: "0.1em", margin: "0 0 10px" }}>Entraînement par matière</p>

@@ -96,9 +96,9 @@ Les prompts sont inline dans les fonctions. Chercher ces fonctions dans `App` :
 | `validate()` | Correction de la réponse texte ou photo (quiz) |
 | `checkBankAnswer()` | Correction de la réponse texte ou photo (banque) |
 
-Le modèle est `gemini-3.5-flash`. Pour changer le modèle, modifier la constante `GEMINI_MODEL` au-dessus de `callGemini()`.
+Le modèle est `gemini-3.5-flash`, configuré **côté serveur** dans `api/gemini.js` (variable d'env `GEMINI_MODEL`). Les prompts restent côté client (dans `genQuestion`/`validate`/`checkBankAnswer`) et sont transmis au proxy ; seuls la clé API et l'appel réseau Gemini sont serveur.
 
-Le format de réponse attendu est toujours du JSON pur. Il est garanti côté API par `generationConfig.responseMimeType:"application/json"` et renforcé par le system prompt (`"JSON VALIDE UNIQUEMENT, zéro backtick"`). Ne pas casser cette contrainte, sinon le `JSON.parse()` dans `callGemini` échouera.
+Le format de réponse attendu est toujours du JSON pur. Il est garanti côté API par `generationConfig.responseMimeType:"application/json"` et renforcé par le system prompt (`"JSON VALIDE UNIQUEMENT, zéro backtick"`). Ne pas casser cette contrainte, sinon le `JSON.parse()` côté client échouera.
 
 ## Conventions de code
 
@@ -120,11 +120,10 @@ Il n'y a pas de suite de tests automatisés. Protocole de vérification manuelle
 
 ## Déploiement
 
-L'application est un composant React standard. Pour la déployer :
+L'app est conçue pour **Vercel** (front Vite statique + fonctions `/api`). Importer le dépôt dans Vercel (preset Vite auto-détecté), puis configurer les variables d'environnement dans **Settings → Environment Variables** :
 
-```bash
-npm run build    # génère dist/
-# Déposer dist/ sur n'importe quel hébergeur statique (Netlify, Vercel, GitHub Pages…)
+```
+GEMINI_API_KEY, GEMINI_MODEL (optionnel), AUTH_USERNAME, AUTH_PASSWORD_HASH, SESSION_SECRET
 ```
 
-Penser à configurer la variable d'environnement `VITE_GEMINI_API_KEY` sur la plateforme d'hébergement.
+Aucune n'utilise le préfixe `VITE_` (elles restent côté serveur). Les fichiers `api/*.js` deviennent automatiquement des fonctions serverless. Voir le README pour le détail.
