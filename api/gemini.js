@@ -31,7 +31,7 @@ export default async function handler(req, res) {
         body: JSON.stringify({
           system_instruction: { parts: [{ text: system }] },
           contents: [{ role: "user", parts }],
-          generationConfig: { maxOutputTokens: 1500, responseMimeType: "application/json" },
+          generationConfig: { maxOutputTokens: 3000, responseMimeType: "application/json" },
         }),
       }
     );
