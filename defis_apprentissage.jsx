@@ -615,7 +615,11 @@ async function callGemini(system, userMsg, imageBase64 = null, imageMediaType = 
     window.dispatchEvent(new Event("auth-expired"));
     throw new Error("Non authentifié");
   }
-  if (!res.ok) throw new Error(`API ${res.status}`);
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}));
+    console.error("[callGemini]", res.status, body);
+    throw new Error(`API ${res.status}`);
+  }
   const { text } = await res.json();
   return JSON.parse((text || "{}").replace(/```(?:json)?\s*|\s*```/g, "").trim());
 }

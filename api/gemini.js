@@ -21,6 +21,7 @@ export default async function handler(req, res) {
   const parts = [{ text: userMsg }];
   if (imageBase64) parts.push({ inline_data: { mime_type: imageMediaType, data: imageBase64 } });
 
+  const started = Date.now();
   try {
     const r = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`,
@@ -34,11 +35,25 @@ export default async function handler(req, res) {
         }),
       }
     );
-    if (!r.ok) return res.status(502).json({ error: `Gemini ${r.status}` });
+
+    if (!r.ok) {
+      const detail = await r.text().catch(() => "");
+      console.error(`[gemini] ${r.status} en ${Date.now() - started}ms — ${detail.slice(0, 800)}`);
+      const expose = process.env.DEBUG_GEMINI === "1";
+      return res.status(502).json({ error: `Gemini ${r.status}`, ...(expose ? { detail } : {}) });
+    }
+
     const data = await r.json();
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "{}";
+    const cand = data.candidates?.[0];
+    const text = cand?.content?.parts?.[0]?.text;
+    if (!text) {
+      console.error(`[gemini] 200 sans texte — finishReason=${cand?.finishReason} en ${Date.now() - started}ms`);
+      return res.status(502).json({ error: `Gemini sans réponse (${cand?.finishReason || "vide"})` });
+    }
+    console.log(`[gemini] 200 OK en ${Date.now() - started}ms`);
     return res.status(200).json({ text });
-  } catch {
+  } catch (e) {
+    console.error(`[gemini] exception en ${Date.now() - started}ms`, e);
     return res.status(502).json({ error: "Erreur de communication avec Gemini" });
   }
 }
