@@ -1,8 +1,11 @@
 // Migration idempotente — exécuter avec :
 //   node --env-file=.env.local scripts/migrate.mjs
 import { neon } from "@neondatabase/serverless";
+import { dbUrl } from "../api/_lib/db.js";
 
-const sql = neon(process.env.DATABASE_URL);
+const url = dbUrl();
+if (!url) { console.error("Aucune URL de base (DATABASE_URL ou PROF5EME_DATABASE_URL). Lance d'abord : vercel env pull .env.local"); process.exit(1); }
+const sql = neon(url);
 
 await sql`
   CREATE TABLE IF NOT EXISTS users (

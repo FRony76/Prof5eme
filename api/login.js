@@ -19,9 +19,9 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "Identifiants requis" });
   }
 
-  // ── Auth DB (si DATABASE_URL disponible) ────────────────────────────────
-  if (process.env.DATABASE_URL) {
-    const { sql } = await import("./_lib/db.js");
+  // ── Auth DB (si une URL de base est disponible) ─────────────────────────
+  const { sql, dbUrl } = await import("./_lib/db.js");
+  if (dbUrl()) {
     const [row] = await sql`
       SELECT id, username, password_hash FROM users WHERE username = ${username} LIMIT 1
     `.catch(() => []);
