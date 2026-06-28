@@ -1,0 +1,18 @@
+export async function callGemini(system, userMsg, imageBase64 = null, imageMediaType = "image/jpeg") {
+  const res = await fetch("/api/gemini", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ system, userMsg, imageBase64, imageMediaType }),
+  });
+  if (res.status === 401) {
+    window.dispatchEvent(new Event("auth-expired"));
+    throw new Error("Non authentifié");
+  }
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}));
+    console.error("[callGemini]", res.status, body);
+    throw new Error(`API ${res.status}`);
+  }
+  const { text } = await res.json();
+  return JSON.parse((text || "{}").replace(/```(?:json)?\s*|\s*```/g, "").trim());
+}
