@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 
+const APP_VERSION = "1.1";
+
 const P = {
   maths:   { pri:"#185FA5", lit:"#EBF3FD", med:"#B5D4F4", txt:"#0C447C" },
   physique:{ pri:"#854F0B", lit:"#FDF3E3", med:"#FAC775", txt:"#633806" },
@@ -1392,6 +1394,20 @@ export default function App() {
     const onExpired = () => setAuthed(false);
     window.addEventListener("auth-expired", onExpired);
     return () => { alive = false; window.removeEventListener("auth-expired", onExpired); };
+  }, []);
+
+  useEffect(() => {
+    const el = document.createElement("div");
+    el.textContent = `v${APP_VERSION}`;
+    Object.assign(el.style, {
+      position: "fixed", bottom: "10px", right: "12px",
+      fontSize: "10.5px", color: "#9CA3AF", pointerEvents: "none",
+      userSelect: "none", zIndex: "9999",
+      fontFamily: "system-ui, -apple-system, sans-serif",
+      letterSpacing: "0.05em",
+    });
+    document.body.appendChild(el);
+    return () => document.body.removeChild(el);
   }, []);
 
   const logout = async () => {
