@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
 import { P } from "../theme.js";
 import { SUBS, LVL, LVL_D } from "../constants.js";
-import { callGemini } from "../lib/api.js";
+import { callGemini, recordAttempt } from "../lib/api.js";
 import PhotoCapture from "../components/PhotoCapture.jsx";
 import { useAppState } from "../state/AppContext.jsx";
 
@@ -53,6 +53,18 @@ JSON EXACT : {"question":"énoncé complet","hint":"indice utile sans donner la 
         : `Question : "${qData.question}"\nGuide : "${qData.answer_guide}"\nRéponse élève : "${answer}"\nJSON : {"result_correct":true,"formula_recalled":true,"well_written":true,"feedback":"2-3 phrases encourageantes qui disent précisément ce qui manque si nécessaire","correct_answer":"rédaction modèle complète : formule(s) + étapes + résultat avec unité, si faux ou partiel"}`;
       const d = await callGemini(system, userMsg, answerMode === "photo" ? photo.base64 : null, answerMode === "photo" ? photo.mediaType : undefined);
       dispatch({ type: "VALIDATE_DONE", d, level });
+      // fire-and-forget : un échec ne bloque pas l'UX
+      const resultOk  = d.result_correct === true || d.result_correct === "true";
+      const formulaOk = d.formula_recalled !== false && d.formula_recalled !== "false";
+      const writtenOk = d.well_written === true || d.well_written === "true";
+      const ok   = resultOk && formulaOk && writtenOk;
+      const half = !ok && resultOk;
+      const streakBonus = ok && state.streak >= 2 ? 5 : 0;
+      const pts  = ok ? level * 10 + streakBonus + 2 : half ? level * 3 : 0;
+      recordAttempt({ mode: "quiz", subject: subj, topic, level, question: qData?.question,
+        answer_mode: answerMode, result_ok: resultOk, is_half: half,
+        formula_ok: formulaOk === true ? true : formulaOk === false ? false : null,
+        written_ok: writtenOk, points: pts });
     } catch {
       dispatch({ type: "VALIDATE_ERROR" });
     }

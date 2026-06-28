@@ -12,6 +12,7 @@ const initialState = {
   bankShowHint: false, bankShowAnswer: false,
   bankAnswerMode: "text", bankAnswer: "", bankPhoto: null,
   bankFeedback: null, bankChecking: false,
+  historyData: null,
 };
 
 function reducer(state, action) {
