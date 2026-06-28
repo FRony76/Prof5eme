@@ -22,21 +22,23 @@ export default async function handler(req, res) {
   // ── Auth DB (si une URL de base est disponible) ─────────────────────────
   const { sql, dbUrl } = await import("./_lib/db.js");
   if (dbUrl()) {
+    // .catch([]) couvre aussi le cas où la table users n'existe pas encore
+    // (migration pas encore lancée) → on retombe sur le compte env-var.
     const [row] = await sql`
       SELECT id, username, password_hash FROM users WHERE username = ${username} LIMIT 1
     `.catch(() => []);
 
-    // Exécuter verifyPassword même si row est absent (anti-timing/énumération)
-    const hashToCheck = row?.password_hash || "0000000000000000:0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
-    const passOk = verifyPassword(password, hashToCheck);
-
-    if (!row || !passOk) return res.status(401).json({ error: "Identifiants invalides" });
-
-    res.setHeader("Set-Cookie", sessionCookie(signSession(row.username, Number(row.id))));
-    return res.status(200).json({ authed: true });
+    if (row) {
+      // Username connu en DB → compte élève : on valide son mot de passe
+      if (!verifyPassword(password, row.password_hash))
+        return res.status(401).json({ error: "Identifiants invalides" });
+      res.setHeader("Set-Cookie", sessionCookie(signSession(row.username, Number(row.id))));
+      return res.status(200).json({ authed: true });
+    }
+    // Username inconnu en DB → on tente le compte env-var ci-dessous (pas de lockout)
   }
 
-  // ── Fallback env vars (mono-utilisateur, deprecated) ────────────────────
+  // ── Fallback env vars (compte admin historique) ─────────────────────────
   const envUser = process.env.AUTH_USERNAME || "";
   const envHash = process.env.AUTH_PASSWORD_HASH || "";
   const userOk = safeEqualStr(username, envUser);
