@@ -49,6 +49,9 @@ jobs:
   secrets:
     name: Détection de secrets
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read # gitleaks liste les commits de la PR via l'API
     steps:
       - name: Checkout
         uses: actions/checkout@v4
