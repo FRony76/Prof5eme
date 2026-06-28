@@ -1,0 +1,25 @@
+version: 2
+updates:
+  # Dépendances npm de l'application
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    # Regroupe les MAJ mineures/patch en une seule PR pour limiter le bruit ;
+    # les MAJ majeures (potentiellement cassantes) restent en PR séparées.
+    groups:
+      minor-and-patch:
+        update-types:
+          - minor
+          - patch
+    labels:
+      - dependencies
+
+  # Versions des actions utilisées dans les workflows GitHub
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+    labels:
+      - ci

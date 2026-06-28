@@ -48,7 +48,7 @@ export const CARDS = {
       intro:"Le calcul littéral utilise des lettres (variables) pour généraliser des calculs et exprimer des relations entre grandeurs.",
       sections:[
         {h:"Distributivité simple",b:"k(a + b) = ka + kb\nk(a − b) = ka − kb\n\n3(x + 4) = 3x + 12\n2(3x − 1) = 6x − 2\n−2(x + 3) = −2x − 6\n−(x − 5) = −x + 5"},
-        {h:"Réduire une expression",kind:"method",b:"Regrouper les termes semblables (même variable, même exposant)\n\n3x + 5 + 2x − 1 = (3x+2x)+(5−1) = 5x + 4\n4a + 3b − a + 2b = 3a + 5b\n\n⚠ x et x² ne sont PAS des termes semblables !",kind:"warning"},
+        {h:"Réduire une expression",kind:"method",b:"Regrouper les termes semblables (même variable, même exposant)\n\n3x + 5 + 2x − 1 = (3x+2x)+(5−1) = 5x + 4\n4a + 3b − a + 2b = 3a + 5b\n\n⚠ x et x² ne sont PAS des termes semblables !"},
         {h:"Substitution numérique",kind:"method",b:"Remplacer la lettre par sa valeur, respecter les priorités.\n\nPour x=4 :\n2x + 3 = 2×4 + 3 = 11\nx² − 2x = 16 − 8 = 8\n\nPour a=−3 :\na² + a = 9 + (−3) = 6"},
         {h:"Factoriser",kind:"method",b:"Factoriser = mettre le facteur commun devant une parenthèse\n(inverse du développement)\n\n6x + 9 = 3(2x + 3)   [PGCD=3]\n4x² + 8x = 4x(x + 2) [PGCD=4x]"},
         {h:"Exemple complet",kind:"example",b:"Simplifier 3(2x−1) − 2(x+4)\n= 6x − 3 − 2x − 8\n= 4x − 11"}
