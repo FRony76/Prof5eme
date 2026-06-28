@@ -66,7 +66,7 @@ export default function HomeScreen() {
         </button>
 
         <button onClick={() => dispatch({ type: "SET", payload: { screen: "bank" } })}
-          style={{ width: "100%", padding: "13px 20px", background: "white", border: "1.5px solid #E5E7EB", borderRadius: 12, cursor: "pointer", fontFamily: "inherit", display: "flex", alignItems: "center", justifyContent: "space-between", transition: "all 0.15s" }}
+          style={{ width: "100%", padding: "13px 20px", background: "white", border: "1.5px solid #E5E7EB", borderRadius: 12, cursor: "pointer", fontFamily: "inherit", display: "flex", alignItems: "center", justifyContent: "space-between", transition: "all 0.15s", marginBottom: 10 }}
           onMouseEnter={e => { e.currentTarget.style.borderColor = "#9CA3AF"; e.currentTarget.style.background = "#F9FAFB"; }}
           onMouseLeave={e => { e.currentTarget.style.borderColor = "#E5E7EB"; e.currentTarget.style.background = "white"; }}>
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
@@ -74,6 +74,20 @@ export default function HomeScreen() {
             <div style={{ textAlign: "left" }}>
               <div style={{ fontSize: 14, fontWeight: 600, color: "#111827" }}>Banque d'exercices</div>
               <div style={{ fontSize: 12, color: "#6B7280", marginTop: 1 }}>Exercices progressifs du simple au complexe · {Object.values(EXERCISES).flatMap(s => Object.values(s)).flat().length} exercices</div>
+            </div>
+          </div>
+          <span style={{ color: "#9CA3AF", fontSize: 18 }}>→</span>
+        </button>
+
+        <button onClick={() => dispatch({ type: "SET", payload: { screen: "history" } })}
+          style={{ width: "100%", padding: "13px 20px", background: "white", border: "1.5px solid #E5E7EB", borderRadius: 12, cursor: "pointer", fontFamily: "inherit", display: "flex", alignItems: "center", justifyContent: "space-between", transition: "all 0.15s" }}
+          onMouseEnter={e => { e.currentTarget.style.borderColor = "#9CA3AF"; e.currentTarget.style.background = "#F9FAFB"; }}
+          onMouseLeave={e => { e.currentTarget.style.borderColor = "#E5E7EB"; e.currentTarget.style.background = "white"; }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <span style={{ fontSize: 22 }}>📊</span>
+            <div style={{ textAlign: "left" }}>
+              <div style={{ fontSize: 14, fontWeight: 600, color: "#111827" }}>Mon historique</div>
+              <div style={{ fontSize: 12, color: "#6B7280", marginTop: 1 }}>Score cumulé, progression par thème, dernières tentatives</div>
             </div>
           </div>
           <span style={{ color: "#9CA3AF", fontSize: 18 }}>→</span>

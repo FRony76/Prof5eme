@@ -1,7 +1,7 @@
 import { P } from "../theme.js";
 import { LVL } from "../constants.js";
 import { EXERCISES } from "../data/exercises.js";
-import { callGemini } from "../lib/api.js";
+import { callGemini, recordAttempt } from "../lib/api.js";
 import PhotoCapture from "../components/PhotoCapture.jsx";
 import { useAppState } from "../state/AppContext.jsx";
 
@@ -28,6 +28,16 @@ export default function BankView() {
         : `Exercice : "${ex.q}"\nCorrigé de référence : "${ex.a}"\nRéponse élève : "${bankAnswer}"\nJSON : {"result_correct":true,"formula_recalled":true,"well_written":true,"feedback":"2-3 phrases encourageantes qui disent précisément ce qui manque si nécessaire"}`;
       const d = await callGemini(system, userMsg, bankAnswerMode === "photo" ? bankPhoto.base64 : null, bankAnswerMode === "photo" ? bankPhoto.mediaType : undefined);
       dispatch({ type: "CHECK_BANK_DONE", d });
+      // fire-and-forget
+      const resultOk  = d.result_correct === true || d.result_correct === "true";
+      const formulaOk = d.formula_recalled !== false && d.formula_recalled !== "false";
+      const writtenOk = d.well_written === true || d.well_written === "true";
+      const ok   = resultOk && formulaOk && writtenOk;
+      const half = !ok && resultOk;
+      recordAttempt({ mode: "bank", subject: bankSubj, topic: bankTopic, level: null,
+        question: ex.q, answer_mode: bankAnswerMode, result_ok: resultOk, is_half: half,
+        formula_ok: formulaOk === true ? true : formulaOk === false ? false : null,
+        written_ok: writtenOk, points: 0 });
     } catch {
       dispatch({ type: "CHECK_BANK_ERROR" });
     }

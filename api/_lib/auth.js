@@ -41,13 +41,15 @@ export function clearCookie() {
 }
 
 // ── Jeton de session signé (HMAC-SHA256) ────────────────────────────────────
-export function signSession(username) {
-  const payload = { u: username, exp: Math.floor(Date.now() / 1000) + SESSION_TTL };
+// payload : { u: username, uid: number, exp: epoch }
+export function signSession(username, uid) {
+  const payload = { u: username, uid, exp: Math.floor(Date.now() / 1000) + SESSION_TTL };
   const body = Buffer.from(JSON.stringify(payload)).toString("base64url");
   const sig = crypto.createHmac("sha256", getSecret()).update(body).digest("base64url");
   return `${body}.${sig}`;
 }
 
+// Renvoie { u, uid } ou null. Les anciens tokens sans uid sont rejetés.
 export function verifySession(req) {
   const token = parseCookies(req)[COOKIE_NAME];
   if (!token || !token.includes(".")) return null;
@@ -63,7 +65,8 @@ export function verifySession(req) {
     return null;
   }
   if (!payload.exp || payload.exp < Math.floor(Date.now() / 1000)) return null;
-  return payload.u || null;
+  if (!payload.u || payload.uid == null) return null;
+  return { u: payload.u, uid: payload.uid };
 }
 
 // ── Mot de passe : vérification scrypt à temps constant ──────────────────────

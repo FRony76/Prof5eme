@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { APP_VERSION } from "./constants.js";
+import { fetchHistory } from "./lib/api.js";
 import { AppProvider, useAppState } from "./state/AppContext.jsx";
 import LoginScreen from "./components/LoginScreen.jsx";
 import HomeScreen from "./screens/HomeScreen.jsx";
@@ -9,11 +10,13 @@ import CardsScreen from "./screens/CardsScreen.jsx";
 import CardsView from "./screens/CardsView.jsx";
 import BankScreen from "./screens/BankScreen.jsx";
 import BankView from "./screens/BankView.jsx";
+import HistoryScreen from "./screens/HistoryScreen.jsx";
 
 function AppInner() {
   const { state, dispatch } = useAppState();
   const { authed, screen } = state;
 
+  // Badge de version toujours visible
   useEffect(() => {
     const el = document.createElement("div");
     el.textContent = `v${APP_VERSION}`;
@@ -27,6 +30,14 @@ function AppInner() {
     document.body.appendChild(el);
     return () => document.body.removeChild(el);
   }, []);
+
+  // Hydratation score/streak depuis la DB dès que l'auth est confirmée
+  useEffect(() => {
+    if (!authed) return;
+    fetchHistory().then(h => {
+      if (h) dispatch({ type: "SET", payload: { score: h.score, streak: h.streak, historyData: h } });
+    });
+  }, [authed]);
 
   if (authed === null) {
     return (
@@ -42,6 +53,7 @@ function AppInner() {
   if (screen === "cards-view") return <CardsView />;
   if (screen === "cards")      return <CardsScreen />;
   if (screen === "setup")      return <SetupScreen />;
+  if (screen === "history")    return <HistoryScreen />;
   if (screen === "home")       return <HomeScreen />;
   return <QuizScreen />;
 }
