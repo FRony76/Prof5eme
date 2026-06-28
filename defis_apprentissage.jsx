@@ -10,8 +10,8 @@ const P = {
 };
 
 const SUBS = {
-  maths:   { label:"Mathématiques",   emoji:"📐", topics:["Fractions","Nombres relatifs","Puissances","Calcul littéral","Équations","Proportionnalité","Fonctions","Repérage","Géométrie","Symétrie centrale","Parallélogrammes","Solides et volumes","Statistiques","Probabilités"] },
-  physique:{ label:"Physique-Chimie", emoji:"⚗️",  topics:["La lumière","États de la matière","Mélanges et solutions","Le son","Électricité","Mouvement et vitesse","L'énergie"] },
+  maths:   { label:"Mathématiques",   emoji:"📐", topics:["Fractions","Nombres relatifs","Divisibilité","Puissances","Calcul littéral","Équations","Proportionnalité","Fonctions","Repérage","Géométrie","Symétrie centrale","Symétrie axiale","Parallélogrammes","Solides et volumes","Statistiques","Probabilités","Durées"] },
+  physique:{ label:"Physique-Chimie", emoji:"⚗️",  topics:["La lumière","États de la matière","Mélanges et solutions","Masse et volume","Acidité et pH","Composition de l'air","Le son","Électricité","Mouvement et vitesse","L'énergie","Le système solaire"] },
   mixte:   { label:"Problèmes mixtes",emoji:"🔬", topics:["Vitesse et distances","Circuits et calculs","Solutions et proportionnalité","Lumière et géométrie","Son et fréquences","Énergie et puissances"] }
 };
 
@@ -20,118 +20,290 @@ const LVL_D = ["","question directe, 1 étape","application d'une règle, raison
 
 const CARDS = {
   maths:{
-    "Fractions":[
-      {f:"Vocabulaire des fractions",b:"• Numérateur : chiffre du haut\n• Dénominateur : chiffre du bas\n• 3/4 = 3 ÷ 4\n\nFraction irréductible = simplifiée au maximum (PGCD = 1)"},
-      {f:"Additionner des fractions\n(dénominateurs différents)",b:"1. Trouver le dénominateur commun (PPCM)\n2. Convertir chaque fraction\n3. Additionner les numérateurs\n\n1/3 + 1/4 = 4/12 + 3/12 = 7/12"},
-      {f:"Multiplier des fractions",b:"Numérateur × Numérateur\nDénominateur × Dénominateur\n\n2/3 × 4/5 = 8/15\n\n💡 Simplifier AVANT de multiplier si possible"},
-      {f:"Comparer deux fractions",b:"Méthode 1 — même dénominateur :\n3/4 vs 2/3 → 9/12 vs 8/12 → 3/4 > 2/3\n\nMéthode 2 — produits croisés :\n3×3 = 9 > 4×2 = 8 → 3/4 > 2/3"}
-    ],
-    "Nombres relatifs":[
-      {f:"Qu'est-ce qu'un nombre relatif ?",b:"Nombre avec signe + ou –\n+5 → 5 unités à droite de zéro\n–3 → 3 unités à gauche de zéro\n\nValeur absolue = distance à 0\n|–7| = 7   |+4| = 4"},
-      {f:"Addition de nombres relatifs",b:"Même signe → garder le signe, additionner\n(+4)+(+3) = +7\n(–5)+(–2) = –7\n\nSignes différents → signe du plus grand, soustraire\n(+7)+(–3) = +4\n(–8)+(+5) = –3"},
-      {f:"Soustraction de nombres relatifs",b:"Règle : a – b = a + (–b)\nSoustraire = ajouter l'opposé\n\n(+5)–(–3) = (+5)+(+3) = +8\n(–2)–(+4) = (–2)+(–4) = –6"}
-    ],
-    "Puissances":[
-      {f:"Carré et cube d'un nombre",b:"Carré : a² = a × a\nCube : a³ = a × a × a\n\nEx : 5² = 5 × 5 = 25\n4³ = 4 × 4 × 4 = 64\n\n⚠ a² n'est PAS a × 2 !\n\nCarrés à connaitre par cœur : de 0² à 12² (0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144)"},
-      {f:"Calculer avec des puissances",b:"On calcule d'abord les puissances, puis le reste (priorités opératoires)\n\n3 + 2² = 3 + 4 = 7\n(3 + 2)² = 5² = 25\n\n2 × 3² = 2 × 9 = 18\n(2 × 3)² = 6² = 36"},
-      {f:"Valeur d'une expression avec puissance",b:"Remplacer la lettre par sa valeur, puis calculer\n\nPour x = 3 :\nx² + 1 = 3² + 1 = 9 + 1 = 10\n2x² = 2 × 3² = 2 × 9 = 18 (pas 6² !)\n\n⚠ 2x² signifie 2 × x², pas (2x)²"}
-    ],
-    "Équations":[
-      {f:"Qu'est-ce qu'une équation ?",b:"Égalité avec une inconnue (souvent x)\nRésoudre = trouver la valeur de x qui rend l'égalité vraie\n\nx + 5 = 12 → x = 7 (vérif : 7 + 5 = 12 ✓)\n\nOn dit que 7 est solution de l'équation"},
-      {f:"Résoudre x + b = c",b:"Utiliser l'opération inverse de l'addition : la soustraction\n\nx + 8 = 15\nx = 15 – 8\nx = 7\n\nVérification : 7 + 8 = 15 ✓"},
-      {f:"Résoudre ax = c",b:"Utiliser l'opération inverse de la multiplication : la division\n\n4x = 28\nx = 28 ÷ 4\nx = 7\n\nVérification : 4 × 7 = 28 ✓\n\n💡 Pour traduire un problème en équation, identifier l'inconnue d'abord"}
-    ],
-    "Proportionnalité":[
-      {f:"Tableau de proportionnalité",b:"Deux grandeurs proportionnelles = même coefficient\n\n│ x │ 2 │ 5 │ 8 │\n│ y │ 6 │15 │24 │\n\nCoefficient = 3  (y = 3x)\n\nVérif : produits en croix égaux"},
-      {f:"Règle de trois",b:"Pour trouver la valeur manquante :\n\n│ 3 │ ?  │\n│ 5 │ 20 │\n\n3 × 20 = 5 × ?  →  ? = 60 ÷ 5 = 12"},
-      {f:"Pourcentages",b:"p% de A = (p ÷ 100) × A\n\nEx : 20% de 150 = 0,20 × 150 = 30\n\nAugmenter de p% → ×(1 + p/100)\nDiminuer de p%  → ×(1 – p/100)"}
-    ],
-    "Fonctions":[
-      {f:"L'expression « en fonction de »",b:"Décrit comment une grandeur dépend d'une autre\n\nEx : le prix payé dépend du nombre de kg achetés\n→ « le prix en fonction de la masse »\n\nOn peut représenter cette dépendance par un tableau, une formule ou un graphique"},
-      {f:"Tableau de valeurs",b:"Associe à chaque valeur de départ une valeur d'arrivée\n\nPrix en fonction de la masse (3€/kg) :\n│ masse (kg) │ 1 │ 2 │ 4 │\n│ prix (€)   │ 3 │ 6 │ 12│\n\nFormule : prix = 3 × masse"},
-      {f:"Placer des points dans un repère",b:"Dans un repère orthogonal (axes perpendiculaires) :\nx = abscisse (horizontal)\ny = ordonnée (vertical)\n\nPoint A(2 ; 5) → 2 sur l'axe horizontal, 5 sur l'axe vertical\n\nSi les points sont alignés avec l'origine → situation de proportionnalité"}
-    ],
-    "Repérage":[
-      {f:"Abscisse sur une droite graduée",b:"Une droite graduée a une origine (0) et une unité\n\nL'abscisse d'un point = sa position sur la droite\n\nPoint A d'abscisse 3,5 → placé entre 3 et 4, à mi-chemin"},
-      {f:"Coordonnées dans le plan",b:"Un repère orthogonal a deux axes perpendiculaires : abscisses (x) et ordonnées (y)\n\nPoint M(4 ; 2) :\n1. Avancer de 4 sur l'axe horizontal\n2. Monter de 2 sur l'axe vertical\n\nL'origine a pour coordonnées (0 ; 0)"},
-      {f:"Lire des coordonnées",b:"Pour lire les coordonnées d'un point placé :\n1. Tracer une ligne verticale jusqu'à l'axe des x → abscisse\n2. Tracer une ligne horizontale jusqu'à l'axe des y → ordonnée\n\nOn note toujours (abscisse ; ordonnée)"}
-    ],
-    "Symétrie centrale":[
-      {f:"Qu'est-ce que la symétrie centrale ?",b:"Aussi appelée demi-tour\nO est le centre de symétrie\n\nLe symétrique de A par rapport à O est le point A' tel que O soit le milieu de [AA']\n\nFaire un demi-tour de 180° autour de O"},
-      {f:"Propriétés du demi-tour",b:"La symétrie centrale conserve :\n• les longueurs\n• les angles\n• les aires\n• le parallélisme et l'alignement\n\nLe symétrique d'un segment est un segment de même longueur, parallèle"},
-      {f:"Construire un symétrique",b:"Pour construire A' symétrique de A par rapport à O :\n1. Tracer la droite (AO)\n2. Mesurer la distance AO\n3. Placer A' sur cette droite, de l'autre côté de O, à la même distance\n\nO est alors le milieu de [AA']"}
-    ],
-    "Parallélogrammes":[
-      {f:"Définition du parallélogramme",b:"Quadrilatère dont les côtés opposés sont parallèles deux à deux\n\nPropriétés caractéristiques :\n• côtés opposés de même longueur\n• diagonales qui se coupent en leur milieu"},
-      {f:"Parallélogrammes particuliers",b:"Rectangle : parallélogramme avec un angle droit\n→ diagonales de même longueur\n\nLosange : parallélogramme avec deux côtés consécutifs égaux\n→ diagonales perpendiculaires\n\nCarré : rectangle ET losange à la fois"},
-      {f:"Aire d'un parallélogramme",b:"Aire = base × hauteur\n\nLa hauteur est mesurée perpendiculairement à la base choisie\n\nEx : base = 8 cm, hauteur = 5 cm\nAire = 8 × 5 = 40 cm²"}
-    ],
-    "Solides et volumes":[
-      {f:"Pavé droit et cube",b:"Pavé droit : 6 faces rectangulaires\nVolume = Longueur × largeur × hauteur\n\nCube : 6 faces carrées identiques\nVolume = c³ = c × c × c\n\nEx : cube de côté 4 cm → V = 4³ = 64 cm³"},
-      {f:"Cylindre de révolution",b:"Volume = Aire de la base × hauteur\nV = π × r² × h\n\nEx : rayon 3 cm, hauteur 10 cm\nV = π × 3² × 10 ≈ 3,14 × 9 × 10 ≈ 282,6 cm³"},
-      {f:"Unités de volume et de capacité",b:"1 m³ = 1 000 L\n1 dm³ = 1 L\n1 cm³ = 1 mL\n\nConversion : ×1000 ou ÷1000 entre unités voisines de volume (m³→dm³→cm³)\n\nPerspective cavalière : représentation en 3D sur le papier, les arêtes cachées sont en pointillés"}
-    ],
-    "Géométrie":[
-      {f:"Angles dans un triangle",b:"Somme des angles = 180°\n\nÉquilatéral → 3 angles de 60°\nIsocèle → 2 angles égaux à la base\nRectangle → un angle de 90°, deux angles complémentaires"},
-      {f:"Angles et droites parallèles",b:"Si deux droites sont parallèles, coupées par une sécante :\n\n• Angles alternes-internes égaux (en position « Z »)\n• Angles correspondants égaux (même position, même côté)\n\nRéciproque : si ces angles sont égaux, les droites sont parallèles"},
-      {f:"Théorème de Pythagore",b:"Triangle rectangle en C :\nAB² = AC² + BC²  (AB = hypoténuse)\n\nEx : AC = 3, BC = 4\nAB² = 9 + 16 = 25  →  AB = 5 cm\n\nRéciproque : AB²=AC²+BC² → angle droit en C"},
-      {f:"Droites remarquables du triangle",b:"Médiatrice d'un côté : perpendiculaire passant par son milieu\n→ les 3 médiatrices se croisent au centre du cercle circonscrit\n\nHauteur : perpendiculaire à un côté passant par le sommet opposé\nMédiane : relie un sommet au milieu du côté opposé\n→ partage le triangle en 2 triangles de même aire"},
-      {f:"Aires et périmètres",b:"Rectangle : P = 2(L+l)  A = L×l\nTriangle : P = a+b+c  A = (base×h)/2\nDisque : P = 2πr  A = πr²\nCarré : P = 4c  A = c²"}
-    ],
-    "Calcul littéral":[
-      {f:"Distributivité simple",b:"k(a + b) = ka + kb\n\n3(x + 4) = 3x + 12\n2(3x – 1) = 6x – 2\n–2(x + 3) = –2x – 6\n\n⚠ Attention au signe devant la parenthèse !"},
-      {f:"Réduire une expression",b:"Regrouper les termes semblables (même variable)\n\n3x + 5 + 2x – 1 = 5x + 4\n4a + 3b – a + 2b = 3a + 5b\n\n⚠ x et x² ne sont PAS des termes semblables"},
-      {f:"Substitution numérique",b:"Remplacer la variable par sa valeur numérique\n\nPour x = 4 :\n2x + 3 = 2(4) + 3 = 11\nx² – 2x = 16 – 8 = 8"}
-    ],
-    "Statistiques":[
-      {f:"Vocabulaire statistique",b:"Population : ensemble étudié\nEffectif : nombre d'individus dans une catégorie\nEffectif total : nombre total d'individus\nFréquence = effectif / effectif total (entre 0 et 1)"},
-      {f:"Construire un tableau d'effectifs et de fréquences",b:"Notes obtenues par 20 élèves :\n\n│ Note │ Effectif │ Fréquence │\n│  10  │    4     │ 4/20=0,20 │\n│  14  │    8     │ 8/20=0,40 │\n│  16  │    8     │ 8/20=0,40 │\n\nEffectif total = 4+8+8 = 20\nSomme des fréquences = 1 (ou 100%)\n\nFréquence en % : 0,20 → 20%"},
-      {f:"Calcul de la moyenne",b:"Moyenne = somme des valeurs ÷ effectif total\n\nNotes : 12, 15, 11, 14, 13\nMoyenne = (12+15+11+14+13) ÷ 5 = 65 ÷ 5 = 13\n\nMoyenne pondérée (avec effectifs) :\nMoyenne = Σ(valeur × effectif) ÷ effectif total\n\nÉtendue = valeur max – valeur min"},
-      {f:"Médiane d'une série",b:"La médiane partage la série ordonnée en 2 groupes égaux\n\nEffectif impair : 5, 7, 9, 12, 15 → médiane = 9 (valeur du milieu)\n\nEffectif pair : 4, 6, 8, 10 → médiane = (6+8)÷2 = 7 (moyenne des 2 valeurs du milieu)\n\n⚠ Toujours ordonner la série avant de chercher la médiane"},
-      {f:"Représentations graphiques",b:"Diagramme en barres → effectifs ou fréquences\nDiagramme circulaire → angle = fréquence × 360°\nDiagramme en ligne → évolution dans le temps\n\nEx : 20% des élèves → angle = 0,20 × 360° = 72°\n\nTableau de données → valeur + effectif + fréquence"}
-    ],
-    "Probabilités":[
-      {f:"Vocabulaire des probabilités",b:"Expérience aléatoire : résultat dû au hasard\nIssue : un résultat possible\nÉvènement : ensemble d'issues qui nous intéresse\n\nProbabilité = nombre entre 0 (impossible) et 1 (certain)"},
-      {f:"Calculer une probabilité (équiprobabilité)",b:"Si toutes les issues ont la même chance de se produire :\n\nProbabilité = nombre d'issues favorables / nombre d'issues possibles\n\nEx : dé à 6 faces, probabilité d'obtenir un 4 :\nP = 1/6"},
-      {f:"Exprimer une probabilité",b:"Peut s'écrire sous 3 formes :\nFraction : 1/4\nDécimal : 0,25\nPourcentage : 25 %\n\nEx : tirer une boule rouge parmi 4 boules (1 rouge, 3 bleues)\nP(rouge) = 1/4 = 0,25 = 25 %"}
-    ]
+    "Fractions":{
+      intro:"Une fraction représente une partie d'un tout ou le quotient de deux entiers. On l'écrit a/b avec b ≠ 0.",
+      sections:[
+        {h:"Vocabulaire",b:"• Numérateur (en HAUT) : nombre de parts prises\n• Dénominateur (en BAS) : nombre de parts au total\n\nFraction irréductible : simplifiée au maximum, PGCD(a,b) = 1\nEx : 6/8 = 3/4 (÷2)  ;  12/18 = 2/3 (÷6)",fig:"fractionBar"},
+        {h:"Addition et soustraction",kind:"method",b:"► Même dénominateur → opérer les numérateurs :\n   2/7 + 3/7 = 5/7\n\n► Dénominateurs différents :\n   1. Trouver le PPCM   2. Convertir   3. Additionner\n\nEx : 1/3 + 1/4\n   PPCM(3,4) = 12\n   1/3 = 4/12  et  1/4 = 3/12  →  7/12"},
+        {h:"Multiplication",kind:"method",b:"Numérateur × Numérateur\nDénominateur × Dénominateur\n\n   2/3 × 4/5 = 8/15\n\n💡 Simplifier AVANT de multiplier si possible :\n   3/8 × 4/9 : 3 et 9 (÷3), 4 et 8 (÷4)  → 1/2 × 1/3 = 1/6"},
+        {h:"Comparer deux fractions",kind:"method",b:"Méthode 1 — même dénominateur :\n   3/4 et 2/3 → 9/12 et 8/12 → 3/4 > 2/3\n\nMéthode 2 — produits croisés :\n   a/b ? c/d  : comparer a×d et b×c\n   3×3=9  et  4×2=8  →  9>8  →  3/4 > 2/3"},
+        {h:"Exemple",kind:"example",b:"Recette pour 6 pers. : 3/4 L de lait.\nPour 8 pers. : 3/4 ÷ 6 × 8 = 3/4 × 8/6 = 24/24 = 1 L"}
+      ],
+      keypoints:["Simplifier le résultat final (chercher le PGCD)","Pour + et − : mettre au même dénominateur (PPCM)","Pour × : num×num, dén×dén (simplifier avant)"]
+    },
+    "Nombres relatifs":{
+      intro:"Un nombre relatif est un nombre précédé d'un signe + ou −, indiquant sa position par rapport à zéro sur une droite graduée.",
+      sections:[
+        {h:"Définition et droite graduée",b:"• Signe + → à droite de zéro\n• Signe − → à gauche de zéro\n\nValeur absolue = distance à 0 (toujours positive)\n|−7| = 7   |+4| = 4   |0| = 0\n\nOrdre : −5 < −2 < 0 < +3 < +7",fig:"droiteNombres"},
+        {h:"Addition",kind:"method",b:"Même signe → garder le signe + additionner :\n   (+4)+(+3) = +7\n   (−5)+(−2) = −7\n\nSignes différents → signe du plus grand |  |, soustraire :\n   (+7)+(−3) = +4   (7−3, positif l'emporte)\n   (−8)+(+5) = −3   (8−5, négatif l'emporte)"},
+        {h:"Soustraction",kind:"method",b:"Règle : a − b = a + (−b)\nSoustraire = ajouter l'opposé\n\n   (+5)−(−3) = (+5)+(+3) = +8\n   (−2)−(+4) = (−2)+(−4) = −6\n   (−6)−(−9) = (−6)+(+9) = +3"},
+        {h:"Multiplication et division",kind:"warning",b:"Signes identiques → résultat POSITIF :\n   (−3)×(−4) = +12\n   (+6)×(+2) = +12\n\nSignes différents → résultat NÉGATIF :\n   (−3)×(+4) = −12\n   (+6)×(−2) = −12"},
+        {h:"Exemple",kind:"example",b:"Température : −4°C le matin, hausse de 9°C\n→ −4 + 9 = +5°C\n\nErreur classique : (−3)² = (−3)×(−3) = +9 (pas −9 !)"}
+      ],
+      keypoints:["Valeur absolue = distance à 0, toujours ≥ 0","Pour la soustraction : ajouter l'opposé","Signes identiques × ou ÷ → positif ; différents → négatif"]
+    },
+    "Divisibilité":{
+      intro:"La divisibilité permet de savoir si un entier peut être divisé par un autre sans reste. C'est la base de la décomposition en facteurs premiers.",
+      sections:[
+        {h:"Critères de divisibilité",b:"Par 2 → dernier chiffre pair (0,2,4,6,8)\nPar 3 → somme des chiffres divisible par 3\nPar 4 → deux derniers chiffres divisibles par 4\nPar 5 → se termine par 0 ou 5\nPar 9 → somme des chiffres divisible par 9\nPar 10 → se termine par 0\n\nEx : 756  →  7+5+6=18 (÷9 et ÷3 ✓)  ;  dernier chiffre 6 (÷2 ✓)"},
+        {h:"Multiples et diviseurs",b:"Diviseurs de n = entiers qui divisent n sans reste\nMultiples de n = n×1, n×2, n×3…\n\nDiviseurs de 12 : 1, 2, 3, 4, 6, 12\nPGCD(a,b) = Plus Grand Commun Diviseur\nPPCM(a,b) = Plus Petit Commun Multiple\n\nEx : PGCD(12,18) = 6  ;  PPCM(4,6) = 12"},
+        {h:"Nombres premiers",b:"Nombre premier = entier ≥ 2 divisible uniquement par 1 et lui-même.\n\nPremiers : 2, 3, 5, 7, 11, 13, 17, 19, 23…\n⚠ 1 N'EST PAS un nombre premier.\n2 est le seul nombre premier pair.\n\nTest : diviser par tous les premiers jusqu'à √n"},
+        {h:"Décomposition en facteurs premiers",kind:"method",b:"Diviser par le plus petit premier possible, répéter.\n\nEx : 60\n60 ÷ 2 = 30\n30 ÷ 2 = 15\n15 ÷ 3 = 5  (premier → stop)\n\n60 = 2² × 3 × 5",fig:"arbreFacteurs"},
+        {h:"Application : simplifier une fraction",kind:"example",b:"Simplifier 36/48 :\n36 = 2² × 3²\n48 = 2⁴ × 3\nPGCD(36,48) = 2² × 3 = 12\n36/48 = (36÷12)/(48÷12) = 3/4"}
+      ],
+      keypoints:["Mémoriser les critères de divisibilité par 2,3,4,5,9,10","Décomposer = produit de nombres premiers","PGCD sert à simplifier les fractions (PPCM pour le dénominateur commun)"]
+    },
+    "Puissances":{
+      intro:"Une puissance note une multiplication répétée d'un même nombre par lui-même. Elle se lit « a exposant n ».",
+      sections:[
+        {h:"Définition",b:"aⁿ = a × a × a × … × a  (n fois)\na = base  ;  n = exposant\n\na² = carré de a  ;  a³ = cube de a\n\nEx : 5² = 25  ;  4³ = 64  ;  10³ = 1 000\n⚠ a² ≠ a×2  !  (5² = 25, pas 10)"},
+        {h:"Carrés et cubes à connaître",b:"0²=0  1²=1  2²=4  3²=9  4²=16\n5²=25  6²=36  7²=49  8²=64  9²=81\n10²=100  11²=121  12²=144\n\nCubes : 2³=8  3³=27  4³=64  5³=125  10³=1000"},
+        {h:"Priorités opératoires",kind:"warning",b:"Les puissances se calculent AVANT × ÷, qui se calculent AVANT + −.\n\n3 + 2² = 3 + 4 = 7        [pas (3+2)²]\n(3+2)² = 5² = 25\n2 × 3² = 2 × 9 = 18       [pas (2×3)²]\n(2×3)² = 6² = 36"},
+        {h:"Puissances de 10",b:"10¹=10  10²=100  10³=1 000  10⁶=1 000 000\n\nNotation scientifique : 3×10⁴ = 30 000\n\nPuissances négatives :\n10⁻¹ = 0,1 = 1/10  ;  10⁻² = 0,01"},
+        {h:"Exemple",kind:"example",b:"Pour x=3, calculer 2x² + x − 1\n= 2×9 + 3 − 1 = 18 + 3 − 1 = 20\n⚠ 2x² = 2×(x²), PAS (2x)²"}
+      ],
+      keypoints:["aⁿ = a multiplié n fois par lui-même","Puissances avant × ÷ + − (priorités)","Connaître les carrés de 0² à 12² par cœur"]
+    },
+    "Calcul littéral":{
+      intro:"Le calcul littéral utilise des lettres (variables) pour généraliser des calculs et exprimer des relations entre grandeurs.",
+      sections:[
+        {h:"Distributivité simple",b:"k(a + b) = ka + kb\nk(a − b) = ka − kb\n\n3(x + 4) = 3x + 12\n2(3x − 1) = 6x − 2\n−2(x + 3) = −2x − 6\n−(x − 5) = −x + 5"},
+        {h:"Réduire une expression",kind:"method",b:"Regrouper les termes semblables (même variable, même exposant)\n\n3x + 5 + 2x − 1 = (3x+2x)+(5−1) = 5x + 4\n4a + 3b − a + 2b = 3a + 5b\n\n⚠ x et x² ne sont PAS des termes semblables !",kind:"warning"},
+        {h:"Substitution numérique",kind:"method",b:"Remplacer la lettre par sa valeur, respecter les priorités.\n\nPour x=4 :\n2x + 3 = 2×4 + 3 = 11\nx² − 2x = 16 − 8 = 8\n\nPour a=−3 :\na² + a = 9 + (−3) = 6"},
+        {h:"Factoriser",kind:"method",b:"Factoriser = mettre le facteur commun devant une parenthèse\n(inverse du développement)\n\n6x + 9 = 3(2x + 3)   [PGCD=3]\n4x² + 8x = 4x(x + 2) [PGCD=4x]"},
+        {h:"Exemple complet",kind:"example",b:"Simplifier 3(2x−1) − 2(x+4)\n= 6x − 3 − 2x − 8\n= 4x − 11"}
+      ],
+      keypoints:["Développer : distribuer le facteur à chaque terme de la parenthèse","Réduire : regrouper les termes ayant la même variable et le même exposant","Substitution : remplacer la lettre, respecter les priorités opératoires"]
+    },
+    "Équations":{
+      intro:"Une équation est une égalité contenant une inconnue. Résoudre, c'est trouver la valeur qui rend l'égalité vraie.",
+      sections:[
+        {h:"Vocabulaire",b:"• Équation : égalité avec une inconnue (souvent x)\n• Solution : valeur de x qui vérifie l'égalité\n• Vérification : remplacer x et contrôler des deux côtés\n\nEx : x + 5 = 12  →  x = 7  (7+5=12 ✓)"},
+        {h:"Résoudre x + b = c",kind:"method",b:"Utiliser l'opération inverse (+) → (−)\n\nx + 8 = 15  →  x = 15 − 8 = 7\nVérif : 7 + 8 = 15 ✓\n\nx − 3 = 11  →  x = 11 + 3 = 14\nVérif : 14 − 3 = 11 ✓"},
+        {h:"Résoudre ax = c",kind:"method",b:"Utiliser l'opération inverse (×) → (÷)\n\n4x = 28  →  x = 28 ÷ 4 = 7\nVérif : 4×7 = 28 ✓\n\nx/5 = 6  →  x = 6 × 5 = 30"},
+        {h:"Équation à deux opérations",kind:"method",b:"D'abord déplacer le terme constant, puis le coefficient.\n\n2x + 3 = 11\n2x = 11 − 3 = 8\nx = 8 ÷ 2 = 4\nVérif : 2×4+3 = 11 ✓\n\n3x − 5 = 10  →  3x = 15  →  x = 5"},
+        {h:"Mise en équation",kind:"example",b:"La somme de deux nombres consécutifs est 27.\nSoient n et n+1 ces nombres.\nn + (n+1) = 27  →  2n+1=27  →  2n=26  →  n=13\nLes nombres sont 13 et 14. Vérif : 13+14=27 ✓"}
+      ],
+      keypoints:["Opération inverse : +↔− et ×↔÷","Effectuer la même opération des deux côtés","Toujours vérifier la solution en substituant"]
+    },
+    "Proportionnalité":{
+      intro:"Deux grandeurs sont proportionnelles si leurs valeurs ont toujours le même rapport (coefficient de proportionnalité).",
+      sections:[
+        {h:"Tableau de proportionnalité",b:"Coefficient k = y÷x (constant pour chaque colonne)",table:[["x","2","5","8"],["y","6","15","24"]],},
+        {h:"Vérification et règle de trois",kind:"method",b:"Vérification : produits en croix égaux\n2×15 = 5×6 = 30 ✓\n\nRègle de trois (valeur manquante ?) :\n3 correspond à 5 ; ? correspond à 20\n3×20 = 5×?  →  ? = 60÷5 = 12"},
+        {h:"Pourcentages",kind:"method",b:"p% de A = (p÷100)×A = 0,0p×A\n20% de 150 = 0,20×150 = 30\n\nAugmenter de p% → multiplier par (1 + p/100)\n   +15% → ×1,15  ;  200×1,15 = 230\n\nDiminuer de p% → multiplier par (1 − p/100)\n   −20% → ×0,80  ;  200×0,80 = 160"},
+        {h:"Échelle et vitesse moyenne",kind:"example",b:"Carte à l'échelle 1/50 000\nDistance carte = 3 cm  →  Réelle = 3×50 000 = 1,5 km\n\nVitesse moyenne : v = d÷t (proportionnelle si v const)\n150 km en 2h → v = 75 km/h"}
+      ],
+      keypoints:["Coefficient k = y÷x (même pour toutes les colonnes)","Produits en croix pour vérifier ou trouver une valeur","p% = ×0,0p ; augmenter de p% = ×(1+p/100)"]
+    },
+    "Fonctions":{
+      intro:"Une fonction décrit comment une grandeur dépend d'une autre. Elle associe à chaque valeur x une valeur unique y.",
+      sections:[
+        {h:"Notion de fonction",b:"f(x) = expression ; on dit y=f(x) ou 'y en fonction de x'\n\nEx : Prix du pain à 1,50€/kg\n→ P(m) = 1,5×m\nP(2) = 3€  (pour 2 kg, on paye 3€)\n\nTableau de valeurs :",table:[["x (kg)","0","1","2","4"],["y = P(x)","0€","1,50€","3€","6€"]]},
+        {h:"Représentation graphique",b:"Dans un repère orthogonal :\n→ abscisse (x) : axe horizontal\n↑ ordonnée (y) : axe vertical\n\nPoint A(3;2) → avancer de 3 sur x, monter de 2 sur y\n\nFonction proportionnelle → droite passant par l'ORIGINE O",fig:"repereXY"},
+        {h:"Lecture graphique",kind:"method",b:"Lire f(a) : tracer x=a, lire y sur la courbe\nRésoudre f(x)=b : tracer y=b, lire x sur la courbe\n\nEx : f(3) = ? → point de la courbe à x=3, lire y\nEx : f(x) = 6 → chercher x tel que la courbe atteint y=6"}
+      ],
+      keypoints:["f(x) = valeur de y pour l'entrée x","Graphique : point (x ; f(x)) dans le repère","Droite passant par O → situation proportionnelle (k = pente)"]
+    },
+    "Repérage":{
+      intro:"Le repérage permet de localiser des points sur une droite (1D) ou dans un plan (2D) grâce à des coordonnées.",
+      sections:[
+        {h:"Droite graduée",b:"Origine O (abscisse 0), une unité, sens positif →\nAbscisse d'un point = sa position sur la droite\n\nPoint A d'abscisse 3,5 → entre 3 et 4, à mi-chemin\nPoint B d'abscisse −2 → à gauche de 0\n\nMilieu de [AB] : x_M = (x_A + x_B) ÷ 2"},
+        {h:"Repère orthogonal",b:"Deux axes ⊥ qui se croisent en l'origine O(0;0)\n→ axe des abscisses (x, horizontal)\n↑ axe des ordonnées (y, vertical)\n\nPoint M(4;2) :\n1. Avancer de 4 sur x (horizontalement)\n2. Monter de 2 sur y (verticalement)",fig:"repereXY"},
+        {h:"Placer et lire",kind:"method",b:"Placer A(3;−2) :\n→ aller à x=3 ; descendre de 2 (y négatif)\n\nLire un point P :\n→ verticale → lire x sur l'axe horizontal\n→ horizontale → lire y sur l'axe vertical"},
+        {h:"Milieu d'un segment",kind:"method",b:"Milieu M de [AB], avec A(x₁;y₁) et B(x₂;y₂) :\n\nx_M = (x_A + x_B) ÷ 2\ny_M = (y_A + y_B) ÷ 2\n\nEx : A(2;4) et B(6;2) → M(4;3)"}
+      ],
+      keypoints:["On note toujours (abscisse ; ordonnée) = (x ; y)","Milieu : moyenne des abscisses et des ordonnées","Axe horizontal = x (abscisses) ; axe vertical = y (ordonnées)"]
+    },
+    "Géométrie":{
+      intro:"La géométrie de 5e couvre les angles, les triangles, les droites parallèles et les formules d'aires et périmètres.",
+      sections:[
+        {h:"Angles dans un triangle",b:"La somme des angles d'un triangle vaut toujours 180°.\n\nÉquilatéral → 3 angles de 60°\nIsocèle → 2 angles égaux à la base\nRectangle → un angle de 90° ; les deux autres sont complémentaires (somme=90°)",fig:"triangleAngles"},
+        {h:"Droites parallèles et angles",b:"Deux droites parallèles coupées par une sécante :\n\n• Angles alternes-internes : égaux (forme en Z)\n• Angles correspondants : égaux (même position, même côté)\n\nRéciproque : angles alternes-internes égaux → droites parallèles",fig:"anglesParalleles"},
+        {h:"Droites remarquables du triangle",b:"Médiatrice d'un côté : ⊥ passant par son milieu\n→ les 3 médiatrices se croisent au centre du cercle circonscrit\n\nHauteur : ⊥ à un côté, passant par le sommet opposé\nMédiane : sommet → milieu du côté opposé\nBissectrice : divise un angle en 2 angles égaux"},
+        {h:"Pythagore",kind:"bonus",b:"▶ APPROFONDISSEMENT — VU EN 4e ◀\nTriangle rectangle en C :\nAB² = AC² + BC²  (AB = hypoténuse)\n\nEx : AC=3, BC=4 → AB²=9+16=25 → AB=5\nRéciproque : si AB²=AC²+BC² → angle droit en C"},
+        {h:"Aires et périmètres",kind:"method",b:"Rectangle : P=2(L+l)  A=L×l\nTriangle : A=(base×hauteur)÷2\nDisque : P=2πr  A=πr²\nParallélogramme : A=base×hauteur\n\n💡 La hauteur est TOUJOURS ⊥ à la base !"}
+      ],
+      keypoints:["Somme des angles d'un triangle = 180°","Angles alternes-internes égaux ↔ droites parallèles","Hauteur ⊥ à la base (pour les aires)"]
+    },
+    "Symétrie centrale":{
+      intro:"La symétrie centrale (demi-tour) transforme un point en son image par rotation de 180° autour d'un centre O.",
+      sections:[
+        {h:"Définition",b:"O est le centre de symétrie.\nA' est le symétrique de A par rapport à O si O est le milieu de [AA'].\n\nConstruction :\n1. Tracer la droite (AO)\n2. Mesurer OA\n3. Placer A' de l'autre côté de O, à la même distance OA",fig:"symetrieCentrale"},
+        {h:"Propriétés conservées",b:"La symétrie centrale conserve :\n✓ les longueurs (A'B' = AB)\n✓ les angles\n✓ les aires\n✓ le parallélisme\n\nLe symétrique d'un segment est un segment de même longueur, parallèle à l'original."},
+        {h:"Construire le symétrique d'une figure",kind:"method",b:"Pour ABCD symétrique par rapport à O :\n→ construire A', B', C', D' (chacun avec O = milieu)\n→ A'B'C'D' est la figure image\n\nUn point situé sur O est son propre symétrique."},
+        {h:"Exemple dans un repère",kind:"example",b:"A(2;3) symétrique par rapport à O(0;0) :\nO milieu de [AA'] → x_A' = 2×0−2 = −2 ; y_A' = 2×0−3 = −3\nA'(−2;−3)\nVérif : milieu de A(2;3) et A'(−2;−3) = ((2−2)/2;(3−3)/2) = (0;0) = O ✓"}
+      ],
+      keypoints:["O = milieu de [AA'] (condition fondamentale)","Conserve longueurs, angles, aires","Demi-tour de 180° autour de O"]
+    },
+    "Symétrie axiale":{
+      intro:"La symétrie axiale transforme une figure en son image réfléchie par rapport à un axe (comme un miroir).",
+      sections:[
+        {h:"Définition",b:"d est l'axe de symétrie.\nA' est le symétrique de A par rapport à d si :\n→ d est la MÉDIATRICE du segment [AA']\n(d ⊥ [AA'] ET d passe par le milieu de [AA'])",fig:"symetrieAxiale"},
+        {h:"Construction",kind:"method",b:"Pour construire A' symétrique de A par rapport à d :\n1. Tracer une perpendiculaire à d passant par A\n2. Mesurer la distance de A à d (pied H de la perp.)\n3. Reporter cette distance de l'autre côté de d\n→ A' est à la même distance de d que A"},
+        {h:"Propriétés conservées",b:"La symétrie axiale conserve :\n✓ les longueurs\n✓ les angles\n✓ les aires\n✓ le parallélisme\n\nElle change l'orientation (gauche ↔ droite)\n\nUn point sur l'axe est son propre symétrique."},
+        {h:"Axes de symétrie des figures",b:"Carré : 4 axes\nRectangle : 2 axes\nCercle : infinité d'axes\nTriangle équilatéral : 3 axes\nTriangle isocèle : 1 axe\nTriangle scalène : 0 axe"},
+        {h:"Exemple",kind:"example",b:"A(1;3) symétrique par rapport à l'axe x=2 (vertical) :\nDistance de A à l'axe : 2−1 = 1\nx_A' = 2+1 = 3  ;  y_A' = 3 (inchangé pour axe vertical)\n→ A'(3;3)"}
+      ],
+      keypoints:["d est la médiatrice de [AA'] (⊥ + passe par le milieu)","Conserve longueurs, angles, aires (change l'orientation)","Un point sur l'axe est son propre symétrique"]
+    },
+    "Parallélogrammes":{
+      intro:"Un parallélogramme est un quadrilatère dont les côtés opposés sont parallèles deux à deux.",
+      sections:[
+        {h:"Définition et propriétés",b:"ABCD parallélogramme ⟺ (AB ∥ DC) et (AD ∥ BC)\n\nConséquences :\n• AB = DC et AD = BC (côtés opposés de même longueur)\n• Â = Ĉ et B̂ = D̂ (angles opposés égaux)\n• Diagonales [AC] et [BD] se coupent en leur milieu I",fig:"parallelogramme"},
+        {h:"Parallélogrammes particuliers",b:"RECTANGLE = parallélogramme + angle droit\n→ 4 angles droits, diagonales de même longueur\n\nLOSANGE = parallélogramme + 4 côtés égaux\n→ diagonales perpendiculaires (se coupent à 90°)\n\nCARRÉ = rectangle ET losange\n→ 4 côtés égaux, 4 angles droits, diagonales = et ⊥"},
+        {h:"Aire",kind:"method",b:"Aire = base × hauteur\n⚠ La hauteur est PERPENDICULAIRE à la base\n(pas un côté oblique !)\n\nEx : base=8 cm, hauteur=5 cm → A=40 cm²\n\nRectangle : A = L×l  ;  Carré : A = c²"},
+        {h:"Construire un parallélogramme",kind:"method",b:"Méthode des diagonales (la plus simple) :\nSi I = milieu de [AC], construire D tel que I = milieu de [BD]\n→ ABCD est un parallélogramme car ses diagonales se coupent en leur milieu."}
+      ],
+      keypoints:["Diagonales se coupent en leur milieu (propriété caractéristique)","Carré = rectangle + losange","Aire = base × hauteur (hauteur toujours ⊥ à la base)"]
+    },
+    "Solides et volumes":{
+      intro:"Les solides sont des objets à trois dimensions. Leurs grandeurs sont le volume et l'aire (surface).",
+      sections:[
+        {h:"Pavé droit et cube",b:"Pavé droit (boîte) :\n• 6 faces rectangulaires, 12 arêtes, 8 sommets\nVolume V = L × l × h\n\nCube (cas particulier) :\n• 6 faces carrées identiques\nVolume V = c³\n\nEx : cube c=4 cm → V = 4³ = 64 cm³",fig:"solidesPaveCube"},
+        {h:"Cylindre",b:"Volume = aire de la base × hauteur\nV = π × r² × h\n\nEx : r=3 cm, h=10 cm\nV = π×9×10 = 90π ≈ 282,7 cm³\n\n💡 Laisser 90π cm³ (exact) ou calculer avec π≈3,14",fig:"cylindreFig"},
+        {h:"Unités et conversions",b:"Longueurs : km, m, dm, cm, mm (÷10)\nAires : km², m², dm², cm², mm² (÷100)\nVolumes : m³, dm³, cm³ (÷1 000)\n\nCapacités :\n1 m³ = 1 000 L  ;  1 dm³ = 1 L  ;  1 cm³ = 1 mL\n\nConversion volumes : ×1000 ou ÷1000 entre unités voisines"},
+        {h:"Représentation cavalière",b:"La perspective cavalière représente les solides en 3D :\n• Arêtes visibles : trait plein\n• Arêtes cachées : trait pointillé\n• Arêtes parallèles restent parallèles sur le dessin\n• Angles de la face frontale conservés"}
+      ],
+      keypoints:["Pavé : V=L×l×h  ;  Cube : V=c³  ;  Cylindre : V=πr²h","1 dm³ = 1 L  ;  1 cm³ = 1 mL","×1000 ou ÷1000 entre unités de volume voisines"]
+    },
+    "Statistiques":{
+      intro:"La statistique étudie des séries de données pour les organiser, les représenter et les résumer par des indicateurs.",
+      sections:[
+        {h:"Vocabulaire",b:"Population : ensemble étudié\nIndividu : élément de la population\nCaractère : ce qu'on observe (note, taille…)\nEffectif : nombre d'individus pour une modalité\nEffectif total N : nombre total\nFréquence = effectif ÷ N  (entre 0 et 1 ; ×100 pour %)"},
+        {h:"Tableau d'effectifs et fréquences",b:"Exemple : 20 élèves notés",table:[["Note","10","14","16","Total"],["Effectif","4","8","8","20"],["Fréquence","0,20","0,40","0,40","1"]]},
+        {h:"Moyenne et étendue",kind:"method",b:"Moyenne = somme des valeurs ÷ effectif total\n\nNotes 12,15,11,14,13 : (12+15+11+14+13)÷5 = 65÷5 = 13\n\nMoyenne pondérée : Σ(valeur × effectif) ÷ N\n\nÉtendue = valeur max − valeur min"},
+        {h:"Médiane",kind:"method",b:"Médiane = valeur qui partage la série ordonnée en 2 moitiés\n⚠ Toujours ORDONNER d'abord !\n\nN impair (n=5) : 5,7,9,12,15 → médiane = 9 (3e)\nN pair (n=4) : 4,6,8,10 → médiane = (6+8)÷2 = 7"},
+        {h:"Diagrammes",b:"Barres (bâtons) : effectifs ou fréquences\nCirculaire : secteur → angle = fréquence × 360°\n   20% → 0,20×360° = 72°\nLigne (courbe) : évolution dans le temps"}
+      ],
+      keypoints:["Moyenne = somme ÷ N","Médiane : ordonner puis trouver la valeur centrale","Somme des fréquences = 1 (100%)"]
+    },
+    "Probabilités":{
+      intro:"La probabilité mesure la chance qu'a un événement de se produire lors d'une expérience aléatoire (dont on ne peut pas prédire le résultat).",
+      sections:[
+        {h:"Vocabulaire",b:"Expérience aléatoire : résultat imprévisible\nIssue : un résultat possible\nUnivers Ω : ensemble de toutes les issues\nÉvénement A : sous-ensemble de Ω\n\nProbabilité : nombre entre 0 et 1\n• P(impossible) = 0\n• P(certain) = 1"},
+        {h:"Calcul en équiprobabilité",kind:"method",b:"Équiprobabilité : toutes les issues ont la MÊME probabilité.\n\nP(A) = nombre d'issues favorables ÷ nombre d'issues possibles\n\nEx : dé à 6 faces\n   P(4) = 1/6\n   P(pair) = P({2,4,6}) = 3/6 = 1/2"},
+        {h:"Fréquence et probabilité",b:"Fréquence = nb de fois où A s'est réalisé ÷ N total\n\nQuand N → grand, la fréquence → P(A)\n(loi des grands nombres)\n\nEx : pile/face lancé 1000 fois : la fréquence de 'pile' tend vers 0,5"},
+        {h:"Événement complémentaire",kind:"method",b:"Ā (complémentaire de A) = 'A ne se réalise pas'\nP(Ā) = 1 − P(A)\n\nEx : P(ne pas obtenir 6) = 1 − 1/6 = 5/6\n\nA et B incompatibles → P(A ou B) = P(A) + P(B)"},
+        {h:"Exemple",kind:"example",b:"Sac : 3 rouges, 5 bleues, 2 vertes (10 au total)\nP(rouge) = 3/10  ;  P(non rouge) = 7/10\nP(rouge ou verte) = 3/10 + 2/10 = 5/10 = 1/2"}
+      ],
+      keypoints:["P(A) = issues favorables ÷ issues possibles (équiprobabilité)","0 ≤ P(A) ≤ 1","P(Ā) = 1 − P(A)"]
+    },
+    "Durées":{
+      intro:"La gestion des durées et conversions d'unités de temps est une compétence clé — attention, le temps n'est pas en base 10 !",
+      sections:[
+        {h:"Unités de temps",kind:"warning",b:"1 heure (h) = 60 minutes (min)\n1 minute (min) = 60 secondes (s)\n1 journée = 24 h  ;  1 semaine = 7 jours\n\n⚠ On N'écrit PAS 1h30 = 1,30h !\nC'est 1,5h (car 30min = 0,5h)"},
+        {h:"Conversions",kind:"method",b:"h → min : × 60\nmin → h : ÷ 60 (quotient = h, reste = min)\n\nEx : 2h45min en minutes :\n2×60 + 45 = 165 min\n\nEx : 195 min en heures :\n195 ÷ 60 = 3 (h) reste 15 (min)\n→ 3h15min"},
+        {h:"Calculs d'horaires",kind:"method",b:"Pour additionner des durées :\nEx : Film démarre à 14h25, dure 1h47\nFin = 14h25 + 1h47 = 14h72 = 15h12\n(car 72min = 1h12min)\n\nEx : Durée entre 9h15 et 11h40\n11h40 − 9h15 = 2h25min"},
+        {h:"Vitesse et durée",b:"v = d ÷ t  (distance ÷ temps)\nÀ vitesse constante, distance et durée sont proportionnelles.\n\nEx : 300 km à 120 km/h\nt = d÷v = 300÷120 = 2,5h = 2h30min\n\nConversion : 1 m/s = 3,6 km/h  ;  1 km/h ≈ 0,278 m/s"}
+      ],
+      keypoints:["1h = 60min, 1min = 60s (base 60, pas base 10)","h→min : ×60  ;  min→h : ÷60 et regarder le reste","2h30min = 2,5h (et non 2,30h)"]
+    }
   },
   physique:{
-    "La lumière":[
-      {f:"Propagation de la lumière",b:"Se propage en ligne droite dans un milieu homogène\nVitesse dans le vide : c ≈ 3×10⁸ m/s (300 000 km/s)\n\nSource primaire : Soleil, ampoule, bougie\nObjet diffusant : Lune, feuille, mur éclairé"},
-      {f:"Ombres et éclipses",b:"Ombre propre : zone sombre de l'objet lui-même\nOmbre portée : zone sombre derrière l'objet\nPénombre : zone partiellement éclairée (source étendue)\n\nÉclipse de Soleil : Lune entre Soleil et Terre\nÉclipse de Lune : Terre entre Soleil et Lune"},
-      {f:"Réflexion et réfraction",b:"Réflexion : la lumière rebondit sur une surface\nLoi : angle incident = angle réfléchi\n\nRéfraction : changement de direction quand la lumière\nchange de milieu (eau↔air, verre↔air...)"}
-    ],
-    "États de la matière":[
-      {f:"Les trois états et leurs propriétés",b:"Solide → forme ET volume fixes\nLiquide → volume fixe, forme variable\nGaz → forme ET volume variables\n\nModèle : arrangement et agitation des molécules"},
-      {f:"Changements d'état de l'eau",b:"Fusion (glace→eau) : 0°C\nSolidification (eau→glace) : 0°C\nVaporisation (eau→vapeur) : 100°C\nLiquéfaction (vapeur→eau) : 100°C\nSublimation : solide → gaz directement\n\n💡 Température CONSTANTE pendant le changement"},
-      {f:"Conservation de la masse",b:"Lors d'un changement d'état,\nla MASSE est conservée.\n\nSeule la forme et l'organisation des molécules changent.\n\nEx : 1 kg de glace fond → 1 kg d'eau liquide"}
-    ],
-    "Mélanges et solutions":[
-      {f:"Mélanges homogènes et hétérogènes",b:"Homogène : une seule phase visible\n→ eau salée, air, alliages\n\nHétérogène : plusieurs phases visibles\n→ eau + huile, eau boueuse, vinaigrette"},
-      {f:"Vocabulaire des solutions",b:"Solvant : ce qui dissout (souvent l'eau)\nSoluté : ce qui se dissout\nSolution = solvant + soluté\n\nConcentration en masse : c = m / V\nUnité : g/L"},
-      {f:"Techniques de séparation",b:"Filtration → retire les solides en suspension\nDécantation → laisse déposer par gravité\nDistillation → sépare par différence d'ébullition\nChromatographie → sépare les colorants"}
-    ],
-    "Le son":[
-      {f:"Nature et propagation du son",b:"Vibration mécanique qui nécessite un milieu matériel\nNE SE PROPAGE PAS dans le vide\n\nVitesse dans l'air : v ≈ 340 m/s à 20°C\nForce : solides > liquides > gaz\nFormule : d = v × t"},
-      {f:"Hauteur, fréquence et intensité",b:"Fréquence (f) : vibrations/seconde, en Hertz (Hz)\nSon grave ↔ faible fréquence\nSon aigu ↔ haute fréquence\nAudition humaine : 20 Hz à 20 000 Hz\n\nIntensité sonore : en décibels (dB)"},
-      {f:"Niveaux d'intensité sonore",b:"0 dB → seuil d'audibilité\n30 dB → chuchotement\n60 dB → conversation normale\n85 dB → seuil de risque (exposition longue)\n120 dB → seuil de douleur\n\n⚠ Port obligatoire de protection > 85 dB"}
-    ],
-    "Électricité":[
-      {f:"Circuit en série",b:"Composants branchés les uns APRÈS les autres\n\n• Intensité identique partout : I₁ = I₂ = I\n• Tensions additives : U = U₁ + U₂\n\n⚠ Un composant défaillant coupe tout le circuit"},
-      {f:"Circuit en dérivation",b:"Composants sur des branches SÉPARÉES\n\n• Tensions identiques : U₁ = U₂ = U\n• Intensités additives : I = I₁ + I₂\n\n✓ Un composant défaillant ne coupe pas les autres"},
-      {f:"Loi d'Ohm",b:"U = R × I\n\nU : tension en Volts (V)\nR : résistance en Ohms (Ω)\nI : intensité en Ampères (A)\n\nEx : R = 100 Ω, I = 0,06 A\nU = 100 × 0,06 = 6 V"}
-    ],
-    "Mouvement et vitesse":[
-      {f:"Décrire un mouvement",b:"Trajectoire : ligne décrite par un objet en mouvement\n→ rectiligne (ligne droite) ou curviligne (courbe)\n\nLe mouvement est relatif : il dépend de l'observateur\n\nEx : un passager est immobile par rapport au train, mais en mouvement par rapport au sol"},
-      {f:"Calculer une vitesse",b:"v = d / t\n\nv : vitesse en m/s (si d en m et t en s)\nd : distance parcourue\nt : durée du trajet\n\nEx : 150 m parcourus en 10 s\nv = 150 / 10 = 15 m/s"},
-      {f:"Caractéristiques de la vitesse",b:"La vitesse a une valeur, une direction et un sens\n\nVitesse constante → mouvement uniforme\nVitesse qui augmente → mouvement accéléré\nVitesse qui diminue → mouvement décéléré (ralenti)\n\nConversion : 1 m/s = 3,6 km/h"}
-    ],
-    "L'énergie":[
-      {f:"Sources et formes d'énergie",b:"Sources : ce qui fournit l'énergie\n→ Soleil, vent, eau, charbon, pétrole, aliments…\n\nFormes : sous quelle forme l'énergie se manifeste\n→ thermique, lumineuse, électrique, mécanique, chimique"},
-      {f:"Renouvelable ou non renouvelable",b:"Renouvelable : source qui se reconstitue rapidement\n→ Soleil, vent, eau, biomasse\n\nNon renouvelable : source qui s'épuise (millions d'années à se former)\n→ charbon, pétrole, gaz naturel, uranium"},
-      {f:"Chaine énergétique",b:"Représente le parcours de l'énergie :\nSource → conversion → forme utilisée\n\nEx : panneau solaire\nSource (lumière du Soleil) → conversion (cellule photovoltaïque) → électricité\n\n💡 L'énergie totale se conserve, elle ne se crée pas, ne disparait pas"}
-    ]
+    "La lumière":{
+      intro:"La lumière est une onde électromagnétique qui se propage en ligne droite dans un milieu homogène, avec ou sans matière (contrairement au son).",
+      sections:[
+        {h:"Propagation",b:"• Se propage EN LIGNE DROITE dans un milieu homogène (rectilinéarité)\n• Vitesse dans le vide : c = 3×10⁸ m/s = 300 000 km/s\n\nSource primaire (lumineuse) : émet sa propre lumière\n→ Soleil, ampoule, bougie, écran\n\nObjet diffusant (éclairé) : renvoie la lumière reçue\n→ Lune, feuille, mur"},
+        {h:"Ombres et éclipses",b:"Ombre propre : zone sombre de l'objet lui-même\nOmbre portée : zone sombre projetée derrière l'objet\nPénombre : zone partiellement éclairée (source étendue)\n\nÉclipse de Soleil : Lune entre Terre et Soleil\n→ La Lune projette son ombre sur la Terre\n\nÉclipse de Lune : Terre entre Soleil et Lune\n→ La Lune entre dans l'ombre de la Terre"},
+        {h:"Réflexion",kind:"method",b:"La lumière rebondit sur une surface.\n\nLoi de la réflexion :\nangle d'incidence (i) = angle réfléchi (r)\n(mesurés par rapport à la NORMALE à la surface)\n\nMiroir plan (surface polie) → réflexion spéculaire\nSurface rugueuse → réflexion diffuse",fig:"reflexion"},
+        {h:"Réfraction",b:"Changement de direction au passage d'un milieu transparent à un autre (air→eau, verre…)\n\n→ Se rapproche de la normale en entrant dans un milieu plus dense\n→ S'en éloigne en passant vers un milieu moins dense\n\nApplications : lunettes, lentilles, fibre optique"}
+      ],
+      keypoints:["Propagation rectiligne dans un milieu homogène","Réflexion : angle incident = angle réfléchi (par rapport à la normale)","Réfraction : changement de direction au passage entre deux milieux"]
+    },
+    "États de la matière":{
+      intro:"La matière peut exister sous trois états selon l'arrangement et l'agitation de ses molécules.",
+      sections:[
+        {h:"Les trois états",b:"SOLIDE : forme ET volume fixes\n→ Molécules ordonnées, très proches, vibrant sur place\n\nLIQUIDE : volume fixe, forme variable (prend la forme du récipient)\n→ Molécules proches, désordonnées, glissant\n\nGAZ : forme ET volume variables (occupe tout l'espace)\n→ Molécules très éloignées, en mouvement rapide",fig:"etatsMatiereFig"},
+        {h:"Changements d'état de l'eau",kind:"warning",b:"Fusion (solide→liquide) : 0°C\nSolidification (liquide→solide) : 0°C\nVaporisation (liquide→gaz) : 100°C\nLiquéfaction (gaz→liquide) : 100°C\nSublimation (solide→gaz directement)\n\n⚠ Température CONSTANTE pendant tout le changement d'état (palier)"},
+        {h:"Conservation de la masse",b:"Lors d'un changement d'état, la MASSE est CONSERVÉE.\n\n1 kg de glace → 1 kg d'eau liquide → 1 kg de vapeur\n\nSeuls l'arrangement et l'agitation des molécules changent.\n⚠ Le VOLUME, lui, peut changer (glace moins dense que l'eau)."}
+      ],
+      keypoints:["Solide : forme ET volume fixes","Température constante pendant les changements d'état (palier)","Masse conservée lors d'un changement d'état"]
+    },
+    "Mélanges et solutions":{
+      intro:"Un mélange est l'association de plusieurs substances. Il peut être homogène (une seule phase visible) ou hétérogène.",
+      sections:[
+        {h:"Types de mélanges",b:"Mélange HOMOGÈNE : une seule phase visible à l'œil nu\n→ Eau salée, eau sucrée, air, alliages (bronze=cuivre+étain)\n\nMélange HÉTÉROGÈNE : plusieurs phases visibles\n→ Eau + huile, eau + sable, vinaigrette, granit"},
+        {h:"Solutions",b:"Solution = mélange homogène liquide\n\n• Solvant : ce qui dissout (souvent l'eau)\n• Soluté : ce qui se dissout\n• On dit que le soluté est dissous dans le solvant\n\nConcentration en masse : c = m ÷ V\n   m en g, V en L → c en g/L\n\nEx : 20g de sel dans 0,5 L → c = 20÷0,5 = 40 g/L"},
+        {h:"Techniques de séparation",kind:"method",b:"Filtration → solides NON dissous (sable dans l'eau)\n\nDécantation → laisser sédimenter (eau+huile : l'huile monte)\n\nÉvaporation → éliminer le solvant (eau salée → sel)\n\nDistillation → séparer deux liquides de températures d'ébullition différentes\n\nChromatographie → séparer les colorants (feutres sur papier)"}
+      ],
+      keypoints:["Homogène = 1 seule phase visible ; Hétérogène = plusieurs phases","Solution = solvant + soluté dissous","Concentration c = m÷V en g/L"]
+    },
+    "Masse et volume":{
+      intro:"Masse et volume sont deux grandeurs fondamentales de la matière. Leur rapport définit la masse volumique, qui détermine si un objet flotte.",
+      sections:[
+        {h:"Mesurer la masse",kind:"warning",b:"La masse se mesure avec une balance (g, kg, t).\n1 kg = 1000 g  ;  1 t = 1000 kg\n\n⚠ Masse ≠ Poids !\n• La masse est identique partout (Terre, Lune, ISS)\n• Le poids est une force (dépend de la gravité) → en Newtons"},
+        {h:"Mesurer le volume",b:"Volume d'un liquide : éprouvette graduée\n→ Lire au BAS du ménisque (courbure de la surface)\nUnités : L, mL, cm³  ;  1 L = 1000 mL = 1000 cm³\n\nVolume d'un solide irrégulier :\n1. Verser eau dans éprouvette : lire V₁\n2. Plonger le solide : lire V₂\n3. Volume = V₂ − V₁",fig:"masseVoluFig"},
+        {h:"Masse volumique",kind:"method",b:"ρ = m ÷ V\nρ (rho) en g/cm³ ou g/mL ou kg/L\nm en g (ou kg)  ;  V en cm³ (ou mL ou L)\n\nEx : ρ(eau) = 1 g/cm³ (référence)\nEx : ρ(fer) ≈ 7,9 g/cm³\nEx : ρ(huile) ≈ 0,9 g/cm³"},
+        {h:"Flottabilité",b:"Un objet flotte si sa masse volumique est INFÉRIEURE à celle du liquide.\n\nρ_objet < ρ_liquide → FLOTTE\nρ_objet > ρ_liquide → COULE\n\nEx : bois (0,6 g/cm³) flotte sur eau (1 g/cm³)\nEx : fer (7,9 g/cm³) coule dans l'eau"}
+      ],
+      keypoints:["ρ = m÷V en g/cm³ (masse volumique)","ρ(eau) = 1 g/cm³ (valeur de référence)","ρ_objet < ρ_liquide → flotte ; ρ_objet > ρ_liquide → coule"]
+    },
+    "Acidité et pH":{
+      intro:"Le pH est une grandeur sans unité qui mesure l'acidité ou la basicité d'une solution aqueuse, sur une échelle de 0 à 14.",
+      sections:[
+        {h:"L'échelle de pH",b:"pH < 7 : solution ACIDE (plus c'est bas, plus c'est acide)\npH = 7 : solution NEUTRE (eau pure à 25°C)\npH > 7 : solution BASIQUE (alcaline)\n\n⚠ L'échelle est logarithmique : pH 5 est 10× plus acide que pH 6",fig:"echellePHFig"},
+        {h:"Exemples courants",b:"pH ≈ 1-2 : acide chlorhydrique, suc gastrique\npH ≈ 3 : jus de citron, vinaigre\npH ≈ 5 : café, pluie acide normale\npH ≈ 7 : eau pure, eau du robinet\npH ≈ 9 : bicarbonate de soude\npH ≈ 11 : ammoniaque\npH ≈ 14 : soude concentrée (NaOH)"},
+        {h:"Mesurer le pH",kind:"method",b:"Papier pH universel :\n→ Déposer une goutte de solution, comparer à la charte colorée\n→ Précision ≈ 1 unité de pH\n\npHmètre électronique :\n→ Bien plus précis (~0,01 unité)\n→ Nécessite étalonnage avec solutions tampons connues\n\nIndicateurs colorés (BBT, phénolphtaléine…) : virent à une couleur selon le pH"}
+      ],
+      keypoints:["pH < 7 = acide  ;  pH = 7 = neutre  ;  pH > 7 = basique","pH de l'eau pure = 7","Plus le pH est faible, plus la solution est acide"]
+    },
+    "Composition de l'air":{
+      intro:"L'air est un mélange gazeux homogène composé principalement de diazote (78%) et de dioxygène (21%).",
+      sections:[
+        {h:"Composition de l'air sec",b:"L'air est un MÉLANGE HOMOGÈNE de gaz.\n\nComposition approximative en volume :\n• Diazote N₂ : 78%\n• Dioxygène O₂ : 21%\n• Argon Ar et autres gaz rares : ~1%\n• Dioxyde de carbone CO₂ : ~0,04%\n\n⚠ L'air est un mélange, pas un corps pur",fig:"compositionAirFig"},
+        {h:"Rôle des composants",b:"Dioxygène (O₂) :\n→ Indispensable à la respiration des êtres vivants\n→ Nécessaire à la combustion (feu)\n\nDiazote (N₂) :\n→ Gaz inerte (réagit peu), dilue le dioxygène\n→ Evite la combustion spontanée des matières\n\nDioxyde de carbone (CO₂) :\n→ Produit par respiration et combustions\n→ Utilisé par les plantes (photosynthèse)\n→ Gaz à effet de serre"},
+        {h:"Propriétés physiques",b:"Transparent et incolore\nMasse volumique : ρ(air) ≈ 1,2 g/L à 20°C\n(bien moins dense que l'eau : 1 000 g/L)\n\nL'air se comprime facilement (état gazeux)\n\nAir humide : contient aussi de la vapeur d'eau H₂O\n(proportion variable = humidité relative)"}
+      ],
+      keypoints:["Air = 78% N₂ + 21% O₂ + ~1% autres gaz","O₂ : respiration + combustion","L'air est un mélange homogène, pas un corps pur"]
+    },
+    "Le son":{
+      intro:"Le son est une vibration mécanique qui se propage dans la matière. Contrairement à la lumière, il ne se propage PAS dans le vide.",
+      sections:[
+        {h:"Nature et propagation",b:"Le son = vibration qui comprime/dilate le milieu alternativement\n\nVitesse de propagation (à 20°C) :\n→ Dans l'air : v ≈ 340 m/s\n→ Dans l'eau : v ≈ 1500 m/s (plus rapide)\n→ Dans les solides : encore plus rapide\n\n⚠ Dans le vide : v = 0 (ne se propage pas)\nFormule clé : d = v × t"},
+        {h:"Hauteur et fréquence",b:"Fréquence f (en Hertz Hz) = nombre de vibrations par seconde\n\nSon GRAVE ↔ faible fréquence (f < ~300 Hz)\nSon AIGU ↔ haute fréquence (f > ~2000 Hz)\n\nDomaine audible humain : 20 Hz à 20 000 Hz\nInfrasons : f < 20 Hz (inaudibles)\nUltrasons : f > 20 000 Hz (inaudibles, médecine, sonar)"},
+        {h:"Intensité sonore",kind:"warning",b:"Intensité mesurée en décibels (dB)\n\n0 dB → seuil d'audibilité\n30 dB → bibliothèque, chuchotement\n60 dB → conversation normale\n85 dB → seuil de risque (exposition longue → surdité)\n110 dB → concert, klaxon\n120 dB → seuil de douleur\n\n⚠ Porter des protections au-delà de 85 dB prolongé !"}
+      ],
+      keypoints:["Son = vibration mécanique (impossible dans le vide)","Fréquence en Hz : grave = faible f, aigu = haute f","d = v × t  ;  v ≈ 340 m/s dans l'air"]
+    },
+    "Électricité":{
+      intro:"Un circuit électrique doit être FERMÉ pour que le courant circule. Les dipôles peuvent être en série ou en dérivation (parallèle).",
+      sections:[
+        {h:"Circuit en série",kind:"warning",b:"Tous les dipôles dans UNE seule boucle.\n\nLoi des intensités : I identique partout\n   I₁ = I₂ = I\n\nLoi des tensions : U se répartit\n   U = U₁ + U₂ + …\n\n⚠ Un dipôle défaillant → circuit ouvert → TOUT s'éteint !",fig:"circuitSerieFig"},
+        {h:"Circuit en dérivation",b:"Des dipôles sur des branches PARALLÈLES.\n\nLoi des tensions : U identique dans chaque branche\n   U₁ = U₂ = U\n\nLoi des intensités : I se répartit\n   I = I₁ + I₂ + …\n\n✓ Un dipôle défaillant → les autres continuent !",fig:"circuitDerivFig"},
+        {h:"Loi d'Ohm",kind:"bonus",b:"▶ APPROFONDISSEMENT — VU EN 4e ◀\n\nU = R × I\n\nU : tension en Volts (V)\nR : résistance en Ohms (Ω)\nI : intensité en Ampères (A)\n\nEx : R=100 Ω, I=0,06 A → U = 100×0,06 = 6 V"},
+        {h:"Sécurité",kind:"warning",b:"Réseau domestique = 230 V → DANGEREUX\n\nProtections :\n• Fusible : fond si courant trop fort (à remplacer)\n• Disjoncteur : se déclenche (réarmable)\n• Prise de terre : évacue les fuites de courant\n\nNe JAMAIS toucher les fils sous tension !"}
+      ],
+      keypoints:["Série : I identique partout, tensions s'additionnent","Dérivation : U identique dans chaque branche, I s'additionne","Un dipôle défaillant en série coupe tout ; en dérivation, laisse le reste fonctionner"]
+    },
+    "Mouvement et vitesse":{
+      intro:"Un mouvement se décrit par sa trajectoire et sa vitesse, par rapport à un observateur choisi (référentiel). Le mouvement est relatif.",
+      sections:[
+        {h:"Décrire un mouvement",b:"Trajectoire : chemin décrit dans l'espace\n→ Rectiligne (droite)  ;  Circulaire (cercle)  ;  Curviligne (courbe)\n\nLe mouvement est RELATIF au référentiel :\nEx : passager dans un train = immobile/train, en mouvement/sol"},
+        {h:"Vitesse moyenne",kind:"method",b:"v = d ÷ t\n\nv : vitesse (m/s ou km/h)\nd : distance parcourue (m ou km)\nt : durée (s ou h)\n\nEx : 150 m en 10 s → v = 150÷10 = 15 m/s\nEx : 300 km en 2,5 h → v = 300÷2,5 = 120 km/h\n\nConversions :\n1 m/s = 3,6 km/h  ;  1 km/h ≈ 0,278 m/s"},
+        {h:"Types de mouvement",b:"Mouvement UNIFORME : vitesse constante\n→ graphe d=f(t) = droite passant par l'origine\n→ proportionnalité entre d et t\n\nMouvement ACCÉLÉRÉ : vitesse qui augmente\nMouvement DÉCÉLÉRÉ : vitesse qui diminue"}
+      ],
+      keypoints:["v = d÷t (vitesse = distance ÷ temps)","1 m/s = 3,6 km/h","Mouvement uniforme → d proportionnel à t"]
+    },
+    "L'énergie":{
+      intro:"L'énergie est ce qui permet de réaliser un travail ou de produire un effet. Elle se conserve, se convertit et se transfère sous différentes formes.",
+      sections:[
+        {h:"Formes d'énergie",b:"• Mécanique (cinétique = mouvement + potentielle = altitude)\n• Thermique (chaleur)\n• Lumineuse (rayonnement, photons)\n• Électrique (courant)\n• Chimique (liaisons moléculaires : aliments, piles, combustibles)\n• Nucléaire (noyaux atomiques)\n• Rayonnante (ondes électromagnétiques, solaire)"},
+        {h:"Sources d'énergie",b:"RENOUVELABLES (se reconstituent naturellement) :\n→ Solaire, éolien, hydraulique, géothermique, biomasse\n\nNON RENOUVELABLES (s'épuisent) :\n→ Charbon, pétrole, gaz naturel (fossiles)\n→ Uranium (nucléaire)"},
+        {h:"Chaîne énergétique",b:"SOURCE → CONVERTISSEUR → FORME UTILE\n\nEx : panneau solaire\n[Lumineuse] → [Cellule photovoltaïque] → [Électrique]\n\nEx : centrale thermique au gaz\n[Chimique] → [Combustion→Turbine] → [Électrique]\n\n💡 L'énergie TOTALE se conserve — mais une partie se dissipe en chaleur (pertes)"}
+      ],
+      keypoints:["L'énergie se conserve (ne se crée ni ne se détruit)","Renouvelables : solaire, éolien, hydraulique… / Non renouvelables : fossiles, uranium","Chaîne : source → convertisseur → forme utile (avec pertes thermiques)"]
+    },
+    "Le système solaire":{
+      intro:"Le système solaire est composé du Soleil et de l'ensemble des objets qui gravitent autour de lui sous l'effet de la gravité.",
+      sections:[
+        {h:"Le Soleil et les planètes",b:"Le Soleil = ÉTOILE (source primaire de lumière) au centre.\n\nLes 8 planètes, en ordre de distance :\nMercure · Vénus · Terre · Mars (rocheuses, telluriques)\nJupiter · Saturne · Uranus · Neptune (gazeuses géantes)\n\nMoyen mnémotechnique :\nMon Vieux Tu M'as Joué Souvent Un Numéro",fig:"systemeSolaireFig"},
+        {h:"Révolution et rotation",b:"RÉVOLUTION = déplacement autour du Soleil\n→ La Terre met ~365,25 jours (1 an)\n→ La Lune fait une révolution autour de la Terre en ~27 jours\n\nROTATION = rotation sur elle-même\n→ La Terre tourne en 24 h (jours et nuits)\n→ Axe incliné → saisons"},
+        {h:"La Lune et les éclipses",b:"La Lune = satellite naturel de la Terre\n(ne produit pas sa propre lumière → objet diffusant)\n\nÉclipse de Soleil :\nLune entre Soleil et Terre → ombre de la Lune sur la Terre\n\nÉclipse de Lune :\nTerre entre Soleil et Lune → Lune dans l'ombre de la Terre"},
+        {h:"Ordres de grandeur",b:"Distance Terre-Soleil : ~150 millions de km = 1 UA\nLumière Soleil→Terre : ~8 minutes\n\nAnalogue : si Soleil = ballon de 1 m\n→ Terre = bille de 9 mm à 107 m\n→ Neptune à 3,2 km du ballon !"}
+      ],
+      keypoints:["8 planètes : Mercure Vénus Terre Mars Jupiter Saturne Uranus Neptune","Révolution (tour du Soleil) ≠ Rotation (sur elle-même)","La Lune est un satellite de la Terre (lumière réfléchie, pas émise)"]
+    }
   }
 };
 
@@ -375,6 +547,37 @@ const EXERCISES = {
       {lvl:3,q:"Une roue de loterie comporte 20 secteurs identiques : 8 secteurs rouges rapportent un lot, 5 secteurs bleus rapportent un autre lot, et les autres secteurs sont des secteurs perdants. Quelle est la probabilité de tomber sur un secteur perdant ? Donne le résultat sous forme de fraction simplifiée et de pourcentage.",hint:"Détermine d'abord combien de secteurs gagnants il y a en tout, puis déduis-en le nombre de secteurs perdants.",a:"Total de secteurs : 20. Secteurs gagnants : 8 (rouges) + 5 (bleus) = 13. Secteurs perdants : 20 - 13 = 7. Probabilité de tomber sur un secteur perdant = 7/20. En pourcentage : 7/20 = 0,35 = 35%."},
       {lvl:3,q:"Un sac contient des jetons numérotés de 1 à 30. On tire un jeton au hasard. Quelle est la probabilité d'obtenir un nombre qui est à la fois un multiple de 3 et un multiple de 2 ? Donne le résultat sous forme de fraction simplifiée et de décimal.",hint:"Un nombre qui est à la fois multiple de 3 et de 2 est un multiple de leur produit. Liste ces nombres entre 1 et 30.",a:"Un nombre multiple de 3 et de 2 à la fois est un multiple de 6. Multiples de 6 entre 1 et 30 : 6, 12, 18, 24, 30, soit 5 issues favorables. Issues possibles : 30 (jetons numérotés de 1 à 30). Probabilité = 5/30 = 1/6 ≈ 0,17."},
     ],
+    "Divisibilité":[
+      {lvl:1,q:"Un nombre est-il divisible par 3 si la somme de ses chiffres est divisible par 3 ? Applique ce critère au nombre 345.",hint:"Additionne les chiffres de 345 et vérifie si la somme est divisible par 3.",a:"Critère de divisibilité par 3 : la somme des chiffres doit être divisible par 3. Pour 345 : 3+4+5 = 12. Comme 12 ÷ 3 = 4 (sans reste), 345 est divisible par 3."},
+      {lvl:1,q:"Parmi les nombres 84, 75, 63, 90, lesquels sont divisibles par 5 ? Justifie.",hint:"Un nombre est divisible par 5 s'il se termine par 0 ou 5.",a:"Critère de divisibilité par 5 : le nombre doit se terminer par 0 ou par 5. Parmi les nombres : 75 (se termine par 5) ✓ ; 90 (se termine par 0) ✓ ; 84 (se termine par 4) ✗ ; 63 (se termine par 3) ✗. Donc 75 et 90 sont divisibles par 5."},
+      {lvl:1,q:"Liste tous les diviseurs du nombre 18.",hint:"Un diviseur de 18 est un entier qui divise 18 sans reste. Pars de 1 et remonte jusqu'à 18.",a:"Les diviseurs de 18 sont les entiers qui divisent 18 sans reste. On teste : 1 (18÷1=18 ✓), 2 (18÷2=9 ✓), 3 (18÷3=6 ✓), 6 (18÷6=3 ✓), 9 (18÷9=2 ✓), 18 (18÷18=1 ✓). Les diviseurs de 18 sont : 1, 2, 3, 6, 9, 18."},
+      {lvl:2,q:"Le nombre 756 est-il divisible par 2, par 3, par 9 ? Justifie en utilisant les critères de divisibilité.",hint:"Applique chaque critère : chiffre du bas pour ÷2 ; somme des chiffres pour ÷3 et ÷9.",a:"Par 2 : dernier chiffre = 6 (pair) → 756 divisible par 2 ✓. Par 3 : 7+5+6 = 18, et 18÷3 = 6 → 756 divisible par 3 ✓. Par 9 : somme = 18, et 18÷9 = 2 → 756 divisible par 9 ✓."},
+      {lvl:2,q:"Décompose 30 en facteurs premiers. Écris le résultat sous forme de produit de nombres premiers.",hint:"Divise 30 par le plus petit nombre premier possible, puis recommence avec le quotient jusqu'à obtenir 1.",a:"30 ÷ 2 = 15. 15 ÷ 3 = 5. 5 est un nombre premier (divisible seulement par 1 et 5) → stop. Décomposition : 30 = 2 × 3 × 5."},
+      {lvl:2,q:"Calcule le PGCD de 24 et 36 par décomposition en facteurs premiers, puis utilise ce PGCD pour simplifier la fraction 24/36.",hint:"Décompose d'abord chaque nombre, puis identifie les facteurs premiers communs avec les plus petits exposants.",a:"24 = 2³ × 3. 36 = 2² × 3². PGCD(24,36) = 2² × 3 = 4 × 3 = 12. Simplification : 24/36 = (24÷12)/(36÷12) = 2/3."},
+      {lvl:3,q:"Décompose 360 en facteurs premiers. Combien de diviseurs 360 possède-t-il ? Justifie ta réponse par une méthode.",hint:"Après la décomposition 360 = 2^a × 3^b × 5^c, le nombre de diviseurs est (a+1)×(b+1)×(c+1).",a:"360 = 36×10 = 4×9×10 = 2²×3²×2×5 = 2³×3²×5. Nombre de diviseurs = (3+1)×(2+1)×(1+1) = 4×3×2 = 24. Le nombre 360 possède 24 diviseurs."},
+      {lvl:3,q:"Alice dit que 2025 est un carré parfait. Vérifie-le en décomposant 2025 en facteurs premiers.",hint:"Décompose 2025 en facteurs premiers. Un carré parfait a tous ses exposants pairs dans la décomposition.",a:"2025 ÷ 5 = 405. 405 ÷ 5 = 81. 81 ÷ 3 = 27. 27 ÷ 3 = 9. 9 ÷ 3 = 3. 3 ÷ 3 = 1. Donc 2025 = 3⁴ × 5². Tous les exposants (4 et 2) sont pairs → 2025 est bien un carré parfait : 2025 = (3²×5)² = 45². Vérification : 45×45 = 2025 ✓."},
+      {lvl:3,q:"Deux bus partent en même temps d'un arrêt. Le premier fait le tour en 24 min, le second en 36 min. Dans combien de temps se retrouveront-ils ensemble au même arrêt ? Utilise le PPCM.",hint:"Le moment où ils se retrouvent est le premier temps qui est un multiple des deux durées, c'est-à-dire le PPCM.",a:"24 = 2³×3 ; 36 = 2²×3². PPCM(24,36) = 2³×3² = 8×9 = 72 min. Les deux bus se retrouveront au même arrêt après 72 minutes (= 1h12min)."},
+    ],
+    "Symétrie axiale":[
+      {lvl:1,q:"Dans un repère, place le point A(−2;3) et construis son symétrique A' par rapport à l'axe des ordonnées (axe vertical d'équation x=0).",hint:"Par rapport à l'axe des ordonnées, la coordonnée y reste la même ; c'est l'abscisse (x) qui change de signe.",a:"Par symétrie par rapport à l'axe des ordonnées (x=0), l'ordonnée y ne change pas et l'abscisse x change de signe. A(−2;3) → A'(+2;3). Le point A' a pour coordonnées (2;3)."},
+      {lvl:1,q:"Quelle figure possède un axe de symétrie : un triangle équilatéral, un triangle scalène ou un triangle rectangle non isocèle ?",hint:"Imagine plier chaque figure en deux pour que les deux moitiés se superposent exactement.",a:"Le triangle équilatéral possède 3 axes de symétrie (les médianes qui sont aussi médiatrices et hauteurs). Le triangle scalène (3 côtés de longueurs différentes) n'a aucun axe de symétrie. Le triangle rectangle non isocèle (avec deux côtés perpendiculaires de longueurs différentes) n'a pas d'axe de symétrie non plus. Seul le triangle équilatéral possède un axe de symétrie."},
+      {lvl:1,q:"Un carré ABCD possède-t-il des axes de symétrie ? Si oui, combien et où se situent-ils ?",hint:"Pense aux différentes façons de plier un carré pour que les deux moitiés se superposent parfaitement.",a:"Un carré possède 4 axes de symétrie : 2 axes passant par les milieux des côtés opposés (horizontaux et verticaux), et 2 axes passant par les diagonales. Au total : 4 axes de symétrie."},
+      {lvl:2,q:"Dans un repère, A(1;4) est le symétrique de B par rapport à l'axe horizontal d'équation y=2. Trouve les coordonnées de B.",hint:"L'axe y=2 est horizontal. Pour la symétrie, x reste le même. Pour y : l'axe y=2 est au milieu de A et B, donc y_B = 2×2 − y_A.",a:"La symétrie par rapport à y=2 laisse x inchangé et transforme y. L'axe y=2 est le milieu de [AB] en y, donc : 2 = (y_A + y_B)/2 → y_B = 2×2 − y_A = 4 − 4 = 0. B a pour coordonnées (1;0). Vérification : milieu en y de 4 et 0 = 2 ✓."},
+      {lvl:2,q:"Construis le symétrique du segment [AB] par rapport à la droite d'équation x=3, sachant que A(1;2) et B(1;5).",hint:"Calcule d'abord les coordonnées de A' et B' symétriques par rapport à x=3, puis trace le segment [A'B'].",a:"Par rapport à l'axe x=3, y est inchangé et x_image = 2×3 − x_point. A(1;2) → A'(2×3−1 ; 2) = (5;2). B(1;5) → B'(2×3−1 ; 5) = (5;5). Le symétrique de [AB] est le segment [A'B'] avec A'(5;2) et B'(5;5). [A'B'] est vertical (x=5), de même longueur que [AB] (AB = A'B' = 3 unités)."},
+      {lvl:2,q:"Le triangle ABC a pour sommets A(0;0), B(4;0) et C(2;3). Construis son symétrique par rapport à l'axe des abscisses (y=0). Donne les coordonnées des sommets images.",hint:"La symétrie par rapport à l'axe y=0 laisse x inchangé et change le signe de y.",a:"Par rapport à l'axe y=0 : x reste inchangé, y change de signe. A(0;0) → A'(0;0) [sur l'axe, son propre symétrique]. B(4;0) → B'(4;0) [sur l'axe également]. C(2;3) → C'(2;−3). Le triangle A'B'C' a pour sommets A'(0;0), B'(4;0) et C'(2;−3)."},
+      {lvl:3,q:"Le triangle ABC a pour sommets A(1;2), B(5;2) et C(3;6). Montre que son symétrique par rapport à la droite x=3 est identique au triangle original (on dit que x=3 est un axe de symétrie du triangle).",hint:"Calcule les images A', B', C' par rapport à x=3, puis vérifie qu'elles correspondent aux sommets du triangle original.",a:"Par rapport à x=3 : y inchangé, x' = 2×3 − x. A(1;2) → A'(6−1;2) = (5;2) = B. B(5;2) → B'(6−5;2) = (1;2) = A. C(3;6) → C'(6−3;6) = (3;6) = C. Les images de A, B, C sont respectivement B, A, C, qui sont bien les sommets du triangle. Donc x=3 est bien un axe de symétrie du triangle ABC."},
+      {lvl:3,q:"Prouve que tout rectangle a exactement 2 axes de symétrie (et pas plus) en utilisant la définition de la symétrie axiale.",hint:"Un axe de symétrie doit envoyer chaque sommet sur un autre sommet ou sur lui-même. Teste les 4 diagonales, 2 médianes horizontale et verticale pour le rectangle non carré.",a:"Un rectangle ABCD avec longueur ≠ largeur possède 2 axes de symétrie : l'axe passant par les milieux de AB et CD (horizontal), et l'axe passant par les milieux de BC et DA (vertical). Ces deux axes échangent des paires de sommets et vérifient la définition. La diagonale AC n'est pas un axe de symétrie car le symétrique de B(4;0) par rapport à AC n'est pas D(0;2) dans un rectangle général (on peut le vérifier par le calcul). Donc un rectangle a exactement 2 axes de symétrie, sauf s'il est carré (4 axes)."},
+    ],
+    "Durées":[
+      {lvl:1,q:"Convertis 3h45min en minutes.",hint:"Multiplie le nombre d'heures par 60, puis ajoute les minutes restantes.",a:"3h = 3×60 = 180 min. Total : 180 + 45 = 225 min. Donc 3h45min = 225 minutes."},
+      {lvl:1,q:"Un film dure 130 minutes. Exprime cette durée en heures et minutes.",hint:"Divise 130 par 60 pour trouver le nombre d'heures ; le reste donne les minutes.",a:"130 ÷ 60 = 2 (quotient) reste 10 (reste). Donc 130 min = 2 heures et 10 minutes."},
+      {lvl:1,q:"Le train part à 9h20 et arrive à 11h05. Quelle est la durée du trajet ?",hint:"Calcule la différence entre 11h05 et 9h20 en soustrayant les heures et les minutes.",a:"11h05 − 9h20. Les minutes : 05 − 20, c'est impossible directement, donc on emprunte 1h : 10h65 − 9h20 = 1h45. Durée du trajet = 1 heure et 45 minutes."},
+      {lvl:2,q:"Un bus part à 14h25 et met 1h47min pour arriver. À quelle heure arrive-t-il ?",hint:"Ajoute 1h47min à 14h25. Si les minutes dépassent 60, convertis l'excédent en heures.",a:"14h25 + 1h47 = 14h72. Or 72min = 1h12min. Donc 14h72 = 15h12. Le bus arrive à 15h12."},
+      {lvl:2,q:"Un randonneur part à 8h30 et marche à 4,5 km/h. À quelle heure arrive-t-il à destination, sachant que le sentier mesure 13,5 km ?",hint:"Calcule d'abord la durée du trajet avec t = d÷v (en heures), puis ajoute à l'heure de départ.",a:"Durée = d÷v = 13,5÷4,5 = 3 heures. Heure d'arrivée = 8h30 + 3h00 = 11h30. Le randonneur arrive à 11h30."},
+      {lvl:2,q:"Sarah s'entraîne 45 minutes chaque lundi, mercredi et vendredi. Combien de temps total (en heures et minutes) s'entraîne-t-elle en 4 semaines ?",hint:"Calcule le nombre de séances sur 4 semaines, puis la durée totale en minutes, et convertis en heures.",a:"Séances par semaine : 3. En 4 semaines : 3×4 = 12 séances. Durée totale : 12×45 = 540 min. Conversion : 540÷60 = 9 heures. Sarah s'entraîne 9 heures sur 4 semaines."},
+      {lvl:3,q:"Un avion décolle de Paris à 10h45 (heure française) et atterrit à New York à 13h20 heure locale. Le décalage horaire est de −6h (New York est en retard de 6h sur Paris). Quelle est la durée réelle du vol ?",hint:"Convertis l'heure d'arrivée en heure française en ajoutant 6h, puis calcule la différence avec l'heure de départ.",a:"L'heure d'arrivée en heure française : 13h20 + 6h = 19h20. Durée du vol = 19h20 − 10h45 = 8h35. La durée réelle du vol est de 8 heures et 35 minutes."},
+      {lvl:3,q:"Un cycliste effectue 3 étapes : 42 km en 1h24min, 38 km en 1h16min, et 55 km en 1h50min. Calcule sa vitesse moyenne sur chaque étape (en km/h) et sa vitesse moyenne globale sur l'ensemble du parcours.",hint:"Pour chaque étape, v = d÷t (convertis les minutes en heures décimales). Pour la vitesse globale, utilise la distance totale et le temps total.",a:"Étape 1 : t=1h24min=1,4h ; v=42÷1,4=30 km/h. Étape 2 : t=1h16min=1,267h ; v=38÷1,267≈30 km/h. Étape 3 : t=1h50min=1,833h ; v=55÷1,833=30 km/h. Distance totale = 42+38+55 = 135 km. Temps total = 1h24+1h16+1h50 = 4h30min = 4,5h. Vitesse globale = 135÷4,5 = 30 km/h. Toutes les vitesses sont identiques : 30 km/h."},
+    ],
   },
   physique:{
     "La lumière":[
@@ -495,6 +698,47 @@ const EXERCISES = {
       {lvl:3,q:"Dans une centrale hydraulique au fil de l'eau, contrairement à un barrage, on ne peut pas stocker l'eau : l'électricité est produite uniquement quand l'eau coule dans la rivière. Un ingénieur affirme : « Avec ce type de centrale, l'énergie électrique produite est créée à partir de rien grâce à l'eau qui coule. » Cette affirmation est-elle correcte au regard du principe de conservation de l'énergie ? Justifie en proposant une formulation correcte.",hint:"Rappelle-toi qu'un principe physique fondamental dit que l'énergie ne peut ni apparaître ni disparaître, seulement changer de forme.",a:"L'affirmation de l'ingénieur est incorrecte. Selon le principe de conservation de l'énergie, l'énergie ne se crée pas et ne disparaît pas : elle se transforme seulement d'une forme à une autre. Dans cette centrale, l'énergie électrique n'est pas créée à partir de rien : elle provient de l'énergie mécanique de l'eau qui coule (elle-même liée à l'énergie du cycle de l'eau, mis en mouvement notamment par le Soleil qui fait s'évaporer l'eau). La turbine convertit cette énergie mécanique en énergie mécanique de rotation, puis l'alternateur la transforme en énergie électrique. Il serait donc plus correct de dire : « L'énergie électrique produite provient de la transformation de l'énergie mécanique de l'eau qui coule, elle n'est pas créée à partir de rien. »"},
       {lvl:3,q:"Un village isolé doit choisir entre installer une éolienne ou une petite centrale au fioul (pétrole) pour produire son électricité. Compare ces deux solutions en abordant au moins trois critères parmi : le caractère renouvelable, l'impact environnemental, la régularité de production et la dépendance aux conditions naturelles. Conclus en donnant ton avis argumenté.",hint:"Pour chaque critère, pense à un avantage de l'éolienne et un avantage (ou inconvénient) de la centrale au fioul, sans te limiter à une seule phrase.",a:"Caractère renouvelable : l'éolienne utilise le vent, une source renouvelable qui ne s'épuise pas, alors que la centrale au fioul utilise le pétrole, une source non renouvelable dont les réserves diminuent. Impact environnemental : l'éolienne ne rejette pas de gaz polluants lors de la production d'électricité, alors que la combustion du fioul rejette du CO2 et des polluants contribuant au réchauffement climatique. Régularité de production : la centrale au fioul peut produire de l'électricité en continu, à la demande, alors que l'éolienne dépend de la présence de vent et peut donc avoir des périodes sans production. Dépendance aux conditions naturelles : l'éolienne est entièrement dépendante de la météo (vent suffisant), tandis que la centrale au fioul fonctionne indépendamment du climat, à condition d'avoir un stock de combustible. Conclusion possible : l'éolienne est préférable sur le long terme pour préserver les ressources et l'environnement, mais son irrégularité peut nécessiter une solution complémentaire (comme un stockage d'énergie ou une autre source) pour assurer l'électricité en l'absence de vent."},
       {lvl:3,q:"Une voiture électrique est rechargée à une borne alimentée par l'électricité du réseau, elle-même produite par un barrage hydraulique. La voiture roule ensuite grâce à un moteur électrique. Décris la chaîne énergétique complète depuis la source initiale jusqu'au mouvement de la voiture, en précisant toutes les conversions et les formes d'énergie. Indique aussi où l'énergie électrique est stockée temporairement dans cette chaîne, et sous quelle forme.",hint:"Il y a une étape de stockage dans la voiture avant que le moteur ne produise le mouvement ; pense à ce que contient la batterie.",a:"Source : l'eau du barrage, qui possède de l'énergie mécanique. Conversion 1 : la turbine et l'alternateur transforment cette énergie mécanique en énergie électrique. Cette électricité circule par le réseau jusqu'à la borne de recharge, où elle charge la batterie de la voiture : l'énergie électrique est alors stockée sous forme d'énergie chimique dans la batterie. Conversion 2 : lorsque la voiture roule, la batterie restitue cette énergie chimique, reconvertie en énergie électrique pour alimenter le moteur. Conversion 3 : le moteur électrique transforme l'énergie électrique en énergie mécanique, qui fait avancer la voiture. Chaîne complète : eau du barrage (mécanique) → turbine/alternateur (électrique) → batterie (stockage chimique) → moteur électrique (mécanique). L'énergie initiale est renouvelable car l'eau est sans cesse renouvelée par le cycle de l'eau."},
+    ],
+    "Masse et volume":[
+      {lvl:1,q:"Quelle est l'unité officielle (SI) de la masse ? Et quelle est l'unité officielle du volume ?",hint:"Pense aux unités de base du système international, celles que l'on utilise en sciences.",a:"L'unité officielle (SI) de la masse est le kilogramme (kg). L'unité officielle du volume est le mètre cube (m³). En pratique au laboratoire, on utilise souvent le gramme (g) pour la masse et le litre (L) ou le millilitre (mL) pour le volume."},
+      {lvl:1,q:"Convertis 2,5 L en mL, puis en cm³.",hint:"1 L = 1000 mL ; et 1 mL = 1 cm³.",a:"2,5 L × 1000 = 2500 mL. Or 1 mL = 1 cm³, donc 2500 mL = 2500 cm³."},
+      {lvl:1,q:"Un objet a une masse de 450 g. Convertis cette valeur en kilogrammes.",hint:"Il y a 1000 g dans 1 kg. Pour convertir des grammes en kilogrammes, divise par 1000.",a:"450 g ÷ 1000 = 0,450 kg. L'objet a une masse de 0,450 kg (ou 0,45 kg)."},
+      {lvl:2,q:"Un objet de 200 g est plongé dans une éprouvette graduée contenant 150 mL d'eau. Le niveau monte à 230 mL. Calcule le volume de l'objet et sa masse volumique en g/cm³.",hint:"Le volume de l'objet est la différence de niveau avant et après immersion. Utilise ensuite ρ = m/V.",a:"Volume de l'objet : V = 230 − 150 = 80 mL = 80 cm³. Masse volumique : ρ = m/V = 200/80 = 2,5 g/cm³."},
+      {lvl:2,q:"La masse volumique de l'eau est 1 g/cm³. Un bloc de bois a une masse de 120 g et un volume de 200 cm³. Ce bloc flotte-t-il sur l'eau ? Justifie avec la masse volumique.",hint:"Calcule la masse volumique du bois et compare-la à celle de l'eau.",a:"ρ_bois = m/V = 120/200 = 0,6 g/cm³. Comme ρ_bois (0,6 g/cm³) < ρ_eau (1 g/cm³), le bois est moins dense que l'eau : il flotte."},
+      {lvl:2,q:"Du plomb a une masse volumique de 11,3 g/cm³. Quelle est la masse d'un cube de plomb de 5 cm de côté ?",hint:"Calcule d'abord le volume du cube, puis utilise m = ρ × V.",a:"Volume du cube : V = 5³ = 125 cm³. Masse : m = ρ × V = 11,3 × 125 = 1412,5 g ≈ 1,41 kg."},
+      {lvl:3,q:"L'aluminium a une masse volumique de 2,7 g/cm³ et l'acier de 7,8 g/cm³. Une pièce usinée doit avoir une masse inférieure à 500 g pour un volume de 200 cm³. Quel matériau faut-il choisir ? Justifie par le calcul.",hint:"Calcule la masse de chaque matériau pour 200 cm³ et compare à 500 g.",a:"Masse aluminium : m = 2,7 × 200 = 540 g. Masse acier : m = 7,8 × 200 = 1560 g. La contrainte est m < 500 g. Ni l'aluminium (540 g) ni l'acier (1560 g) ne respectent cette contrainte. Le choix le moins défavorable est l'aluminium, mais il faudrait réduire le volume ou changer de matériau (ex. titane ρ ≈ 4,5 g/cm³ → 4,5×200=900g, encore trop ; un polymère léger ρ≈1,2 → 240g ✓)."},
+      {lvl:3,q:"Un glaçon de volume 50 cm³ fond entièrement dans un verre d'eau. Quelle masse d'eau liquide obtient-on ? La masse volumique de la glace est 0,917 g/cm³. Le niveau d'eau monte-t-il lorsque la glace fond ? Justifie.",hint:"Calcule la masse de la glace (m = ρ × V). Lors de la fusion, la masse est conservée. Calcule le volume d'eau produit avec ρ_eau=1 g/cm³. Compare à 50 cm³.",a:"Masse du glaçon : m = 0,917 × 50 = 45,85 g. Cette masse est conservée lors de la fusion. Volume d'eau produit : V = m/ρ_eau = 45,85/1 = 45,85 cm³ < 50 cm³. Le volume d'eau produite (≈ 45,9 cm³) est inférieur au volume du glaçon (50 cm³) car la glace est moins dense que l'eau. Donc le niveau du verre ne monte pas (et baisse légèrement) quand la glace fond. C'est pourquoi la fonte des glaces flottantes (banquise) ne fait pas monter le niveau des océans."},
+    ],
+    "Acidité et pH":[
+      {lvl:1,q:"Qu'est-ce que le pH d'une solution ? Quelle est la valeur du pH d'une solution neutre ?",hint:"Le pH est une échelle qui mesure une propriété chimique des solutions ; la valeur centrale de l'échelle est la neutralité.",a:"Le pH est une grandeur sans unité qui mesure l'acidité ou la basicité (alcalinité) d'une solution aqueuse. Son échelle va de 0 à 14. Le pH d'une solution neutre est 7 (c'est le cas de l'eau pure)."},
+      {lvl:1,q:"Classe ces solutions du plus acide au plus basique : jus de citron (pH 2), eau distillée (pH 7), eau de Javel (pH 12), café (pH 5).",hint:"Plus le pH est petit, plus la solution est acide ; plus le pH est grand, plus elle est basique.",a:"Du plus acide au plus basique : jus de citron (pH 2) < café (pH 5) < eau distillée (pH 7) < eau de Javel (pH 12)."},
+      {lvl:1,q:"Quel instrument de mesure permet de mesurer le pH d'une solution en laboratoire ? Cite aussi une méthode plus simple mais moins précise.",hint:"En TP, on utilise un instrument électronique et aussi des bandelettes colorées.",a:"On mesure le pH avec un pH-mètre (instrument électronique donnant une valeur précise). Une méthode moins précise mais simple est l'utilisation de papier pH (bandelettes ou papier indicateur) dont la couleur change selon le pH."},
+      {lvl:2,q:"Le vinaigre a un pH de 3. Le lait a un pH de 6,5. L'eau de mer a un pH de 8,2. Indique pour chacun s'il est acide, neutre ou basique, et lequel est le plus acide.",hint:"Compare chaque pH à 7 (valeur neutre) ; en dessous de 7 = acide, au-dessus = basique.",a:"Vinaigre (pH 3) : acide (pH < 7). Lait (pH 6,5) : légèrement acide (pH < 7 mais proche). Eau de mer (pH 8,2) : basique (pH > 7). Le plus acide est le vinaigre (pH 3), car c'est celui qui a le pH le plus bas."},
+      {lvl:2,q:"Quels risques présente une solution très acide ou très basique pour la peau ? Cite un produit du quotidien à pH très acide et un à pH très basique.",hint:"Les solutions extrêmes (pH proche de 0 ou de 14) sont corrosives. Cherche dans la maison ou en cuisine.",a:"Les solutions très acides (pH proche de 0) et très basiques (pH proche de 14) peuvent provoquer des brûlures chimiques de la peau et des muqueuses : elles sont corrosives. Exemple acide très acide : acide chlorhydrique concentré (pH < 1), utilisé dans certains déboucheurs. Exemple basique très basique : soude (hydroxyde de sodium, lessive de soude, pH 13-14), présente dans certains déboucheurs ou produits ménagers."},
+      {lvl:2,q:"Le jus de tomate a un pH de 4,2. Un élève ajoute du bicarbonate de soude (basique) dans ce jus. Sans calculer, prévois si le pH du mélange augmentera ou diminuera par rapport à 4,2. Justifie.",hint:"Quand on ajoute une base à une solution acide, dans quel sens le pH évolue-t-il ?",a:"En ajoutant du bicarbonate de soude (solution basique, pH > 7) au jus de tomate (acide, pH = 4,2), on neutralise une partie de l'acidité. Le pH du mélange augmentera (s'approchera de 7). La solution deviendra moins acide. Si on ajoute beaucoup de base, le pH pourrait même dépasser 7 et devenir basique."},
+      {lvl:3,q:"En quoi l'acidification des océans est-elle un problème écologique ? Quel gaz en est principalement responsable ? Précise quel phénomène relie ce gaz à l'acidité de l'eau.",hint:"Pense au gaz à effet de serre qui se dissout dans l'eau et forme un acide. Relie-le aux êtres vivants marins.",a:"L'acidification des océans est causée par la dissolution du dioxyde de carbone (CO₂) atmosphérique dans l'eau de mer. Cette dissolution forme de l'acide carbonique (H₂CO₃) qui abaisse le pH des océans (actuellement autour de 8,1, en légère baisse). Ce phénomène est problématique car il fragilise les coquilles et squelettes calcaires des mollusques, des coraux et de nombreux organismes marins qui ont du mal à les fabriquer en milieu plus acide. Cela menace des écosystèmes entiers comme les récifs coralliens."},
+      {lvl:3,q:"Un chimiste mélange 100 mL d'acide (pH 2) avec 100 mL d'une solution basique (pH 12). En supposant que la neutralisation est totale et les solutions sont symétriques, quel sera le pH du mélange ? Justifie ta réponse.",hint:"Si les deux solutions sont exactement complémentaires (même concentration d'acide et de base), la neutralisation est totale.",a:"Si l'acide (pH 2) et la base (pH 12) sont de même concentration et qu'on les mélange à volumes égaux, les ions H⁺ de l'acide et les ions OH⁻ de la base se neutralisent exactement (réaction acide-base : H⁺ + OH⁻ → H₂O). La solution obtenue est neutre : pH = 7. Remarque : cette situation idéale de neutralisation totale suppose que les concentrations sont exactement complémentaires, ce qui est le cas dans cet exercice."},
+    ],
+    "Composition de l'air":[
+      {lvl:1,q:"Quels sont les deux gaz principaux qui composent l'air ? Donne leurs pourcentages approximatifs.",hint:"L'azote représente la part la plus grande, et l'oxygène la deuxième.",a:"L'air est composé principalement de deux gaz : le diazote (N₂) qui représente environ 78% du volume, et le dioxygène (O₂) qui représente environ 21% du volume. Ces deux gaz à eux seuls constituent 99% de l'air."},
+      {lvl:1,q:"Quel gaz de l'air est indispensable à la respiration des êtres vivants et à la combustion ?",hint:"C'est le gaz qui représente 21% de l'air.",a:"Le dioxygène (O₂) est le gaz de l'air indispensable à la fois à la respiration des êtres vivants (animaux, végétaux) et aux réactions de combustion (on dit qu'un corps « brûle » en consommant du dioxygène)."},
+      {lvl:1,q:"Qu'est-ce qu'un gaz rare dans le contexte de la composition de l'air ? Cite-en un exemple.",hint:"Ce sont des gaz qui ne réagissent quasiment jamais avec d'autres corps chimiques et qui sont présents en très petites quantités.",a:"Les gaz rares (ou gaz nobles) sont des gaz présents en très faibles quantités dans l'air et qui sont chimiquement inertes (ils ne réagissent presque jamais avec d'autres substances). L'argon (Ar) est le principal gaz rare de l'air, représentant environ 0,9% du volume."},
+      {lvl:2,q:"Dans 500 L d'air, quel volume de dioxygène (O₂) est présent ? Et quel volume de diazote (N₂) ? (utilise les valeurs 21% et 78%)",hint:"Applique les pourcentages au volume total.",a:"Volume de O₂ : 21% × 500 = 0,21 × 500 = 105 L. Volume de N₂ : 78% × 500 = 0,78 × 500 = 390 L."},
+      {lvl:2,q:"Lors de la combustion, le dioxygène est consommé. Dans un bocal fermé contenant une bougie allumée, que se passe-t-il quand la flamme s'éteint ? Explique avec la composition de l'air.",hint:"Quand le dioxygène est épuisé, la combustion ne peut plus se produire.",a:"Quand la bougie brûle dans le bocal fermé, elle consomme le dioxygène disponible. Quand la proportion de O₂ devient trop faible (environ 15% ou moins), la flamme s'éteint car la combustion nécessite du dioxygène. Le diazote N₂, lui, ne réagit pas lors de la combustion ; c'est un gaz inerte dans ces conditions. Il reste dans le bocal, mais la bougie ne peut plus brûler sans O₂."},
+      {lvl:2,q:"Le CO₂ représente environ 0,04% de l'air. Exprimer ce pourcentage en parties par million (ppm). Avant l'ère industrielle, il était d'environ 280 ppm. Que peut-on en déduire ?",hint:"1 ppm = 1/1 000 000 = 0,0001%. Convertis 0,04% en ppm. Compare à 280 ppm.",a:"0,04% = 0,04/100 = 4/10000 = 400/1000000 = 400 ppm. Avant l'ère industrielle : 280 ppm. On constate que la concentration en CO₂ a augmenté de 280 à environ 400-420 ppm (actuellement), soit une hausse d'environ 40-50% due aux activités humaines (combustion de fossiles, déforestation). Cette augmentation contribue au renforcement de l'effet de serre et au réchauffement climatique."},
+      {lvl:3,q:"Pourquoi dit-on que le diazote (N₂) est un gaz « inerte » dans les conditions normales, et en quoi cela est-il utile industriellement ? Donne deux applications industrielles.",hint:"Un gaz inerte ne réagit pas chimiquement. Pense à ce que l'on veut éviter lors de la conservation des aliments ou dans certains procédés.",a:"Le diazote N₂ est dit inerte car dans les conditions normales (température et pression ambiantes), il ne réagit pas avec la plupart des substances chimiques. Il est très stable grâce à la triple liaison entre ses deux atomes. Industriellement, cette propriété est exploitée pour : 1. La conservation des aliments : des emballages alimentaires sont gonflés à l'azote (« atmosphère modifiée ») pour éviter l'oxydation et la prolifération de bactéries aérobies, prolongeant ainsi la durée de vie des produits (chips, salades). 2. La métallurgie et la soudure : l'azote est utilisé comme gaz de protection lors du soudage pour éviter que le métal chaud ne s'oxyde au contact de l'oxygène de l'air."},
+      {lvl:3,q:"La pollution de l'air par les particules fines (PM2,5) est un problème de santé publique majeur. Explique ce que sont les PM2,5, d'où elles proviennent, et quels sont leurs effets sur la santé. Pourquoi sont-elles plus dangereuses que de plus grosses particules ?",hint:"PM2,5 désigne leur taille. Réfléchis à comment de très petites particules interagissent avec les poumons.",a:"Les PM2,5 sont des particules fines en suspension dans l'air dont le diamètre est inférieur à 2,5 micromètres (millièmes de mm). Elles proviennent des moteurs diesel, de la combustion du bois ou du charbon, de l'industrie et des réactions chimiques dans l'atmosphère. Leurs effets sur la santé : elles pénètrent profondément dans les poumons jusqu'aux alvéoles pulmonaires (à cause de leur très petite taille), peuvent passer dans le sang, et causent des maladies respiratoires (asthme, bronchites), cardiovasculaires (infarctus) et augmentent le risque de cancers. Elles sont plus dangereuses que les particules plus grosses car ces dernières sont arrêtées par les voies nasales et la trachée grâce aux cils et au mucus, tandis que les PM2,5, trop petites, échappent à ces filtres naturels et atteignent les parties les plus profondes du système respiratoire."},
+    ],
+    "Le système solaire":[
+      {lvl:1,q:"Cite les 8 planètes du système solaire dans l'ordre croissant de distance au Soleil.",hint:"Utilise le moyen mnémotechnique : « Ma Vénus est Toujours Magnifique, Je Suis Une Noble Planète » (M=Mercure, V=Vénus, T=Terre, M=Mars, J=Jupiter, S=Saturne, U=Uranus, N=Neptune).",a:"Dans l'ordre de distance croissante au Soleil : 1. Mercure, 2. Vénus, 3. Terre, 4. Mars, 5. Jupiter, 6. Saturne, 7. Uranus, 8. Neptune."},
+      {lvl:1,q:"Quelle est la différence entre la révolution d'une planète et sa rotation ?",hint:"La révolution concerne le déplacement de la planète autour du Soleil ; la rotation concerne son mouvement sur elle-même.",a:"La révolution d'une planète est son mouvement orbital autour du Soleil (une révolution complète = une année pour cette planète). La rotation est le mouvement de la planète sur elle-même autour de son propre axe (une rotation complète = un jour pour cette planète). Par exemple, la Terre tourne sur elle-même en 24h (rotation) et fait le tour du Soleil en 365,25 jours (révolution)."},
+      {lvl:1,q:"Qu'est-ce qu'une éclipse solaire ? Dans quel ordre se trouvent le Soleil, la Terre et la Lune lors d'une éclipse solaire ?",hint:"Lors d'une éclipse solaire, on ne voit plus le Soleil depuis la Terre. Quel astre doit donc se trouver entre la Terre et le Soleil ?",a:"Une éclipse solaire se produit quand la Lune passe entre le Soleil et la Terre, cachant partiellement ou totalement le Soleil vu de la Terre. L'ordre des astres est : Soleil → Lune → Terre (la Lune est au milieu, entre les deux). On l'observe uniquement durant la nouvelle lune (quand la Lune est du côté du Soleil)."},
+      {lvl:2,q:"La distance Terre-Soleil est d'environ 150 millions de km. La lumière voyageant à 300 000 km/s, calcule le temps mis par la lumière pour aller du Soleil à la Terre. Donne le résultat en secondes puis en minutes.",hint:"Utilise t = d/v. La distance est en km et la vitesse en km/s.",a:"t = d/v = 150 000 000 / 300 000 = 500 secondes. En minutes : 500 ÷ 60 ≈ 8,3 minutes. La lumière du Soleil met donc environ 8 minutes et 20 secondes pour atteindre la Terre."},
+      {lvl:2,q:"Jupiter a une période de révolution d'environ 12 ans autour du Soleil. Combien de fois la Terre aura-t-elle fait le tour du Soleil pendant une révolution complète de Jupiter ?",hint:"La Terre fait une révolution par an. Si Jupiter en met 12, combien de fois la Terre en fait-elle pendant ce temps ?",a:"La Terre fait une révolution par an. En 12 ans (durée d'une révolution de Jupiter), la Terre fait 12 révolutions autour du Soleil. Pendant une seule révolution de Jupiter, la Terre fait 12 tours du Soleil."},
+      {lvl:2,q:"Qu'est-ce qui distingue une planète d'une étoile dans le système solaire ? Pourquoi voit-on les planètes briller dans le ciel ?",hint:"Une étoile produit sa propre lumière ; une planète non. Mais alors, pourquoi les planètes sont-elles visibles ?",a:"Une étoile (comme le Soleil) produit elle-même de la lumière et de la chaleur grâce aux réactions nucléaires en son cœur : c'est une source lumineuse primaire. Une planète, en revanche, ne produit pas sa propre lumière : c'est un objet diffusant qui réfléchit la lumière reçue du Soleil. Les planètes sont visibles la nuit car elles renvoient (diffusent) la lumière solaire dans notre direction. C'est pourquoi Vénus, Jupiter, Mars et Saturne peuvent être vus à l'œil nu : ils brillent par lumière réfléchie."},
+      {lvl:3,q:"Mercure tourne autour du Soleil en 88 jours terrestres. Exprime la durée d'une « année mercurienne » en jours terrestres, en semaines terrestres (arrondi) et en mois terrestres (arrondi). Combien d'années merculiennes correspond-il à une année terrestre ?",hint:"Une année terrestre = 365 jours ≈ 52 semaines ≈ 12 mois. Divise pour trouver combien d'années merculiennes rentrent dans une année terrestre.",a:"Année mercurienne = 88 jours terrestres. En semaines : 88 ÷ 7 ≈ 12,6 ≈ 13 semaines. En mois : 88 ÷ 30 ≈ 2,9 ≈ 3 mois. Nombre d'années merculiennes dans une année terrestre : 365 ÷ 88 ≈ 4,15. Donc une année terrestre contient environ 4 années et 2 semaines merculiennes."},
+      {lvl:3,q:"Explique pourquoi Pluton n'est plus considérée comme une planète depuis 2006. Quels sont les trois critères définis par l'Union Astronomique Internationale (UAI) pour qu'un corps soit une planète ?",hint:"Il s'agit de critères sur l'orbite, la forme et la domination gravitationnelle dans son voisinage orbital.",a:"En 2006, l'UAI a redéfini la notion de planète. Pour être une planète, un corps céleste doit satisfaire trois critères : 1. Orbiter autour du Soleil (ce que Pluton fait). 2. Avoir une masse suffisante pour que la gravité lui donne une forme sphérique (Pluton l'est approximativement). 3. Avoir « nettoyé » son voisinage orbital, c'est-à-dire être gravitationnellement dominant dans sa zone et avoir absorbé ou éjecté les autres corps de son orbite. Pluton échoue à ce troisième critère car elle partage sa région (la ceinture de Kuiper) avec de nombreux autres corps de taille comparable. Elle a donc été reclassifiée en « planète naine »."},
+      {lvl:3,q:"La vitesse orbitale de la Terre autour du Soleil est d'environ 30 km/s. En supposant que l'orbite terrestre est un cercle de rayon 150 millions de km, vérifie que la période de révolution calculée est bien d'environ 365 jours.",hint:"La longueur d'un cercle est 2πr. La période T = longueur ÷ vitesse. Convertis ensuite en jours (1 jour = 86400 s).",a:"Longueur de l'orbite : L = 2πr = 2 × π × 150 000 000 ≈ 942 000 000 km. Vitesse : v = 30 km/s. Période : T = L/v = 942 000 000 / 30 = 31 400 000 s. Conversion : T = 31 400 000 / 86 400 ≈ 363 jours. Ce résultat est très proche de 365 jours (l'approximation vient de l'orbite légèrement elliptique et des arrondis), ce qui valide bien la vitesse orbitale de 30 km/s."},
     ],
   },
   mixte:{
@@ -785,25 +1029,269 @@ function Dot({ filled, color }) {
   return <div style={{ width: 8, height: 8, borderRadius: "50%", background: filled ? color : "#D1D5DB", transition: "background 0.2s" }} />;
 }
 
-function FlashCard({ card, c }) {
+const FIGURES = {
+  fractionBar: (c) => (
+    <svg viewBox="0 0 220 42" width="100%" style={{maxWidth:260,display:"block"}} xmlns="http://www.w3.org/2000/svg">
+      {[0,1,2,3].map(i => <rect key={i} x={4+i*53} y={4} width={49} height={26} rx={4} fill={i<3?c.pri:"white"} stroke={c.pri} strokeWidth={1.5} opacity={i<3?0.7:0.35}/>)}
+      <text x={110} y={39} textAnchor="middle" fontSize={9} fill="#6B7280">3/4 → 3 parts colorées sur 4</text>
+    </svg>
+  ),
+  droiteNombres: (c) => (
+    <svg viewBox="0 0 260 42" width="100%" style={{maxWidth:280,display:"block"}} xmlns="http://www.w3.org/2000/svg">
+      <line x1={15} y1={20} x2={245} y2={20} stroke="#9CA3AF" strokeWidth={1.5}/>
+      <polygon points="245,15 255,20 245,25" fill="#9CA3AF"/>
+      {[-5,-4,-3,-2,-1,0,1,2,3,4,5].map(n=>{const x=15+(n+5)*20;return(<g key={n}><line x1={x} y1={16} x2={x} y2={24} stroke="#9CA3AF" strokeWidth={1}/><text x={x} y={36} textAnchor="middle" fontSize={8} fill={n===0?"#111827":n<0?c.pri:"#374151"} fontWeight={n===0?"bold":"normal"}>{n}</text></g>);})}
+      <circle cx={15+7*20} cy={20} r={4} fill={c.pri}/><text x={15+7*20} y={13} textAnchor="middle" fontSize={8} fill={c.pri}>+2</text>
+      <circle cx={15+2*20} cy={20} r={4} fill={c.txt}/><text x={15+2*20} y={13} textAnchor="middle" fontSize={8} fill={c.txt}>-3</text>
+    </svg>
+  ),
+  repereXY: (c) => (
+    <svg viewBox="0 0 155 140" width="100%" style={{maxWidth:195,display:"block"}} xmlns="http://www.w3.org/2000/svg">
+      <line x1={10} y1={70} x2={148} y2={70} stroke="#9CA3AF" strokeWidth={1.5}/><polygon points="148,65 156,70 148,75" fill="#9CA3AF"/>
+      <line x1={78} y1={130} x2={78} y2={8} stroke="#9CA3AF" strokeWidth={1.5}/><polygon points="73,8 78,0 83,8" fill="#9CA3AF"/>
+      <text x={151} y={74} fontSize={9} fill="#6B7280">x</text><text x={76} y={6} textAnchor="end" fontSize={9} fill="#6B7280">y</text>
+      {[-3,-2,-1,1,2,3].map(n=>(<g key={n}><line x1={78+n*20} y1={67} x2={78+n*20} y2={73} stroke="#9CA3AF" strokeWidth={1}/><text x={78+n*20} y={82} textAnchor="middle" fontSize={7} fill="#9CA3AF">{n}</text><line x1={75} y1={70-n*20} x2={81} y2={70-n*20} stroke="#9CA3AF" strokeWidth={1}/><text x={71} y={70-n*20+3} textAnchor="end" fontSize={7} fill="#9CA3AF">{n}</text></g>))}
+      <circle cx={78+3*20} cy={70-2*20} r={4} fill={c.pri}/><text x={78+3*20+7} y={70-2*20-3} fontSize={8} fill={c.pri} fontWeight="bold">A(3;2)</text>
+    </svg>
+  ),
+  triangleAngles: (c) => (
+    <svg viewBox="0 0 160 105" width="100%" style={{maxWidth:200,display:"block"}} xmlns="http://www.w3.org/2000/svg">
+      <polygon points="80,10 15,90 145,90" fill={c.lit} stroke={c.pri} strokeWidth={2}/>
+      <text x={80} y={9} textAnchor="middle" fontSize={11} fill={c.txt} fontWeight="bold">α</text>
+      <text x={14} y={96} fontSize={11} fill={c.txt} fontWeight="bold">β</text>
+      <text x={147} y={96} fontSize={11} fill={c.txt} fontWeight="bold">γ</text>
+      <text x={80} y={105} textAnchor="middle" fontSize={9} fill="#6B7280">α + β + γ = 180°</text>
+    </svg>
+  ),
+  anglesParalleles: (c) => (
+    <svg viewBox="0 0 180 100" width="100%" style={{maxWidth:220,display:"block"}} xmlns="http://www.w3.org/2000/svg">
+      <line x1={8} y1={30} x2={172} y2={30} stroke="#9CA3AF" strokeWidth={1.5}/>
+      <line x1={8} y1={70} x2={172} y2={70} stroke="#9CA3AF" strokeWidth={1.5}/>
+      <text x={2} y={28} fontSize={8} fill="#9CA3AF">d₁</text><text x={2} y={68} fontSize={8} fill="#9CA3AF">d₂</text>
+      <text x={168} y={27} fontSize={9} fill={c.txt} fontWeight="bold">∥</text>
+      <line x1={48} y1={8} x2={118} y2={96} stroke="#374151" strokeWidth={1.5}/>
+      <text x={62} y={28} fontSize={10} fill={c.pri} fontWeight="bold">α</text>
+      <text x={92} y={80} fontSize={10} fill={c.pri} fontWeight="bold">α</text>
+      <text x={90} y={22} fontSize={8} fill="#6B7280">alternes-internes</text>
+      <text x={73} y={94} fontSize={8} fill="#6B7280">égaux</text>
+    </svg>
+  ),
+  symetrieCentrale: (c) => (
+    <svg viewBox="0 0 200 58" width="100%" style={{maxWidth:240,display:"block"}} xmlns="http://www.w3.org/2000/svg">
+      <line x1={18} y1={28} x2={182} y2={28} stroke={c.pri} strokeWidth={1.5}/>
+      <circle cx={40} cy={28} r={5} fill={c.pri}/><text x={40} y={20} textAnchor="middle" fontSize={10} fill={c.txt} fontWeight="bold">A</text>
+      <circle cx={100} cy={28} r={5} fill="#374151"/><text x={100} y={20} textAnchor="middle" fontSize={10} fill="#374151" fontWeight="bold">O</text>
+      <circle cx={160} cy={28} r={5} fill={c.pri} opacity={0.5}/><text x={160} y={20} textAnchor="middle" fontSize={10} fill={c.txt} fontWeight="bold">A'</text>
+      <text x={100} y={50} textAnchor="middle" fontSize={9} fill="#6B7280">O est le milieu de [AA']</text>
+    </svg>
+  ),
+  symetrieAxiale: (c) => (
+    <svg viewBox="0 0 200 100" width="100%" style={{maxWidth:240,display:"block"}} xmlns="http://www.w3.org/2000/svg">
+      <line x1={100} y1={4} x2={100} y2={96} stroke={c.pri} strokeWidth={2} strokeDasharray="5,3"/><text x={104} y={14} fontSize={9} fill={c.txt} fontWeight="bold">d</text>
+      <circle cx={48} cy={48} r={5} fill={c.pri}/><text x={48} y={40} textAnchor="middle" fontSize={10} fill={c.txt} fontWeight="bold">A</text>
+      <circle cx={152} cy={48} r={5} fill={c.pri} opacity={0.5}/><text x={152} y={40} textAnchor="middle" fontSize={10} fill={c.txt} fontWeight="bold">A'</text>
+      <line x1={48} y1={48} x2={152} y2={48} stroke="#E5E7EB" strokeWidth={1} strokeDasharray="3,3"/>
+      <line x1={96} y1={44} x2={104} y2={44} stroke="#9CA3AF" strokeWidth={1.5}/><line x1={96} y1={52} x2={104} y2={52} stroke="#9CA3AF" strokeWidth={1.5}/>
+      <text x={100} y={88} textAnchor="middle" fontSize={9} fill="#6B7280">d ⊥ [AA'] et passe par son milieu</text>
+    </svg>
+  ),
+  parallelogramme: (c) => (
+    <svg viewBox="0 0 180 100" width="100%" style={{maxWidth:220,display:"block"}} xmlns="http://www.w3.org/2000/svg">
+      <polygon points="30,80 70,15 152,15 112,80" fill={c.lit} stroke={c.pri} strokeWidth={2}/>
+      <line x1={70} y1={15} x2={112} y2={80} stroke={c.med} strokeWidth={1} strokeDasharray="4,3"/>
+      <line x1={30} y1={80} x2={152} y2={15} stroke={c.med} strokeWidth={1} strokeDasharray="4,3"/>
+      <circle cx={91} cy={47} r={3} fill={c.pri}/><text x={91} y={42} textAnchor="middle" fontSize={8} fill={c.txt}>I</text>
+      <text x={22} y={85} fontSize={9} fill={c.txt} fontWeight="bold">A</text><text x={68} y={11} fontSize={9} fill={c.txt} fontWeight="bold">B</text>
+      <text x={153} y={11} fontSize={9} fill={c.txt} fontWeight="bold">C</text><text x={112} y={89} fontSize={9} fill={c.txt} fontWeight="bold">D</text>
+    </svg>
+  ),
+  solidesPaveCube: (c) => (
+    <svg viewBox="0 0 200 90" width="100%" style={{maxWidth:240,display:"block"}} xmlns="http://www.w3.org/2000/svg">
+      <polygon points="10,62 10,22 52,22 52,62" fill={c.lit} stroke={c.pri} strokeWidth={1.5}/>
+      <polygon points="10,22 30,6 72,6 52,22" fill={c.med} stroke={c.pri} strokeWidth={1.5} opacity={0.7}/>
+      <polygon points="52,22 72,6 72,46 52,62" fill={c.lit} stroke={c.pri} strokeWidth={1.5} opacity={0.9}/>
+      <text x={41} y={78} textAnchor="middle" fontSize={9} fill={c.txt} fontWeight="600">Pavé droit</text>
+      <text x={41} y={88} textAnchor="middle" fontSize={8} fill="#9CA3AF">V = L×l×h</text>
+      <polygon points="115,62 115,22 155,22 155,62" fill={c.lit} stroke={c.pri} strokeWidth={1.5}/>
+      <polygon points="115,22 135,6 175,6 155,22" fill={c.med} stroke={c.pri} strokeWidth={1.5} opacity={0.7}/>
+      <polygon points="155,22 175,6 175,46 155,62" fill={c.lit} stroke={c.pri} strokeWidth={1.5} opacity={0.9}/>
+      <text x={145} y={78} textAnchor="middle" fontSize={9} fill={c.txt} fontWeight="600">Cube</text>
+      <text x={145} y={88} textAnchor="middle" fontSize={8} fill="#9CA3AF">V = c³</text>
+    </svg>
+  ),
+  cylindreFig: (c) => (
+    <svg viewBox="0 0 120 112" width="100%" style={{maxWidth:150,display:"block"}} xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx={60} cy={25} rx={38} ry={10} fill={c.lit} stroke={c.pri} strokeWidth={1.5}/>
+      <rect x={22} y={25} width={76} height={62} fill={c.lit} stroke="none"/>
+      <line x1={22} y1={25} x2={22} y2={87} stroke={c.pri} strokeWidth={1.5}/>
+      <line x1={98} y1={25} x2={98} y2={87} stroke={c.pri} strokeWidth={1.5}/>
+      <ellipse cx={60} cy={87} rx={38} ry={10} fill={c.med} stroke={c.pri} strokeWidth={1.5} opacity={0.7}/>
+      <line x1={60} y1={25} x2={98} y2={25} stroke={c.txt} strokeWidth={1} strokeDasharray="3,2"/>
+      <text x={81} y={20} fontSize={9} fill={c.txt}>r</text>
+      <line x1={103} y1={25} x2={103} y2={87} stroke={c.txt} strokeWidth={1}/>
+      <text x={108} y={59} fontSize={9} fill={c.txt}>h</text>
+      <text x={60} y={108} textAnchor="middle" fontSize={9} fill="#9CA3AF">V = π×r²×h</text>
+    </svg>
+  ),
+  arbreFacteurs: (c) => (
+    <svg viewBox="0 0 160 112" width="100%" style={{maxWidth:200,display:"block"}} xmlns="http://www.w3.org/2000/svg">
+      <text x={80} y={16} textAnchor="middle" fontSize={14} fill={c.txt} fontWeight="bold">12</text>
+      <line x1={72} y1={18} x2={50} y2={40} stroke="#9CA3AF" strokeWidth={1.5}/><line x1={88} y1={18} x2={110} y2={40} stroke="#9CA3AF" strokeWidth={1.5}/>
+      <text x={45} y={52} textAnchor="middle" fontSize={13} fill={c.pri} fontWeight="bold">2</text>
+      <text x={116} y={52} textAnchor="middle" fontSize={13} fill={c.txt} fontWeight="bold">6</text>
+      <line x1={110} y1={54} x2={92} y2={74} stroke="#9CA3AF" strokeWidth={1.5}/><line x1={120} y1={54} x2={136} y2={74} stroke="#9CA3AF" strokeWidth={1.5}/>
+      <text x={87} y={86} textAnchor="middle" fontSize={13} fill={c.pri} fontWeight="bold">2</text>
+      <text x={141} y={86} textAnchor="middle" fontSize={13} fill={c.pri} fontWeight="bold">3</text>
+      <text x={80} y={108} textAnchor="middle" fontSize={9} fill="#6B7280">12 = 2² × 3</text>
+    </svg>
+  ),
+  etatsMatiereFig: (c) => (
+    <svg viewBox="0 0 220 80" width="100%" style={{maxWidth:280,display:"block"}} xmlns="http://www.w3.org/2000/svg">
+      {[["Solide",[{x:24,y:28},{x:36,y:28},{x:48,y:28},{x:24,y:40},{x:36,y:40},{x:48,y:40},{x:24,y:52},{x:36,y:52},{x:48,y:52}]],["Liquide",[{x:87,y:48},{x:100,y:44},{x:112,y:50},{x:93,y:58},{x:106,y:55},{x:118,y:62},{x:80,y:62},{x:100,y:66}]],["Gaz",[{x:158,y:24},{x:190,y:36},{x:170,y:55},{x:145,y:46},{x:180,y:64},{x:150,y:68}]]].map(([label,pts],gi)=>(<g key={gi}>
+        <rect x={gi*72+8} y={18} width={60} height={52} rx={4} fill="white" stroke={gi===0?c.pri:gi===1?"#9CA3AF":"#E5E7EB"} strokeWidth={1.5}/>
+        {pts.map((p,pi)=><circle key={pi} cx={p.x} cy={p.y} r={gi===0?4:gi===1?4:3} fill={c.pri} opacity={gi===0?0.9:gi===1?0.75:0.55}/>)}
+        <text x={gi*72+38} y={76} textAnchor="middle" fontSize={9} fill="#6B7280">{label}</text>
+      </g>))}
+    </svg>
+  ),
+  circuitSerieFig: (c) => (
+    <svg viewBox="0 0 200 100" width="100%" style={{maxWidth:240,display:"block"}} xmlns="http://www.w3.org/2000/svg">
+      <rect x={10} y={20} width={180} height={60} rx={4} fill="none" stroke={c.pri} strokeWidth={2}/>
+      <rect x={40} y={34} width={30} height={18} rx={2} fill={c.lit} stroke={c.txt} strokeWidth={1.5}/><text x={55} y={47} textAnchor="middle" fontSize={9} fill={c.txt}>L₁</text>
+      <rect x={100} y={34} width={30} height={18} rx={2} fill={c.lit} stroke={c.txt} strokeWidth={1.5}/><text x={115} y={47} textAnchor="middle" fontSize={9} fill={c.txt}>L₂</text>
+      <circle cx={162} cy={43} r={12} fill="none" stroke="#F59E0B" strokeWidth={2}/><text x={162} y={47} textAnchor="middle" fontSize={9} fill="#B45309">G</text>
+      <text x={100} y={94} textAnchor="middle" fontSize={9} fill="#6B7280">I = identique • U = U₁+U₂</text>
+    </svg>
+  ),
+  circuitDerivFig: (c) => (
+    <svg viewBox="0 0 200 110" width="100%" style={{maxWidth:240,display:"block"}} xmlns="http://www.w3.org/2000/svg">
+      <line x1={10} y1={55} x2={50} y2={55} stroke={c.pri} strokeWidth={2}/>
+      <line x1={50} y1={30} x2={50} y2={80} stroke={c.pri} strokeWidth={2}/>
+      <line x1={50} y1={30} x2={100} y2={30} stroke={c.pri} strokeWidth={2}/>
+      <line x1={50} y1={80} x2={100} y2={80} stroke={c.pri} strokeWidth={2}/>
+      <rect x={100} y={20} width={30} height={18} rx={2} fill={c.lit} stroke={c.txt} strokeWidth={1.5}/><text x={115} y={33} textAnchor="middle" fontSize={9} fill={c.txt}>L₁</text>
+      <rect x={100} y={70} width={30} height={18} rx={2} fill={c.lit} stroke={c.txt} strokeWidth={1.5}/><text x={115} y={83} textAnchor="middle" fontSize={9} fill={c.txt}>L₂</text>
+      <line x1={130} y1={30} x2={160} y2={30} stroke={c.pri} strokeWidth={2}/>
+      <line x1={130} y1={80} x2={160} y2={80} stroke={c.pri} strokeWidth={2}/>
+      <line x1={160} y1={30} x2={160} y2={80} stroke={c.pri} strokeWidth={2}/>
+      <line x1={160} y1={55} x2={190} y2={55} stroke={c.pri} strokeWidth={2}/>
+      <circle cx={28} cy={55} r={10} fill="none" stroke="#F59E0B" strokeWidth={2}/><text x={28} y={59} textAnchor="middle" fontSize={9} fill="#B45309">G</text>
+      <text x={100} y={104} textAnchor="middle" fontSize={9} fill="#6B7280">U = identique • I = I₁+I₂</text>
+    </svg>
+  ),
+  echellePHFig: (_c) => (
+    <svg viewBox="0 0 280 56" width="100%" style={{maxWidth:340,display:"block"}} xmlns="http://www.w3.org/2000/svg">
+      {["#CC0000","#E63000","#E67000","#E6A800","#B8CC00","#66CC00","#00AA44","#0099AA","#0077CC","#0055AA","#003388","#220066","#110033","#000033"].map((col,i)=>
+        <rect key={i} x={4+i*19.5} y={8} width={19} height={24} fill={col} rx={i===0?3:i===13?3:0}/>
+      )}
+      {[0,2,4,6,7,8,10,12,14].map(n=>(
+        <text key={n} x={4+n*19.5+9.5} y={44} textAnchor="middle" fontSize={8} fill="#374151">{n}</text>
+      ))}
+      <text x={50} y={54} textAnchor="middle" fontSize={8} fill="#CC0000">ACIDE</text>
+      <text x={140} y={54} textAnchor="middle" fontSize={8} fill="#009944">NEUTRE</text>
+      <text x={228} y={54} textAnchor="middle" fontSize={8} fill="#003388">BASIQUE</text>
+    </svg>
+  ),
+  compositionAirFig: (_c) => (
+    <svg viewBox="0 0 200 100" width="100%" style={{maxWidth:240,display:"block"}} xmlns="http://www.w3.org/2000/svg">
+      <rect x={10} y={20} width={112} height={40} fill="#4B9BE8" rx={2}/><text x={66} y={44} textAnchor="middle" fontSize={10} fill="white" fontWeight="bold">N₂ 78%</text>
+      <rect x={122} y={20} width={33} height={40} fill="#60C060" rx={2}/><text x={138} y={44} textAnchor="middle" fontSize={9} fill="white" fontWeight="bold">O₂ 21%</text>
+      <rect x={155} y={20} width={6} height={40} fill="#B0B0B0" rx={2}/>
+      <rect x={161} y={20} width={29} height={40} fill="#E8E8E8" rx={2}/><text x={175} y={41} textAnchor="middle" fontSize={7} fill="#6B7280">Ar</text><text x={175} y={52} textAnchor="middle" fontSize={7} fill="#6B7280">1%</text>
+      <text x={100} y={78} textAnchor="middle" fontSize={9} fill="#6B7280">Composition de l'air (en volume)</text>
+    </svg>
+  ),
+  masseVoluFig: (c) => (
+    <svg viewBox="0 0 200 100" width="100%" style={{maxWidth:240,display:"block"}} xmlns="http://www.w3.org/2000/svg">
+      <rect x={10} y={30} width={70} height={55} rx={4} fill="white" stroke={c.pri} strokeWidth={1.5}/>
+      <rect x={10} y={55} width={70} height={30} rx={0} fill="#BFDBFE" stroke="none" opacity={0.6}/>
+      <text x={45} y={48} textAnchor="middle" fontSize={8} fill={c.txt}>V₁ = 40 mL</text>
+      <rect x={14} y={56} width={2} height={3} fill={c.txt} opacity={0.5}/>
+      <text x={10} y={90} fontSize={8} fill="#6B7280">V₁</text>
+      <rect x={100} y={30} width={70} height={55} rx={4} fill="white" stroke={c.pri} strokeWidth={1.5}/>
+      <rect x={100} y={50} width={70} height={35} rx={0} fill="#BFDBFE" stroke="none" opacity={0.6}/>
+      <ellipse cx={135} cy={50} rx={15} ry={8} fill={c.pri} opacity={0.7}/>
+      <text x={135} y={46} textAnchor="middle" fontSize={7} fill="white">objet</text>
+      <text x={135} y={65} textAnchor="middle" fontSize={8} fill={c.txt}>V₂ = 55 mL</text>
+      <text x={135} y={94} textAnchor="middle" fontSize={8} fill="#6B7280">V_objet = V₂ − V₁ = 15 mL</text>
+    </svg>
+  ),
+  systemeSolaireFig: (_c) => (
+    <svg viewBox="0 0 280 90" width="100%" style={{maxWidth:340,display:"block"}} xmlns="http://www.w3.org/2000/svg">
+      <circle cx={18} cy={45} r={16} fill="#FDE68A" stroke="#F59E0B" strokeWidth={1.5}/><text x={18} y={49} textAnchor="middle" fontSize={7} fill="#92400E">Soleil</text>
+      {[{cx:48,r:3,fill:"#9CA3AF",n:"Me"},{cx:63,r:4,fill:"#FDE68A",n:"Vé"},{cx:82,r:5,fill:"#6EE7F7",n:"Te"},{cx:103,r:4,fill:"#FCA5A5",n:"Ma"},{cx:132,r:11,fill:"#FDE68A",n:"Ju"},{cx:163,r:9,fill:"#FCD34D",n:"Sa"},{cx:196,r:6,fill:"#A7F3D0",n:"Ur"},{cx:222,r:6,fill:"#818CF8",n:"Ne"}].map((p,i)=>(
+        <g key={i}><circle cx={p.cx} cy={45} r={p.r} fill={p.fill} stroke="rgba(0,0,0,0.15)" strokeWidth={0.5}/><text x={p.cx} y={45+p.r+10} textAnchor="middle" fontSize={7} fill="#6B7280">{p.n}</text></g>
+      ))}
+      <ellipse cx={163} cy={45} rx={14} ry={4} fill="none" stroke="#FCD34D" strokeWidth={1.5} opacity={0.6}/>
+    </svg>
+  ),
+  reflexion: (c) => (
+    <svg viewBox="0 0 180 100" width="100%" style={{maxWidth:220,display:"block"}} xmlns="http://www.w3.org/2000/svg">
+      <line x1={0} y1={70} x2={180} y2={70} stroke="#9CA3AF" strokeWidth={2}/>
+      <line x1={90} y1={70} x2={90} y2={8} stroke="#D1D5DB" strokeWidth={1} strokeDasharray="4,3"/>
+      <text x={92} y={14} fontSize={8} fill="#9CA3AF">normale</text>
+      <line x1={25} y1={10} x2={90} y2={70} stroke={c.pri} strokeWidth={2}/>
+      <polygon points="90,70 83,55 96,58" fill={c.pri}/>
+      <line x1={90} y1={70} x2={155} y2={10} stroke={c.pri} strokeWidth={2}/>
+      <polygon points="90,70 94,55 107,63" fill={c.pri}/>
+      <text x={58} y={48} fontSize={9} fill={c.txt} fontWeight="bold">i</text>
+      <text x={118} y={48} fontSize={9} fill={c.txt} fontWeight="bold">r</text>
+      <text x={90} y={86} textAnchor="middle" fontSize={9} fill="#6B7280">i = r</text>
+    </svg>
+  ),
+};
+
+function Table({ data, c }) {
   return (
-    <div style={{ background: "white", border: "1.5px solid #E5E7EB", borderRadius: 12, padding: "1.75rem", display: "flex", flexDirection: "column", gap: 16 }}>
-      <div>
-        <div style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: 10, color: "#9CA3AF" }}>
-          ❓ Question
+    <div style={{ overflowX:"auto", marginBottom:8 }}>
+      <table style={{ borderCollapse:"collapse", fontSize:12, width:"100%" }}>
+        <tbody>
+          {data.map((row, ri) => (
+            <tr key={ri}>
+              {row.map((cell, ci) => (
+                <td key={ci} style={{ border:`1px solid ${c.med}`, padding:"4px 8px", background:ri===0?c.lit:"white", fontWeight:ri===0?600:400, color:c.txt, textAlign:"center", whiteSpace:"nowrap" }}>{cell}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+const KIND_STYLE = {
+  method:  { borderColor:"#185FA5", label:"Méthode",         labelColor:"#0C447C" },
+  example: { borderColor:"#059669", label:"Exemple",          labelColor:"#065F46" },
+  warning: { borderColor:"#D97706", label:"Attention",        labelColor:"#92400E" },
+  bonus:   { borderColor:"#7C3AED", label:"Approfondissement · vu en 4e", labelColor:"#5B21B6" },
+};
+
+function CourseView({ course, c }) {
+  return (
+    <div style={{ display:"flex", flexDirection:"column", gap:10 }}>
+      <p style={{ margin:0, fontSize:14, lineHeight:1.7, color:"#374151", padding:"10px 14px", background:"white", borderRadius:8, border:"1.5px solid #E5E7EB" }}>{course.intro}</p>
+      {course.sections.map((s, i) => {
+        const ks = KIND_STYLE[s.kind];
+        return (
+          <div key={i} style={{ background:"white", border:"1.5px solid #E5E7EB", borderLeft:`4px solid ${ks ? ks.borderColor : "#D1D5DB"}`, borderRadius:"0 8px 8px 0", padding:"12px 14px" }}>
+            {ks && <div style={{ fontSize:9.5, fontWeight:700, color:ks.labelColor, textTransform:"uppercase", letterSpacing:"0.1em", marginBottom:4 }}>{ks.label}</div>}
+            <div style={{ fontSize:13.5, fontWeight:600, color:"#111827", marginBottom:s.table||s.b?6:0 }}>{s.h}</div>
+            {s.table && <Table data={s.table} c={c} />}
+            {s.b && <p style={{ fontSize:12.5, lineHeight:1.85, color:"#374151", margin:0, whiteSpace:"pre-wrap" }}>{s.b}</p>}
+            {s.fig && FIGURES[s.fig] && <div style={{ margin:"10px auto 0", textAlign:"center" }}>{FIGURES[s.fig](c)}</div>}
+          </div>
+        );
+      })}
+      {course.keypoints && course.keypoints.length > 0 && (
+        <div style={{ background:c.lit, border:`1.5px solid ${c.med}`, borderRadius:10, padding:"12px 14px" }}>
+          <div style={{ fontSize:9.5, fontWeight:700, color:c.txt, textTransform:"uppercase", letterSpacing:"0.1em", marginBottom:8 }}>À retenir</div>
+          {course.keypoints.map((k, i) => (
+            <div key={i} style={{ fontSize:12.5, color:c.txt, lineHeight:1.7, display:"flex", gap:6, alignItems:"flex-start", marginBottom:i<course.keypoints.length-1?3:0 }}>
+              <span style={{ flexShrink:0, fontWeight:600 }}>•</span><span>{k}</span>
+            </div>
+          ))}
         </div>
-        <p style={{ fontSize: 16, lineHeight: 1.7, color: "#111827", fontWeight: 600, margin: 0, whiteSpace: "pre-wrap" }}>
-          {card.f}
-        </p>
-      </div>
-      <div style={{ borderTop: `1.5px solid ${c.med}`, paddingTop: 16, background: c.lit, margin: "0 -1.75rem -1.75rem", padding: "16px 1.75rem 1.75rem" }}>
-        <div style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: 10, color: c.txt }}>
-          ✓ Cours
-        </div>
-        <p style={{ fontSize: 13, lineHeight: 1.8, color: c.txt, fontWeight: 400, margin: 0, whiteSpace: "pre-wrap" }}>
-          {card.b}
-        </p>
-      </div>
+      )}
     </div>
   );
 }
@@ -1168,31 +1656,29 @@ JSON EXACT : {"question":"énoncé complet","hint":"indice utile sans donner la 
 
   // ── CARDS VIEW ────────────────────────────────────────────────────────────
   if (screen === "cards-view") {
-    const cs = CARDS[cardsSubj][cardsTopic];
     const cp = P[cardsSubj];
-    const card = cs[cardIdx];
+    const course = CARDS[cardsSubj][cardsTopic];
+    const topics = Object.keys(CARDS[cardsSubj]);
+    const topicIdx = topics.indexOf(cardsTopic);
+    const hasPrev = topicIdx > 0;
+    const hasNext = topicIdx < topics.length - 1;
     return (
       <div style={{ minHeight: "100vh", background: "#F9FAFB", padding: px, fontFamily: "system-ui, -apple-system, sans-serif" }}>
         <div style={{ maxWidth: 580, margin: "0 auto" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: "1.5rem" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: "1rem" }}>
             <button onClick={() => setScreen("cards")} style={{ background: "none", border: "none", color: "#6B7280", cursor: "pointer", fontSize: 13, fontFamily: "inherit", padding: 0 }}>← Retour</button>
             <span style={{ background: cp.lit, color: cp.txt, border: `1px solid ${cp.med}`, borderRadius: 20, padding: "3px 12px", fontSize: 12, fontWeight: 600 }}>{cardsTopic}</span>
+            <span style={{ marginLeft: "auto", fontSize: 12, color: "#9CA3AF" }}>{topicIdx + 1} / {topics.length}</span>
           </div>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
-            <p style={{ margin: 0, fontSize: 13, color: "#9CA3AF" }}>Fiche {cardIdx + 1} / {cs.length}</p>
-            <div style={{ display: "flex", gap: 6 }}>
-              {cs.map((_, i) => <div key={i} style={{ width: 8, height: 8, borderRadius: "50%", background: i === cardIdx ? cp.pri : "#E5E7EB", transition: "background 0.2s" }} />)}
-            </div>
-          </div>
-          <FlashCard key={cardIdx} card={card} c={cp} />
+          <CourseView key={cardsTopic} course={course} c={cp} />
           <div style={{ display: "flex", gap: 10, marginTop: "1.25rem" }}>
-            <button onClick={() => setCardIdx(i => Math.max(0, i - 1))} disabled={cardIdx === 0}
-              style={{ flex: 1, padding: "11px", background: "white", border: "1.5px solid #E5E7EB", borderRadius: 8, color: cardIdx === 0 ? "#D1D5DB" : "#374151", cursor: cardIdx === 0 ? "not-allowed" : "pointer", fontSize: 14, fontFamily: "inherit" }}>
-              ← Précédente
+            <button onClick={() => setCardsTopic(topics[topicIdx - 1])} disabled={!hasPrev}
+              style={{ flex: 1, padding: "11px", background: "white", border: "1.5px solid #E5E7EB", borderRadius: 8, color: hasPrev ? "#374151" : "#D1D5DB", cursor: hasPrev ? "pointer" : "not-allowed", fontSize: 14, fontFamily: "inherit" }}>
+              ← Thème précédent
             </button>
-            <button onClick={() => setCardIdx(i => Math.min(cs.length - 1, i + 1))} disabled={cardIdx === cs.length - 1}
-              style={{ flex: 1, padding: "11px", background: cardIdx === cs.length - 1 ? "#E5E7EB" : cp.pri, border: "none", borderRadius: 8, color: cardIdx === cs.length - 1 ? "#9CA3AF" : "white", cursor: cardIdx === cs.length - 1 ? "not-allowed" : "pointer", fontSize: 14, fontWeight: 600, fontFamily: "inherit" }}>
-              Suivante →
+            <button onClick={() => setCardsTopic(topics[topicIdx + 1])} disabled={!hasNext}
+              style={{ flex: 1, padding: "11px", background: hasNext ? cp.pri : "#E5E7EB", border: "none", borderRadius: 8, color: hasNext ? "white" : "#9CA3AF", cursor: hasNext ? "pointer" : "not-allowed", fontSize: 14, fontWeight: 600, fontFamily: "inherit" }}>
+              Thème suivant →
             </button>
           </div>
         </div>
@@ -1220,12 +1706,12 @@ JSON EXACT : {"question":"énoncé complet","hint":"indice utile sans donner la 
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
             {Object.keys(CARDS[cardsSubj]).map(t => (
-              <button key={t} onClick={() => { setCardsTopic(t); setCardIdx(0); setScreen("cards-view"); }}
+              <button key={t} onClick={() => { setCardsTopic(t); setScreen("cards-view"); }}
                 style={{ padding: "14px 16px", background: "white", border: `1.5px solid ${P[cardsSubj].med}`, borderRadius: 10, cursor: "pointer", textAlign: "left", fontFamily: "inherit", transition: "all 0.15s" }}
                 onMouseEnter={e => { e.currentTarget.style.borderColor = P[cardsSubj].pri; e.currentTarget.style.background = P[cardsSubj].lit; }}
                 onMouseLeave={e => { e.currentTarget.style.borderColor = P[cardsSubj].med; e.currentTarget.style.background = "white"; }}>
                 <div style={{ fontSize: 14, fontWeight: 600, color: P[cardsSubj].txt, marginBottom: 4 }}>{t}</div>
-                <div style={{ fontSize: 11, color: "#9CA3AF" }}>{CARDS[cardsSubj][t].length} fiches</div>
+                <div style={{ fontSize: 11, color: "#9CA3AF" }}>{CARDS[cardsSubj][t].sections.length} sections</div>
               </button>
             ))}
           </div>
@@ -1282,7 +1768,7 @@ JSON EXACT : {"question":"énoncé complet","hint":"indice utile sans donner la 
             <span style={{ fontSize: 22 }}>📚</span>
             <div style={{ textAlign: "left" }}>
               <div style={{ fontSize: 14, fontWeight: 600, color: "#111827" }}>Fiches de révision</div>
-              <div style={{ fontSize: 12, color: "#6B7280", marginTop: 1 }}>Cours synthétisé par thème · {Object.values(CARDS).flatMap(s => Object.values(s)).flat().length} fiches</div>
+              <div style={{ fontSize: 12, color: "#6B7280", marginTop: 1 }}>Cours condensés par thème · {Object.values(CARDS).flatMap(s => Object.keys(s)).length} thèmes</div>
             </div>
           </div>
           <span style={{ color: "#9CA3AF", fontSize: 18 }}>→</span>
