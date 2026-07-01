@@ -7,12 +7,12 @@ const initialState = {
   qData: null, answer: "", answerMode: "text", photo: null,
   showHint: false, feedback: null, loading: false,
   score: 0, streak: 0, count: 0, phase: "q", celebrated: false,
-  cardsSubj: "maths", cardsTopic: null,
-  bankSubj: "maths", bankTopic: null, bankIdx: 0,
+  bankIdx: 0,
   bankShowHint: false, bankShowAnswer: false,
   bankAnswerMode: "text", bankAnswer: "", bankPhoto: null,
   bankFeedback: null, bankChecking: false,
   historyData: null,
+  detailId: null,
 };
 
 function reducer(state, action) {
@@ -52,12 +52,6 @@ function reducer(state, action) {
     case "VALIDATE_ERROR":
       return { ...state, loading: false, phase: "fb",
         feedback: { _ok: false, _half: false, feedback: "Erreur de correction.", correct_answer: "" } };
-
-    case "BANK_SELECT_TOPIC":
-      return { ...state, bankTopic: action.topic, bankIdx: 0,
-        bankShowHint: false, bankShowAnswer: false,
-        bankAnswer: "", bankPhoto: null, bankFeedback: null, bankAnswerMode: "text",
-        screen: "bank-view" };
 
     case "BANK_NAV":
       return { ...state, bankIdx: action.idx,

@@ -4,13 +4,14 @@ import { fetchHistory } from "./lib/api.js";
 import { AppProvider, useAppState } from "./state/AppContext.jsx";
 import LoginScreen from "./components/LoginScreen.jsx";
 import HomeScreen from "./screens/HomeScreen.jsx";
+import TopicListScreen from "./screens/TopicListScreen.jsx";
+import TopicHubScreen from "./screens/TopicHubScreen.jsx";
 import SetupScreen from "./screens/SetupScreen.jsx";
 import QuizScreen from "./screens/QuizScreen.jsx";
-import CardsScreen from "./screens/CardsScreen.jsx";
 import CardsView from "./screens/CardsView.jsx";
-import BankScreen from "./screens/BankScreen.jsx";
 import BankView from "./screens/BankView.jsx";
 import HistoryScreen from "./screens/HistoryScreen.jsx";
+import AttemptDetailScreen from "./screens/AttemptDetailScreen.jsx";
 
 function AppInner() {
   const { state, dispatch } = useAppState();
@@ -48,13 +49,14 @@ function AppInner() {
   }
   if (!authed) return <LoginScreen onSuccess={() => dispatch({ type: "SET", payload: { authed: true } })} />;
 
-  if (screen === "bank-view")  return <BankView />;
-  if (screen === "bank")       return <BankScreen />;
+  if (screen === "topics")  return <TopicListScreen />;
+  if (screen === "topic")   return <TopicHubScreen />;
   if (screen === "cards-view") return <CardsView />;
-  if (screen === "cards")      return <CardsScreen />;
-  if (screen === "setup")      return <SetupScreen />;
-  if (screen === "history")    return <HistoryScreen />;
-  if (screen === "home")       return <HomeScreen />;
+  if (screen === "bank-view")  return <BankView />;
+  if (screen === "setup")   return <SetupScreen />;
+  if (screen === "history") return <HistoryScreen />;
+  if (screen === "attempt") return <AttemptDetailScreen />;
+  if (screen === "home")    return <HomeScreen />;
   return <QuizScreen />;
 }
 
