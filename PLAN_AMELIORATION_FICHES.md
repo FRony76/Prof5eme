@@ -73,7 +73,7 @@ Notes : **A** = au standard (ne pas toucher) · **B** = actions mineures · **C*
 | # | Lot | Fiches | Statut | Date | Commit |
 |---|-----|--------|--------|------|--------|
 | Q1 | Physique C | États de la matière, Mélanges et solutions, Le son, Mouvement et vitesse, L'énergie, Acidité et pH, Composition de l'air | ✅ | 01/07/2026 | (voir git log) |
-| Q2 | Maths C + B | Fonctions, La lumière*, Proportionnalité, Repérage, Géométrie, Symétrie centrale, Parallélogrammes | ⬜ | | |
+| Q2 | Maths C + B | Fonctions, La lumière*, Proportionnalité, Repérage, Géométrie, Symétrie centrale, Parallélogrammes | ✅ | 01/07/2026 | (voir git log) |
 | Q3 | Finitions B + contrôle | Solides et volumes, Statistiques, Masse et volume, Le système solaire + relecture croisée de Q1/Q2 + bump `APP_VERSION` | ⬜ | | |
 
 \* La lumière est classée avec Q2 pour équilibrer les lots (7 fiches chacun).

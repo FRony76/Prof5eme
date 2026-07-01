@@ -82,7 +82,7 @@ export const CARDS = {
         {h:"Tableau de proportionnalité",b:"Coefficient k = y÷x (constant pour chaque colonne)",table:[["x","2","5","8"],["y","6","15","24"]],},
         {h:"Vérification et règle de trois",kind:"method",b:"Vérification : produits en croix égaux\n2×15 = 5×6 = 30 ✓\n\nRègle de trois (valeur manquante ?) :\n3 correspond à 5 ; ? correspond à 20\n3×20 = 5×?  →  ? = 60÷5 = 12"},
         {h:"Notation ratio",kind:"method",b:"« a : b » se lit « a pour b » — les quantités sont proportionnelles à a et b.\n\nSirop et eau dans le ratio 1:4\n→ 1 part de sirop pour 4 parts d'eau (5 parts en tout)\n\nPartager 30 € dans le ratio 2:3 :\n2+3 = 5 parts → 1 part = 30÷5 = 6 €\n→ 2×6 = 12 € et 3×6 = 18 €"},
-        {h:"Pourcentages",kind:"method",b:"p% de A = (p÷100)×A\n20% de 150 = 0,20×150 = 30\n\nAugmenter de p% → multiplier par (1 + p/100)\n   +15% → ×1,15  ;  200×1,15 = 230\n\nDiminuer de p% → multiplier par (1 − p/100)\n   −20% → ×0,80  ;  200×0,80 = 160"},
+        {h:"Pourcentages",kind:"method",b:"p% de A = (p÷100)×A\n20% de 150 = 0,20×150 = 30\n\nAugmenter de p% → multiplier par (1 + p/100)\n   +15% → ×1,15  ;  200×1,15 = 230\n\nDiminuer de p% → multiplier par (1 − p/100)\n   −20% → ×0,80  ;  200×0,80 = 160\n\n⚠ Erreur classique : deux réductions de 30% PUIS 20% NE FONT PAS 50% !\n×0,7 puis ×0,8 = ×0,56 → c'est une baisse de 44%, pas 50%\n(chaque réduction s'applique sur le prix déjà réduit, pas sur le prix initial)"},
         {h:"Échelle et vitesse moyenne",kind:"example",b:"Carte à l'échelle 1/50 000\nDistance carte = 3 cm  →  Réelle = 3×50 000 = 1,5 km\n\nVitesse moyenne : v = d÷t (proportionnelle si v const)\n150 km en 2h → v = 75 km/h"}
       ],
       keypoints:["Coefficient k = y÷x (même pour toutes les colonnes)","Produits en croix pour vérifier ou trouver une valeur","p% de A = (p÷100)×A ; augmenter de p% = ×(1+p/100)"]
@@ -90,9 +90,10 @@ export const CARDS = {
     "Fonctions":{
       intro:"Une fonction décrit comment une grandeur dépend d'une autre. Elle associe à chaque valeur x une valeur unique y.",
       sections:[
-        {h:"Notion de fonction",b:"f(x) = expression ; on dit y=f(x) ou 'y en fonction de x'\n\nEx : Prix du pain à 1,50€/kg\n→ P(m) = 1,5×m\nP(2) = 3€  (pour 2 kg, on paye 3€)\n\nTableau de valeurs :",table:[["x (kg)","0","1","2","4"],["y = P(x)","0€","1,50€","3€","6€"]]},
+        {h:"Notion de fonction",b:"f(x) = expression ; on dit y=f(x) ou 'y en fonction de x'\n\nEx : Prix du pain à 1,50€/kg\n→ P(m) = 1,5×m\nP(2) = 3€  (pour 2 kg, on paye 3€)\n\n⚠ f(x) est une NOTATION, pas une multiplication : f(x) ≠ f × x !\nOn lit « f de x », pas « f fois x ».\n\nTableau de valeurs :",table:[["x (kg)","0","1","2","4"],["y = P(x)","0€","1,50€","3€","6€"]]},
         {h:"Représentation graphique",b:"Dans un repère orthogonal :\n→ abscisse (x) : axe horizontal\n↑ ordonnée (y) : axe vertical\n\nPoint A(3;2) → avancer de 3 sur x, monter de 2 sur y\n\nFonction proportionnelle → droite passant par l'ORIGINE O",fig:"repereXY"},
-        {h:"Lecture graphique",kind:"method",b:"Lire f(a) : tracer x=a, lire y sur la courbe\nRésoudre f(x)=b : tracer y=b, lire x sur la courbe\n\nEx : f(3) = ? → point de la courbe à x=3, lire y\nEx : f(x) = 6 → chercher x tel que la courbe atteint y=6"}
+        {h:"Lecture graphique",kind:"method",b:"Lire f(a) : tracer x=a, lire y sur la courbe\nRésoudre f(x)=b : tracer y=b, lire x sur la courbe\n\nEx : f(3) = ? → point de la courbe à x=3, lire y\nEx : f(x) = 6 → chercher x tel que la courbe atteint y=6"},
+        {h:"Exemple",kind:"example",b:"Location de vélo : f(x) = 3×x + 2 (x = nombre d'heures, en €)\n\nf(2) = 3×2+2 = 8 € (pour 2 heures)\nf(5) = 3×5+2 = 17 € (pour 5 heures)\n\n💡 Chaque valeur de x donne UNE SEULE valeur de f(x) : c'est la définition d'une fonction."}
       ],
       keypoints:["f(x) = valeur de y pour l'entrée x","Graphique : point (x ; f(x)) dans le repère","Droite passant par O → situation proportionnelle (k = pente)"]
     },
@@ -102,7 +103,8 @@ export const CARDS = {
         {h:"Droite graduée",b:"Origine O (abscisse 0), une unité, sens positif →\nAbscisse d'un point = sa position sur la droite\n\nPoint A d'abscisse 3,5 → entre 3 et 4, à mi-chemin\nPoint B d'abscisse −2 → à gauche de 0\n\nMilieu de [AB] : x_M = (x_A + x_B) ÷ 2"},
         {h:"Repère orthogonal",b:"Deux axes ⊥ qui se croisent en l'origine O(0;0)\n→ axe des abscisses (x, horizontal)\n↑ axe des ordonnées (y, vertical)\n\nPoint M(4;2) :\n1. Avancer de 4 sur x (horizontalement)\n2. Monter de 2 sur y (verticalement)",fig:"repereXY"},
         {h:"Placer et lire",kind:"method",b:"Placer A(3;−2) :\n→ aller à x=3 ; descendre de 2 (y négatif)\n\nLire un point P :\n→ verticale → lire x sur l'axe horizontal\n→ horizontale → lire y sur l'axe vertical"},
-        {h:"Milieu d'un segment",kind:"method",b:"Milieu M de [AB], avec A(x₁;y₁) et B(x₂;y₂) :\n\nx_M = (x_A + x_B) ÷ 2\ny_M = (y_A + y_B) ÷ 2\n\nEx : A(2;4) et B(6;2) → M(4;3)"}
+        {h:"Milieu d'un segment",kind:"method",b:"Milieu M de [AB], avec A(x₁;y₁) et B(x₂;y₂) :\n\nx_M = (x_A + x_B) ÷ 2\ny_M = (y_A + y_B) ÷ 2\n\nEx : A(2;4) et B(6;2) → M(4;3)"},
+        {h:"Erreur classique",kind:"warning",b:"⚠ (3;5) et (5;3) ne sont PAS le même point !\nL'ordre compte toujours : (abscisse ; ordonnée) = (x ; y)\n\nA(3;5) : avancer de 3, monter de 5 → proche de l'axe des ordonnées\nB(5;3) : avancer de 5, monter de 3 → proche de l'axe des abscisses\n\nCes deux points sont symétriques par rapport à la droite y=x, mais bien distincts."}
       ],
       keypoints:["On note toujours (abscisse ; ordonnée) = (x ; y)","Milieu : moyenne des abscisses et des ordonnées","Axe horizontal = x (abscisses) ; axe vertical = y (ordonnées)"]
     },
@@ -110,7 +112,7 @@ export const CARDS = {
       intro:"La géométrie de 5e couvre les angles, les triangles, les droites parallèles et les formules d'aires et périmètres.",
       sections:[
         {h:"Angles dans un triangle",b:"La somme des angles d'un triangle vaut toujours 180°.\n\nÉquilatéral → 3 angles de 60°\nIsocèle → 2 angles égaux à la base\nRectangle → un angle de 90° ; les deux autres sont complémentaires (somme=90°)",fig:"triangleAngles"},
-        {h:"Droites parallèles et angles",b:"Deux droites parallèles coupées par une sécante :\n\n• Angles alternes-internes : égaux (forme en Z)\n• Angles correspondants : égaux (même position, même côté)\n\nRéciproque : angles alternes-internes égaux → droites parallèles",fig:"anglesParalleles"},
+        {h:"Droites parallèles et angles",b:"Deux droites parallèles coupées par une sécante :\n\n• Angles alternes-internes : égaux (forme en Z)\n• Angles correspondants : égaux (même position, même côté)\n\nRéciproque : angles alternes-internes égaux → droites parallèles\n\n💡 Exemple : un portail à deux battants parallèles, traversé par une diagonale.\nL'angle en bas mesure 55° ; par angles alternes-internes,\nl'angle correspondant en haut, de l'autre côté, mesure aussi 55°.",fig:"anglesParalleles"},
         {h:"Droites remarquables du triangle",b:"Médiatrice d'un côté : ⊥ passant par son milieu\n→ les 3 médiatrices se croisent au centre du cercle circonscrit\n\nHauteur : ⊥ à un côté, passant par le sommet opposé\nMédiane : sommet → milieu du côté opposé\nBissectrice : divise un angle en 2 angles égaux"},
         {h:"Pythagore",kind:"bonus",b:"▶ APPROFONDISSEMENT — VU EN 4e ◀\nTriangle rectangle en C :\nAB² = AC² + BC²  (AB = hypoténuse)\n\nEx : AC=3, BC=4 → AB²=9+16=25 → AB=5\nRéciproque : si AB²=AC²+BC² → angle droit en C"},
         {h:"Aires et périmètres",kind:"method",b:"Rectangle : P=2(L+l)  A=L×l\nTriangle : A=(base×hauteur)÷2\nDisque : P=2πr  A=πr²\nParallélogramme : A=base×hauteur\n\n💡 La hauteur est TOUJOURS ⊥ à la base !"}
@@ -134,7 +136,8 @@ export const CARDS = {
         {h:"Définition",b:"O est le centre de symétrie.\nA' est le symétrique de A par rapport à O si O est le milieu de [AA'].\n\nConstruction :\n1. Tracer la droite (AO)\n2. Mesurer OA\n3. Placer A' de l'autre côté de O, à la même distance OA",fig:"symetrieCentrale"},
         {h:"Propriétés conservées",b:"La symétrie centrale conserve :\n✓ les longueurs (A'B' = AB)\n✓ les angles\n✓ les aires\n✓ le parallélisme\n\nLe symétrique d'un segment est un segment de même longueur, parallèle à l'original."},
         {h:"Construire le symétrique d'une figure",kind:"method",b:"Pour ABCD symétrique par rapport à O :\n→ construire A', B', C', D' (chacun avec O = milieu)\n→ A'B'C'D' est la figure image\n\nUn point situé sur O est son propre symétrique."},
-        {h:"Exemple dans un repère",kind:"example",b:"A(2;3) symétrique par rapport à O(0;0) :\nO milieu de [AA'] → x_A' = 2×0−2 = −2 ; y_A' = 2×0−3 = −3\nA'(−2;−3)\nVérif : milieu de A(2;3) et A'(−2;−3) = ((2−2)/2;(3−3)/2) = (0;0) = O ✓"}
+        {h:"Exemple dans un repère",kind:"example",b:"A(2;3) symétrique par rapport à O(0;0) :\nO milieu de [AA'] → x_A' = 2×0−2 = −2 ; y_A' = 2×0−3 = −3\nA'(−2;−3)\nVérif : milieu de A(2;3) et A'(−2;−3) = ((2−2)/2;(3−3)/2) = (0;0) = O ✓"},
+        {h:"Ne pas confondre avec la symétrie axiale",kind:"warning",b:"⚠ Symétrie CENTRALE (demi-tour autour d'un point O) ≠ symétrie AXIALE (miroir autour d'une droite) !\n\nMini-exemple discriminant : imagine la lettre F\n→ symétrie centrale : F retournée (comme une rotation de 180°)\n→ symétrie axiale : F inversée comme dans un miroir\n\nAstuce : la symétrie centrale NE change PAS l'orientation ; l'axiale l'inverse."}
       ],
       keypoints:["O = milieu de [AA'] (condition fondamentale)","Conserve longueurs, angles, aires","Demi-tour de 180° autour de O"]
     },
@@ -155,7 +158,8 @@ export const CARDS = {
         {h:"Définition et propriétés",b:"ABCD parallélogramme ⟺ (AB ∥ DC) et (AD ∥ BC)\n\nConséquences :\n• AB = DC et AD = BC (côtés opposés de même longueur)\n• Â = Ĉ et B̂ = D̂ (angles opposés égaux)\n• Diagonales [AC] et [BD] se coupent en leur milieu I",fig:"parallelogramme"},
         {h:"Parallélogrammes particuliers",b:"RECTANGLE = parallélogramme + angle droit\n→ 4 angles droits, diagonales de même longueur\n\nLOSANGE = parallélogramme + 4 côtés égaux\n→ diagonales perpendiculaires (se coupent à 90°)\n\nCARRÉ = rectangle ET losange\n→ 4 côtés égaux, 4 angles droits, diagonales = et ⊥"},
         {h:"Aire",kind:"method",b:"Aire = base × hauteur\n⚠ La hauteur est PERPENDICULAIRE à la base\n(pas un côté oblique !)\n\nEx : base=8 cm, hauteur=5 cm → A=40 cm²\n\nRectangle : A = L×l  ;  Carré : A = c²"},
-        {h:"Construire un parallélogramme",kind:"method",b:"Méthode des diagonales (la plus simple) :\nSi I = milieu de [AC], construire D tel que I = milieu de [BD]\n→ ABCD est un parallélogramme car ses diagonales se coupent en leur milieu."}
+        {h:"Construire un parallélogramme",kind:"method",b:"Méthode des diagonales (la plus simple) :\nSi I = milieu de [AC], construire D tel que I = milieu de [BD]\n→ ABCD est un parallélogramme car ses diagonales se coupent en leur milieu."},
+        {h:"Exemple",kind:"example",b:"Un parallélogramme a pour côtés 9 cm et 6 cm ; la hauteur relative au côté de 9 cm mesure 4 cm.\n\nPérimètre = 2×(9+6) = 30 cm\nAire = base × hauteur = 9×4 = 36 cm²\n\n⚠ Piège : la hauteur (4 cm) est PERPENDICULAIRE à la base,\nce n'est PAS le côté oblique (6 cm) !"}
       ],
       keypoints:["Diagonales se coupent en leur milieu (propriété caractéristique)","Carré = rectangle + losange","Aire = base × hauteur (hauteur toujours ⊥ à la base)"]
     },
@@ -209,6 +213,7 @@ export const CARDS = {
       sections:[
         {h:"Propagation",b:"• Se propage EN LIGNE DROITE dans un milieu homogène (rectilinéarité)\n• Vitesse dans le vide : c = 3×10⁸ m/s = 300 000 km/s\n\nSource primaire (lumineuse) : émet sa propre lumière\n→ Soleil, ampoule, bougie, écran\n\nObjet diffusant (éclairé) : renvoie la lumière reçue\n→ Lune, feuille, mur"},
         {h:"Ombres et éclipses",b:"Ombre propre : zone sombre de l'objet lui-même\nOmbre portée : zone sombre projetée derrière l'objet\nPénombre : zone partiellement éclairée (source étendue)\n\nÉclipse de Soleil : Lune entre Terre et Soleil\n→ La Lune projette son ombre sur la Terre\n\nÉclipse de Lune : Terre entre Soleil et Lune\n→ La Lune entre dans l'ombre de la Terre"},
+        {h:"Exemple",kind:"example",b:"La distance Terre-Lune est d'environ 384 000 km. Combien de temps met la lumière pour la parcourir ?\n\nt = d÷v = 384 000 ÷ 300 000 = 1,28 s\n\n⚠ La lumière est quasi instantanée à notre échelle (300 000 km/s),\ncontrairement au son (≈340 m/s dans l'air) : c'est pourquoi on voit l'éclair\nbien avant d'entendre le tonnerre lors d'un orage."},
         {h:"Réflexion",kind:"bonus",b:"▶ APPROFONDISSEMENT — VU EN 4e ◀\n\nLa lumière rebondit sur une surface.\n\nLoi de la réflexion :\nangle d'incidence (i) = angle réfléchi (r)\n(mesurés par rapport à la NORMALE à la surface)\n\nMiroir plan (surface polie) → réflexion spéculaire\nSurface rugueuse → réflexion diffuse",fig:"reflexion"},
         {h:"Réfraction",kind:"bonus",b:"▶ APPROFONDISSEMENT — VU EN 4e ◀\n\nChangement de direction au passage d'un milieu transparent à un autre (air→eau, verre…)\n\n→ Se rapproche de la normale en entrant dans un milieu plus dense\n→ S'en éloigne en passant vers un milieu moins dense\n\nApplications : lunettes, lentilles, fibre optique"}
       ],
