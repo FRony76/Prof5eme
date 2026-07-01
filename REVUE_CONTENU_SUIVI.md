@@ -14,7 +14,7 @@ Instructions : voir `PLAN_REVUE_CONTENU.md`. Statuts : ⬜ à faire · 🔶 en c
 | 5 | Physique A — matière & lumière (Lumière, États de la matière, Mélanges, Masse et volume, Acidité et pH, Composition de l'air) | ✅ | 01/07/2026 | 0 (69 exercices + 6 fiches conformes) | (voir git log) |
 | 6 | Physique B — énergie & signaux (Son, Électricité, Mouvement et vitesse, Énergie, Système solaire) | ✅ | 01/07/2026 | 1 (typo « merculienne » + phrase confuse) | (voir git log) |
 | 7 | Mixte (6 thèmes, exercices uniquement) | ✅ | 01/07/2026 | 0 (90 exercices conformes) | (voir git log) |
-| 8 | Transversal & bilan | ⬜ | | | |
+| 8 | Transversal & bilan | ✅ | 01/07/2026 | 0 (vérifications transversales, aucune anomalie) | (voir git log) |
 
 ## Journal des corrections
 
@@ -55,4 +55,43 @@ Analyse programme faite en session 0 (référence : programme maths 2026 + repè
 
 ## Bilan final (session 8)
 
-_(à rédiger)_
+### Résumé du chantier
+
+8 sessions exécutées sur `fix/revue-contenu` (branche partie de `master`). **463 exercices** et **28 fiches de cours** relus intégralement, chaque calcul recalculé de façon indépendante avant comparaison à la réponse fournie.
+
+### Corrections effectuées (5 erreurs réelles trouvées et corrigées)
+
+1. Fiche Durées : erreur de calcul horaire (14h25+1h47).
+2. Fiche Proportionnalité : notation de pourcentage fausse pour p≥10.
+3. Exercice Symétrie centrale (lvl2) : énoncé ambigu, réécrit.
+4. Exercice Durées (lvl2, bus) : même bug horaire que la fiche, dupliqué dans les exercices — corrigé.
+5. Exercice Le système solaire (lvl3) : coquille « merculienne »/« mercurienne » + phrase de conclusion confuse — corrigée.
+
+Taux d'erreur constaté : 5 sur ~600 items (fiches + exercices), très majoritairement des exercices et fiches déjà exacts. Le contenu généré était globalement fiable.
+
+### Marquages programme appliqués (13 sections + 1 module)
+
+Conformément au tableau « Verdict par module » : Fractions (2 sections), Nombres relatifs (1), Puissances (1), Calcul littéral (1), Équations (1), Statistiques (1 section + 1 parenthèse), La lumière (2), Le son (2), Électricité (2 parenthèses, sans bonus) + Composition de l'air (bandeau module entier). Tous vérifiés présents dans `cards.js` en fin de chantier.
+
+### Décisions en attente (non traitées, nécessitent ton arbitrage)
+
+- **Fiche « Fonctions »** (maths) : notation f(x)/lecture graphique = programme de 3ème. Non touchée.
+- **Fiche « Acidité et pH »** (physique) : le pH relève du programme de 3ème. Non touchée.
+- Voir les options détaillées dans la section « À arbitrer » ci-dessus.
+
+### Manques vs programme officiel (listés, rien créé — chantier séparé)
+
+Maths : fiche Triangles (inégalité triangulaire, constructions), volume du prisme droit, fiche Priorités opératoires/automatismes, notation ratio, Scratch (hors périmètre appli).
+Physique : interactions (contact/distance), solubilité/saturation.
+Thèmes sous les 15 exercices standard : Divisibilité (9), Symétrie axiale (8), Durées (8), Masse et volume (8), Acidité et pH (8), Composition de l'air (8), Système solaire (9).
+
+### Cohérence CARDS ↔ EXERCISES (vérifiée en session 8)
+
+`CARDS` ne contient que `maths` et `physique` (pas de fiches pour les 6 thèmes `mixte`). Vérification du code : [CardsScreen.jsx](src/screens/CardsScreen.jsx) n'expose que les onglets `["maths", "physique"]` — le thème `mixte` n'est jamais utilisé pour indexer `CARDS`, aucun risque de crash. [BankScreen.jsx](src/screens/BankScreen.jsx) propose bien `["maths", "physique", "mixte"]` pour les exercices (`EXERCISES` a une clé `mixte`). Comportement du code cohérent, aucun correctif nécessaire.
+
+### Vérifications finales
+
+- Parse OK : 2 matières dans `CARDS`, 463 exercices dans `EXERCISES` (inchangé — aucune suppression/ajout, seulement 2 réécritures d'énoncés).
+- `npm run lint` : 0 erreur (2 warnings préexistants, sans rapport avec le contenu).
+- `npm test` : 17/17 verts à chaque session.
+- `APP_VERSION` bumpée de "2.0" à "2.1" dans `src/constants.js`.
