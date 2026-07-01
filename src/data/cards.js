@@ -5,9 +5,9 @@ export const CARDS = {
       sections:[
         {h:"Vocabulaire",b:"• Numérateur (en HAUT) : nombre de parts prises\n• Dénominateur (en BAS) : nombre de parts au total\n\nFraction irréductible : simplifiée au maximum, PGCD(a,b) = 1\nEx : 6/8 = 3/4 (÷2)  ;  12/18 = 2/3 (÷6)",fig:"fractionBar"},
         {h:"Addition et soustraction",kind:"method",b:"► Même dénominateur → opérer les numérateurs :\n   2/7 + 3/7 = 5/7\n\n► Dénominateurs différents :\n   1. Trouver le PPCM   2. Convertir   3. Additionner\n\nEx : 1/3 + 1/4\n   PPCM(3,4) = 12\n   1/3 = 4/12  et  1/4 = 3/12  →  7/12"},
-        {h:"Multiplication",kind:"method",b:"Numérateur × Numérateur\nDénominateur × Dénominateur\n\n   2/3 × 4/5 = 8/15\n\n💡 Simplifier AVANT de multiplier si possible :\n   3/8 × 4/9 : 3 et 9 (÷3), 4 et 8 (÷4)  → 1/2 × 1/3 = 1/6"},
+        {h:"Multiplication",kind:"bonus",b:"▶ APPROFONDISSEMENT — VU EN 4e ◀\n\nNumérateur × Numérateur\nDénominateur × Dénominateur\n\n   2/3 × 4/5 = 8/15\n\n💡 Simplifier AVANT de multiplier si possible :\n   3/8 × 4/9 : 3 et 9 (÷3), 4 et 8 (÷4)  → 1/2 × 1/3 = 1/6"},
         {h:"Comparer deux fractions",kind:"method",b:"Méthode 1 — même dénominateur :\n   3/4 et 2/3 → 9/12 et 8/12 → 3/4 > 2/3\n\nMéthode 2 — produits croisés :\n   a/b ? c/d  : comparer a×d et b×c\n   3×3=9  et  4×2=8  →  9>8  →  3/4 > 2/3"},
-        {h:"Exemple",kind:"example",b:"Recette pour 6 pers. : 3/4 L de lait.\nPour 8 pers. : 3/4 ÷ 6 × 8 = 3/4 × 8/6 = 24/24 = 1 L"}
+        {h:"Exemple",kind:"bonus",b:"▶ APPROFONDISSEMENT — VU EN 4e ◀\n\nRecette pour 6 pers. : 3/4 L de lait.\nPour 8 pers. : 3/4 ÷ 6 × 8 = 3/4 × 8/6 = 24/24 = 1 L"}
       ],
       keypoints:["Simplifier le résultat final (chercher le PGCD)","Pour + et − : mettre au même dénominateur (PPCM)","Pour × : num×num, dén×dén (simplifier avant)"]
     },
@@ -17,7 +17,7 @@ export const CARDS = {
         {h:"Définition et droite graduée",b:"• Signe + → à droite de zéro\n• Signe − → à gauche de zéro\n\nValeur absolue = distance à 0 (toujours positive)\n|−7| = 7   |+4| = 4   |0| = 0\n\nOrdre : −5 < −2 < 0 < +3 < +7",fig:"droiteNombres"},
         {h:"Addition",kind:"method",b:"Même signe → garder le signe + additionner :\n   (+4)+(+3) = +7\n   (−5)+(−2) = −7\n\nSignes différents → signe du plus grand |  |, soustraire :\n   (+7)+(−3) = +4   (7−3, positif l'emporte)\n   (−8)+(+5) = −3   (8−5, négatif l'emporte)"},
         {h:"Soustraction",kind:"method",b:"Règle : a − b = a + (−b)\nSoustraire = ajouter l'opposé\n\n   (+5)−(−3) = (+5)+(+3) = +8\n   (−2)−(+4) = (−2)+(−4) = −6\n   (−6)−(−9) = (−6)+(+9) = +3"},
-        {h:"Multiplication et division",kind:"warning",b:"Signes identiques → résultat POSITIF :\n   (−3)×(−4) = +12\n   (+6)×(+2) = +12\n\nSignes différents → résultat NÉGATIF :\n   (−3)×(+4) = −12\n   (+6)×(−2) = −12"},
+        {h:"Multiplication et division",kind:"bonus",b:"▶ APPROFONDISSEMENT — VU EN 4e ◀\n\nSignes identiques → résultat POSITIF :\n   (−3)×(−4) = +12\n   (+6)×(+2) = +12\n\nSignes différents → résultat NÉGATIF :\n   (−3)×(+4) = −12\n   (+6)×(−2) = −12"},
         {h:"Exemple",kind:"example",b:"Température : −4°C le matin, hausse de 9°C\n→ −4 + 9 = +5°C\n\nErreur classique : (−3)² = (−3)×(−3) = +9 (pas −9 !)"}
       ],
       keypoints:["Valeur absolue = distance à 0, toujours ≥ 0","Pour la soustraction : ajouter l'opposé","Signes identiques × ou ÷ → positif ; différents → négatif"]
@@ -39,7 +39,7 @@ export const CARDS = {
         {h:"Définition",b:"aⁿ = a × a × a × … × a  (n fois)\na = base  ;  n = exposant\n\na² = carré de a  ;  a³ = cube de a\n\nEx : 5² = 25  ;  4³ = 64  ;  10³ = 1 000\n⚠ a² ≠ a×2  !  (5² = 25, pas 10)"},
         {h:"Carrés et cubes à connaître",b:"0²=0  1²=1  2²=4  3²=9  4²=16\n5²=25  6²=36  7²=49  8²=64  9²=81\n10²=100  11²=121  12²=144\n\nCubes : 2³=8  3³=27  4³=64  5³=125  10³=1000"},
         {h:"Priorités opératoires",kind:"warning",b:"Les puissances se calculent AVANT × ÷, qui se calculent AVANT + −.\n\n3 + 2² = 3 + 4 = 7        [pas (3+2)²]\n(3+2)² = 5² = 25\n2 × 3² = 2 × 9 = 18       [pas (2×3)²]\n(2×3)² = 6² = 36"},
-        {h:"Puissances de 10",b:"10¹=10  10²=100  10³=1 000  10⁶=1 000 000\n\nNotation scientifique : 3×10⁴ = 30 000\n\nPuissances négatives :\n10⁻¹ = 0,1 = 1/10  ;  10⁻² = 0,01"},
+        {h:"Puissances de 10",kind:"bonus",b:"▶ APPROFONDISSEMENT — VU EN 4e ◀\n\n10¹=10  10²=100  10³=1 000  10⁶=1 000 000\n\nNotation scientifique : 3×10⁴ = 30 000\n\nPuissances négatives :\n10⁻¹ = 0,1 = 1/10  ;  10⁻² = 0,01"},
         {h:"Exemple",kind:"example",b:"Pour x=3, calculer 2x² + x − 1\n= 2×9 + 3 − 1 = 18 + 3 − 1 = 20\n⚠ 2x² = 2×(x²), PAS (2x)²"}
       ],
       keypoints:["aⁿ = a multiplié n fois par lui-même","Puissances avant × ÷ + − (priorités)","Connaître les carrés de 0² à 12² par cœur"]
