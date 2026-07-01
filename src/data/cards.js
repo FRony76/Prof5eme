@@ -220,7 +220,7 @@ export const CARDS = {
       keypoints:["ρ = m÷V en g/cm³ (masse volumique)","ρ(eau) = 1 g/cm³ (valeur de référence)","ρ_objet < ρ_liquide → flotte ; ρ_objet > ρ_liquide → coule"]
     },
     "Acidité et pH":{
-      intro:"Le pH est une grandeur sans unité qui mesure l'acidité ou la basicité d'une solution aqueuse, sur une échelle de 0 à 14.",
+      intro:"▶ APPROFONDISSEMENT — VU EN 3e ◀ Le pH est une grandeur sans unité qui mesure l'acidité ou la basicité d'une solution aqueuse, sur une échelle de 0 à 14.",
       sections:[
         {h:"L'échelle de pH",b:"pH < 7 : solution ACIDE (plus c'est bas, plus c'est acide)\npH = 7 : solution NEUTRE (eau pure à 25°C)\npH > 7 : solution BASIQUE (alcaline)\n\n⚠ L'échelle est logarithmique : pH 5 est 10× plus acide que pH 6",fig:"echellePHFig"},
         {h:"Exemples courants",b:"pH ≈ 1-2 : acide chlorhydrique, suc gastrique\npH ≈ 3 : jus de citron, vinaigre\npH ≈ 5 : café, pluie acide normale\npH ≈ 7 : eau pure, eau du robinet\npH ≈ 9 : bicarbonate de soude\npH ≈ 11 : ammoniaque\npH ≈ 14 : soude concentrée (NaOH)"},

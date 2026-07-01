@@ -47,11 +47,11 @@ Analyse programme faite en session 0 (référence : programme maths 2026 + repè
 - Thèmes avec moins de 15 exercices : Divisibilité (9), Symétrie axiale (8), Durées (8), Masse et volume (8), Acidité et pH (8), Composition de l'air (8), Système solaire (9).
 - Les 6 thèmes mixtes n'ont pas de fiche de cours (comportement attendu, à confirmer côté UI en session 8).
 
-## À arbitrer (doutes pédagogiques — ne pas modifier sans décision)
+## Arbitrages (tranchés par l'utilisateur le 01/07/2026)
 
-- **Fiche « Fonctions » (maths)** : la notation f(x) et la lecture graphique relèvent de la 3ème. Options : (a) bandeau « APPROFONDISSEMENT » global, (b) recentrer la fiche sur « graphiques et proportionnalité » (niveau 5ème), (c) garder telle quelle en anticipation assumée. Les 15 exercices du thème sont aussi concernés.
-- **Fiche « Acidité et pH » (physique)** : le pH relève de la 3ème. Mêmes options (bandeau global / garder en anticipation assumée). Les 8 exercices du thème sont aussi concernés.
-- **Fiche « Composition de l'air » (physique)** : relève de la 4ème — bandeau « VU EN 4e » prévu en session 5, sauf avis contraire.
+- **Fiche « Fonctions » (maths)** : gardée telle quelle (anticipation assumée sur la 3ème, aucune modification).
+- **Fiche « Acidité et pH » (physique)** : bandeau « ▶ APPROFONDISSEMENT — VU EN 3e ◀ » ajouté en tête de l'intro (Cas 2, module entier — même traitement que Composition de l'air).
+- **Fiche « Composition de l'air » (physique)** : bandeau « VU EN 4e » appliqué en session 5.
 
 ## Bilan final (session 8)
 
