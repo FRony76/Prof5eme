@@ -44,6 +44,16 @@ export const CARDS = {
       ],
       keypoints:["aⁿ = a multiplié n fois par lui-même","Puissances avant × ÷ + − (priorités)","Connaître les carrés de 0² à 12² par cœur"]
     },
+    "Priorités opératoires":{
+      intro:"Dans un calcul, les opérations ne s'effectuent pas de gauche à droite : il existe un ordre de priorité strict à respecter.",
+      sections:[
+        {h:"L'ordre de priorité",kind:"method",b:"1. PARENTHÈSES (de l'intérieur vers l'extérieur)\n2. PUISSANCES (carrés, cubes)\n3. MULTIPLICATIONS et DIVISIONS\n4. ADDITIONS et SOUSTRACTIONS\n\n7 + 3 × 4 = 7 + 12 = 19   [pas 40 !]\n20 − 8 ÷ 2 = 20 − 4 = 16"},
+        {h:"Rôle des parenthèses",b:"Les parenthèses forcent l'ordre du calcul :\n(7 + 3) × 4 = 10 × 4 = 40\n\nImbriquées → commencer par l'intérieur :\n2 × (10 − (4+3)) = 2 × (10−7) = 2 × 3 = 6"},
+        {h:"Priorité égale : de gauche à droite",kind:"warning",b:"Suite de + et − (ou de × et ÷) → calculer de GAUCHE à DROITE :\n\n12 − 5 + 2 = 7 + 2 = 9   [pas 12−7=5 !]\n24 ÷ 4 × 2 = 6 × 2 = 12   [pas 24÷8=3 !]"},
+        {h:"Exemple complet",kind:"example",b:"5 + 3 × (8 − 2)² ÷ 4\n= 5 + 3 × 6² ÷ 4    (parenthèse d'abord)\n= 5 + 3 × 36 ÷ 4    (puis la puissance)\n= 5 + 108 ÷ 4 = 5 + 27    (× et ÷ de gauche à droite)\n= 32"}
+      ],
+      keypoints:["Parenthèses → puissances → × ÷ → + −","À priorité égale : de gauche à droite","En cas de doute, ajouter des parenthèses pour clarifier"]
+    },
     "Calcul littéral":{
       intro:"Le calcul littéral utilise des lettres (variables) pour généraliser des calculs et exprimer des relations entre grandeurs.",
       sections:[
@@ -71,6 +81,7 @@ export const CARDS = {
       sections:[
         {h:"Tableau de proportionnalité",b:"Coefficient k = y÷x (constant pour chaque colonne)",table:[["x","2","5","8"],["y","6","15","24"]],},
         {h:"Vérification et règle de trois",kind:"method",b:"Vérification : produits en croix égaux\n2×15 = 5×6 = 30 ✓\n\nRègle de trois (valeur manquante ?) :\n3 correspond à 5 ; ? correspond à 20\n3×20 = 5×?  →  ? = 60÷5 = 12"},
+        {h:"Notation ratio",kind:"method",b:"« a : b » se lit « a pour b » — les quantités sont proportionnelles à a et b.\n\nSirop et eau dans le ratio 1:4\n→ 1 part de sirop pour 4 parts d'eau (5 parts en tout)\n\nPartager 30 € dans le ratio 2:3 :\n2+3 = 5 parts → 1 part = 30÷5 = 6 €\n→ 2×6 = 12 € et 3×6 = 18 €"},
         {h:"Pourcentages",kind:"method",b:"p% de A = (p÷100)×A\n20% de 150 = 0,20×150 = 30\n\nAugmenter de p% → multiplier par (1 + p/100)\n   +15% → ×1,15  ;  200×1,15 = 230\n\nDiminuer de p% → multiplier par (1 − p/100)\n   −20% → ×0,80  ;  200×0,80 = 160"},
         {h:"Échelle et vitesse moyenne",kind:"example",b:"Carte à l'échelle 1/50 000\nDistance carte = 3 cm  →  Réelle = 3×50 000 = 1,5 km\n\nVitesse moyenne : v = d÷t (proportionnelle si v const)\n150 km en 2h → v = 75 km/h"}
       ],
@@ -105,6 +116,17 @@ export const CARDS = {
         {h:"Aires et périmètres",kind:"method",b:"Rectangle : P=2(L+l)  A=L×l\nTriangle : A=(base×hauteur)÷2\nDisque : P=2πr  A=πr²\nParallélogramme : A=base×hauteur\n\n💡 La hauteur est TOUJOURS ⊥ à la base !"}
       ],
       keypoints:["Somme des angles d'un triangle = 180°","Angles alternes-internes égaux ↔ droites parallèles","Hauteur ⊥ à la base (pour les aires)"]
+    },
+    "Triangles":{
+      intro:"Un triangle ne peut être construit que si ses longueurs sont compatibles : c'est l'inégalité triangulaire. La construction se fait à la règle, au compas et au rapporteur.",
+      sections:[
+        {h:"Inégalité triangulaire",kind:"warning",b:"Dans un triangle, chaque côté est plus petit que la somme des deux autres.\n\nEn pratique : comparer le PLUS GRAND côté à la somme des deux autres.\n\n7 ; 5 ; 4 → 7 < 5+4=9 ✓ constructible\n10 ; 4 ; 5 → 10 > 4+5=9 ✗ impossible\n\nCas limite : 8 = 3+5 → les trois points sont alignés (triangle « aplati »)"},
+        {h:"Construire avec les 3 côtés",kind:"method",b:"Ex : AB=6 cm, AC=4 cm, BC=5 cm\n1. Tracer le segment [AB] de 6 cm\n2. Arc de cercle de centre A et de rayon 4 cm\n3. Arc de cercle de centre B et de rayon 5 cm\n4. C = intersection des deux arcs → tracer [AC] et [BC]"},
+        {h:"Construire avec des angles",kind:"method",b:"► 2 côtés et l'angle entre eux (AB=5, Â=40°, AC=3) :\ntracer [AB], mesurer 40° en A au rapporteur, reporter 3 cm\n\n► 1 côté et 2 angles (AB=5, Â=40°, B̂=60°) :\ntracer [AB], un angle à chaque extrémité,\nC = intersection des deux demi-droites"},
+        {h:"Somme des angles",b:"Rappel : la somme des angles d'un triangle vaut 180°.\n\nÂ=40° et B̂=60° → Ĉ = 180−40−60 = 80°\n\nIsocèle : les 2 angles à la base sont égaux\nÉquilatéral : 3 angles de 60°",fig:"triangleAngles"},
+        {h:"Exemple",kind:"example",b:"Peut-on clôturer un enclos triangulaire de côtés 12 m, 7 m et 4 m ?\nPlus grand côté : 12. Somme des deux autres : 7+4 = 11.\n12 > 11 → impossible ! Les piquets seraient alignés\navant même de pouvoir fermer l'enclos."}
+      ],
+      keypoints:["Chaque côté < somme des deux autres (tester le plus grand)","3 côtés donnés → construction au compas (deux arcs)","Somme des angles = 180°"]
     },
     "Symétrie centrale":{
       intro:"La symétrie centrale (demi-tour) transforme un point en son image par rotation de 180° autour d'un centre O.",
@@ -141,6 +163,7 @@ export const CARDS = {
       intro:"Les solides sont des objets à trois dimensions. Leurs grandeurs sont le volume et l'aire (surface).",
       sections:[
         {h:"Pavé droit et cube",b:"Pavé droit (boîte) :\n• 6 faces rectangulaires, 12 arêtes, 8 sommets\nVolume V = L × l × h\n\nCube (cas particulier) :\n• 6 faces carrées identiques\nVolume V = c³\n\nEx : cube c=4 cm → V = 4³ = 64 cm³",fig:"solidesPaveCube"},
+        {h:"Prisme droit",kind:"method",b:"Deux bases polygonales parallèles et superposables,\nreliées par des faces rectangulaires.\n\nVolume = aire de la base × hauteur\nV = B × h\n\nEx : base triangulaire d'aire 12 cm², hauteur 8 cm\n→ V = 12 × 8 = 96 cm³\n\n💡 Même logique pour le cylindre (base = disque)"},
         {h:"Cylindre",b:"Volume = aire de la base × hauteur\nV = π × r² × h\n\nEx : r=3 cm, h=10 cm\nV = π×9×10 = 90π ≈ 282,7 cm³\n\n💡 Laisser 90π cm³ (exact) ou calculer avec π≈3,14",fig:"cylindreFig"},
         {h:"Unités et conversions",b:"Longueurs : km, m, dm, cm, mm (÷10)\nAires : km², m², dm², cm², mm² (÷100)\nVolumes : m³, dm³, cm³ (÷1 000)\n\nCapacités :\n1 m³ = 1 000 L  ;  1 dm³ = 1 L  ;  1 cm³ = 1 mL\n\nConversion volumes : ×1000 ou ÷1000 entre unités voisines"},
         {h:"Représentation cavalière",b:"La perspective cavalière représente les solides en 3D :\n• Arêtes visibles : trait plein\n• Arêtes cachées : trait pointillé\n• Arêtes parallèles restent parallèles sur le dessin\n• Angles de la face frontale conservés"}
@@ -205,7 +228,8 @@ export const CARDS = {
       sections:[
         {h:"Types de mélanges",b:"Mélange HOMOGÈNE : une seule phase visible à l'œil nu\n→ Eau salée, eau sucrée, air, alliages (bronze=cuivre+étain)\n\nMélange HÉTÉROGÈNE : plusieurs phases visibles\n→ Eau + huile, eau + sable, vinaigrette, granit"},
         {h:"Solutions",b:"Solution = mélange homogène liquide\n\n• Solvant : ce qui dissout (souvent l'eau)\n• Soluté : ce qui se dissout\n• On dit que le soluté est dissous dans le solvant\n\nConcentration en masse : c = m ÷ V\n   m en g, V en L → c en g/L\n\nEx : 20g de sel dans 0,5 L → c = 20÷0,5 = 40 g/L"},
-        {h:"Techniques de séparation",kind:"method",b:"Filtration → solides NON dissous (sable dans l'eau)\n\nDécantation → laisser sédimenter (eau+huile : l'huile monte)\n\nÉvaporation → éliminer le solvant (eau salée → sel)\n\nDistillation → séparer deux liquides de températures d'ébullition différentes\n\nChromatographie → séparer les colorants (feutres sur papier)"}
+        {h:"Techniques de séparation",kind:"method",b:"Filtration → solides NON dissous (sable dans l'eau)\n\nDécantation → laisser sédimenter (eau+huile : l'huile monte)\n\nÉvaporation → éliminer le solvant (eau salée → sel)\n\nDistillation → séparer deux liquides de températures d'ébullition différentes\n\nChromatographie → séparer les colorants (feutres sur papier)"},
+        {h:"Solubilité et saturation",b:"On ne peut pas dissoudre une quantité illimitée de soluté !\n\nSolution SATURÉE : le soluté ne se dissout plus,\nun dépôt solide se forme au fond.\n\nSolubilité = masse maximale dissoluble dans 1 L de solvant\nEx : sel dans l'eau ≈ 360 g/L à 20°C\n\n💡 Chauffer permet souvent de dissoudre davantage"}
       ],
       keypoints:["Homogène = 1 seule phase visible ; Hétérogène = plusieurs phases","Solution = solvant + soluté dissous","Concentration c = m÷V en g/L"]
     },
@@ -264,6 +288,16 @@ export const CARDS = {
         {h:"Types de mouvement",b:"Mouvement UNIFORME : vitesse constante\n→ graphe d=f(t) = droite passant par l'origine\n→ proportionnalité entre d et t\n\nMouvement ACCÉLÉRÉ : vitesse qui augmente\nMouvement DÉCÉLÉRÉ : vitesse qui diminue"}
       ],
       keypoints:["v = d÷t (vitesse = distance ÷ temps)","1 m/s = 3,6 km/h","Mouvement uniforme → d proportionnel à t"]
+    },
+    "Interactions":{
+      intro:"Un objet n'agit jamais seul : il est toujours en interaction avec d'autres objets, par contact ou à distance.",
+      sections:[
+        {h:"Contact ou distance",b:"Action de CONTACT : les objets se touchent\n→ raquette/balle, main/porte, frottements de l'air ou du sol\n\nAction à DISTANCE : sans se toucher\n→ la Terre attire les objets (gravité)\n→ un aimant attire un objet en fer\n→ électricité statique (règle frottée qui attire les cheveux)"},
+        {h:"Les effets d'une action",b:"Une action mécanique peut :\n• mettre en mouvement ou arrêter (coup de pied dans un ballon)\n• modifier la trajectoire ou la vitesse (raquette qui renvoie la balle)\n• déformer (éponge pressée, ressort étiré)"},
+        {h:"L'attraction terrestre",kind:"warning",b:"La Terre attire TOUS les objets vers son centre :\nc'est la gravité (action à distance).\nC'est pourquoi les objets tombent.\n\nSur la Lune, l'attraction est environ 6 fois plus faible :\nun astronaute y saute plus haut… mais sa masse ne change pas !"},
+        {h:"Exemple",kind:"example",b:"Livre posé sur une table : deux actions s'exercent sur lui\n→ la Terre l'attire vers le bas (à distance)\n→ la table le soutient (contact)\nLes deux actions se compensent : le livre reste immobile."}
+      ],
+      keypoints:["Deux familles : actions de contact et actions à distance","Effets possibles : mettre en mouvement, dévier, déformer","La Terre attire tous les objets : c'est la gravité"]
     },
     "L'énergie":{
       intro:"L'énergie est ce qui permet de réaliser un travail ou de produire un effet. Elle se conserve, se convertit et se transfère sous différentes formes.",
