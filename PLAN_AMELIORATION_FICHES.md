@@ -74,7 +74,7 @@ Notes : **A** = au standard (ne pas toucher) · **B** = actions mineures · **C*
 |---|-----|--------|--------|------|--------|
 | Q1 | Physique C | États de la matière, Mélanges et solutions, Le son, Mouvement et vitesse, L'énergie, Acidité et pH, Composition de l'air | ✅ | 01/07/2026 | (voir git log) |
 | Q2 | Maths C + B | Fonctions, La lumière*, Proportionnalité, Repérage, Géométrie, Symétrie centrale, Parallélogrammes | ✅ | 01/07/2026 | (voir git log) |
-| Q3 | Finitions B + contrôle | Solides et volumes, Statistiques, Masse et volume, Le système solaire + relecture croisée de Q1/Q2 + bump `APP_VERSION` | ⬜ | | |
+| Q3 | Finitions B + contrôle | Solides et volumes, Statistiques, Masse et volume, Le système solaire + relecture croisée de Q1/Q2 + bump `APP_VERSION` | ✅ | 01/07/2026 | (voir git log) |
 
 \* La lumière est classée avec Q2 pour équilibrer les lots (7 fiches chacun).
 
@@ -89,9 +89,10 @@ Notes : **A** = au standard (ne pas toucher) · **B** = actions mineures · **C*
 5. Mettre à jour le tableau « Sessions » ci-dessus (statut, date, hash court du commit).
 6. Commit : `feat(fiches): qualité session QN — <lot>`.
 
-## Vérification finale (après Q3)
+## Vérification finale (après Q3) — ✅ FAITE le 01/07/2026
 
-1. Toutes les fiches B/C ont leurs ajouts ; les fiches A et les sections bonus sont inchangées (vérifier au diff).
-2. Chaque fiche a ≥1 exemple concret et ≥1 mise en garde ; aucune fiche ne dépasse 5 sections hors bonus.
-3. Lancer l'appli (`vercel dev` ou preview) : ouvrir 3-4 fiches enrichies pour vérifier le rendu (tables, retours à la ligne, emojis).
-4. Signaler la fin du chantier dans `REVUE_CONTENU_SUIVI.md` (bilan une ligne).
+1. ✅ Toutes les fiches B/C ont leurs ajouts (19 fiches enrichies : 9 B + 10 C). Vérifié par diff (`git diff cdddb19~1 HEAD -- src/data/cards.js`) : aucune ligne contenant `APPROFONDISSEMENT` ajoutée/supprimée (les 12 fiches A et les 8 sections/module bonus sont intactes).
+2. ✅ Vérifié par script : aucune fiche ne dépasse 5 sections. Chaque fiche B/C a désormais un exemple concret chiffré. Géométrie et Solides et volumes n'ont pas de mise en garde ajoutée — conforme au plan, qui ne demandait qu'un exemple pour ces deux fiches.
+   - Note d'implémentation : quand une fiche était déjà à 5 sections (limite haute), l'ajout demandé a été **intégré dans une section existante** plutôt que créé en section séparée (Proportionnalité, Géométrie, Statistiques, Solides et volumes, Le système solaire), pour respecter le standard « 4 à 5 sections » défini dans ce même plan — écart mineur à la lettre de la colonne « Diagnostic » mais fidèle à l'objectif (ajouter l'exemple/la mise en garde).
+3. ⬜ Vérification visuelle en navigateur non faite (appli derrière authentification) — recommandé avant merge.
+4. Bilan : voir `REVUE_CONTENU_SUIVI.md`.

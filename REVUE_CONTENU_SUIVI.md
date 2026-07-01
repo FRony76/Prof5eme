@@ -16,6 +16,7 @@ Instructions : voir `PLAN_REVUE_CONTENU.md`. Statuts : ⬜ à faire · 🔶 en c
 | 7 | Mixte (6 thèmes, exercices uniquement) | ✅ | 01/07/2026 | 0 (90 exercices conformes) | (voir git log) |
 | 8 | Transversal & bilan | ✅ | 01/07/2026 | 0 (vérifications transversales, aucune anomalie) | (voir git log) |
 | 9 | Génération des manques (3 fiches, 3 sections, 92 exercices) | ✅ | 01/07/2026 | — | (voir git log) |
+| Q1-Q3 | Amélioration qualité des fiches (`PLAN_AMELIORATION_FICHES.md`) : 19 fiches enrichies (9 B + 10 C), 12 fiches A inchangées, `APP_VERSION` → 2.3 | ✅ | 01/07/2026 | — | (voir git log) |
 
 ## Journal des corrections
 

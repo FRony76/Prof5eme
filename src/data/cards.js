@@ -166,7 +166,7 @@ export const CARDS = {
     "Solides et volumes":{
       intro:"Les solides sont des objets à trois dimensions. Leurs grandeurs sont le volume et l'aire (surface).",
       sections:[
-        {h:"Pavé droit et cube",b:"Pavé droit (boîte) :\n• 6 faces rectangulaires, 12 arêtes, 8 sommets\nVolume V = L × l × h\n\nCube (cas particulier) :\n• 6 faces carrées identiques\nVolume V = c³\n\nEx : cube c=4 cm → V = 4³ = 64 cm³",fig:"solidesPaveCube"},
+        {h:"Pavé droit et cube",b:"Pavé droit (boîte) :\n• 6 faces rectangulaires, 12 arêtes, 8 sommets\nVolume V = L × l × h\n\nCube (cas particulier) :\n• 6 faces carrées identiques\nVolume V = c³\n\nEx : cube c=4 cm → V = 4³ = 64 cm³\n\n💡 Exemple : un aquarium de 50×30×40 cm rempli à 25 cm de hauteur d'eau.\nVolume d'eau = 50×30×25 = 37 500 cm³ = 37,5 L (1 cm³ = 1 mL).",fig:"solidesPaveCube"},
         {h:"Prisme droit",kind:"method",b:"Deux bases polygonales parallèles et superposables,\nreliées par des faces rectangulaires.\n\nVolume = aire de la base × hauteur\nV = B × h\n\nEx : base triangulaire d'aire 12 cm², hauteur 8 cm\n→ V = 12 × 8 = 96 cm³\n\n💡 Même logique pour le cylindre (base = disque)"},
         {h:"Cylindre",b:"Volume = aire de la base × hauteur\nV = π × r² × h\n\nEx : r=3 cm, h=10 cm\nV = π×9×10 = 90π ≈ 282,7 cm³\n\n💡 Laisser 90π cm³ (exact) ou calculer avec π≈3,14",fig:"cylindreFig"},
         {h:"Unités et conversions",b:"Longueurs : km, m, dm, cm, mm (÷10)\nAires : km², m², dm², cm², mm² (÷100)\nVolumes : m³, dm³, cm³ (÷1 000)\n\nCapacités :\n1 m³ = 1 000 L  ;  1 dm³ = 1 L  ;  1 cm³ = 1 mL\n\nConversion volumes : ×1000 ou ÷1000 entre unités voisines"},
@@ -181,7 +181,7 @@ export const CARDS = {
         {h:"Tableau d'effectifs et fréquences",b:"Exemple : 20 élèves notés",table:[["Note","10","14","16","Total"],["Effectif","4","8","8","20"],["Fréquence","0,20","0,40","0,40","1"]]},
         {h:"Moyenne et étendue",kind:"method",b:"Moyenne = somme des valeurs ÷ effectif total\n\nNotes 12,15,11,14,13 : (12+15+11+14+13)÷5 = 65÷5 = 13\n\nMoyenne pondérée : Σ(valeur × effectif) ÷ N (moyenne pondérée : vue en 4e)\n\nÉtendue = valeur max − valeur min"},
         {h:"Médiane",kind:"bonus",b:"▶ APPROFONDISSEMENT — VU EN 4e ◀\n\nMédiane = valeur qui partage la série ordonnée en 2 moitiés\n⚠ Toujours ORDONNER d'abord !\n\nN impair (n=5) : 5,7,9,12,15 → médiane = 9 (3e)\nN pair (n=4) : 4,6,8,10 → médiane = (6+8)÷2 = 7"},
-        {h:"Diagrammes",b:"Barres (bâtons) : effectifs ou fréquences\nCirculaire : secteur → angle = fréquence × 360°\n   20% → 0,20×360° = 72°\nLigne (courbe) : évolution dans le temps"}
+        {h:"Diagrammes",b:"Barres (bâtons) : effectifs ou fréquences\nCirculaire : secteur → angle = fréquence × 360°\n   20% → 0,20×360° = 72°\nLigne (courbe) : évolution dans le temps\n\n💡 Sur les données du tableau ci-dessus (20 élèves) :\nMoyenne = (10×4+14×8+16×8)÷20 = 280÷20 = 14\nAngle du secteur « note 10 » (fréquence 0,20) : 0,20×360° = 72°"}
       ],
       keypoints:["Moyenne = somme ÷ N","Médiane : ordonner puis trouver la valeur centrale","Somme des fréquences = 1 (100%)"]
     },
@@ -246,7 +246,8 @@ export const CARDS = {
         {h:"Mesurer la masse",kind:"warning",b:"La masse se mesure avec une balance (g, kg, t).\n1 kg = 1000 g  ;  1 t = 1000 kg\n\n⚠ Masse ≠ Poids !\n• La masse est identique partout (Terre, Lune, ISS)\n• Le poids est une force (dépend de la gravité) → en Newtons"},
         {h:"Mesurer le volume",b:"Volume d'un liquide : éprouvette graduée\n→ Lire au BAS du ménisque (courbure de la surface)\nUnités : L, mL, cm³  ;  1 L = 1000 mL = 1000 cm³\n\nVolume d'un solide irrégulier :\n1. Verser eau dans éprouvette : lire V₁\n2. Plonger le solide : lire V₂\n3. Volume = V₂ − V₁",fig:"masseVoluFig"},
         {h:"Masse volumique",kind:"method",b:"ρ = m ÷ V\nρ (rho) en g/cm³ ou g/mL ou kg/L\nm en g (ou kg)  ;  V en cm³ (ou mL ou L)\n\nEx : ρ(eau) = 1 g/cm³ (référence)\nEx : ρ(fer) ≈ 7,9 g/cm³\nEx : ρ(huile) ≈ 0,9 g/cm³"},
-        {h:"Flottabilité",b:"Un objet flotte si sa masse volumique est INFÉRIEURE à celle du liquide.\n\nρ_objet < ρ_liquide → FLOTTE\nρ_objet > ρ_liquide → COULE\n\nEx : bois (0,6 g/cm³) flotte sur eau (1 g/cm³)\nEx : fer (7,9 g/cm³) coule dans l'eau"}
+        {h:"Flottabilité",b:"Un objet flotte si sa masse volumique est INFÉRIEURE à celle du liquide.\n\nρ_objet < ρ_liquide → FLOTTE\nρ_objet > ρ_liquide → COULE\n\nEx : bois (0,6 g/cm³) flotte sur eau (1 g/cm³)\nEx : fer (7,9 g/cm³) coule dans l'eau"},
+        {h:"Exemple",kind:"example",b:"Un objet de 300 g est plongé dans une éprouvette : le niveau d'eau passe de 100 mL à 140 mL.\n\nVolume de l'objet : V = 140−100 = 40 cm³\nMasse volumique : ρ = m/V = 300/40 = 7,5 g/cm³\n\n💡 En comparant aux valeurs de référence (fer ≈7,9 ; aluminium ≈2,7 ; huile ≈0,9),\nl'objet est probablement en fer (valeur proche de 7,9 g/cm³)."}
       ],
       keypoints:["ρ = m÷V en g/cm³ (masse volumique)","ρ(eau) = 1 g/cm³ (valeur de référence)","ρ_objet < ρ_liquide → flotte ; ρ_objet > ρ_liquide → coule"]
     },
@@ -323,7 +324,7 @@ export const CARDS = {
       intro:"Le système solaire est composé du Soleil et de l'ensemble des objets qui gravitent autour de lui sous l'effet de la gravité.",
       sections:[
         {h:"Le Soleil et les planètes",b:"Le Soleil = ÉTOILE (source primaire de lumière) au centre.\n\nLes 8 planètes, en ordre de distance :\nMercure · Vénus · Terre · Mars (rocheuses, telluriques)\nJupiter · Saturne · Uranus · Neptune (gazeuses géantes)\n\nMoyen mnémotechnique :\nMon Vieux Tu M'as Joué Souvent Un Numéro",fig:"systemeSolaireFig"},
-        {h:"Révolution et rotation",b:"RÉVOLUTION = déplacement autour du Soleil\n→ La Terre met ~365,25 jours (1 an)\n→ La Lune fait une révolution autour de la Terre en ~27 jours\n\nROTATION = rotation sur elle-même\n→ La Terre tourne en 24 h (jours et nuits)\n→ Axe incliné → saisons"},
+        {h:"Révolution et rotation",b:"RÉVOLUTION = déplacement autour du Soleil\n→ La Terre met ~365,25 jours (1 an)\n→ La Lune fait une révolution autour de la Terre en ~27 jours\n\nROTATION = rotation sur elle-même\n→ La Terre tourne en 24 h (jours et nuits)\n→ Axe incliné → saisons\n\n⚠ Ne pas confondre : ÉTOILE (produit sa lumière, ex. le Soleil), PLANÈTE (tourne autour d'une étoile) et SATELLITE (tourne autour d'une planète, ex. la Lune) — et rotation ≠ révolution !"},
         {h:"La Lune et les éclipses",b:"La Lune = satellite naturel de la Terre\n(ne produit pas sa propre lumière → objet diffusant)\n\nÉclipse de Soleil :\nLune entre Soleil et Terre → ombre de la Lune sur la Terre\n\nÉclipse de Lune :\nTerre entre Soleil et Lune → Lune dans l'ombre de la Terre"},
         {h:"Ordres de grandeur",b:"Distance Terre-Soleil : ~150 millions de km = 1 UA\nLumière Soleil→Terre : ~8 minutes\n\nAnalogue : si Soleil = ballon de 1 m\n→ Terre = bille de 9 mm à 107 m\n→ Neptune à 3,2 km du ballon !"}
       ],
