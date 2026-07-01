@@ -40,4 +40,14 @@ await sql`
 await sql`CREATE INDEX IF NOT EXISTS idx_attempts_user_time  ON attempts(user_id, created_at DESC)`;
 await sql`CREATE INDEX IF NOT EXISTS idx_attempts_user_topic ON attempts(user_id, subject, topic)`;
 
-console.log("Migration OK — tables users + attempts créées (idempotent).");
+await sql`
+  CREATE TABLE IF NOT EXISTS attempt_details (
+    attempt_id     BIGINT PRIMARY KEY REFERENCES attempts(id) ON DELETE CASCADE,
+    student_answer TEXT,
+    photo_data     TEXT,
+    feedback       TEXT,
+    correct_answer TEXT
+  )
+`;
+
+console.log("Migration OK — tables users + attempts + attempt_details créées (idempotent).");

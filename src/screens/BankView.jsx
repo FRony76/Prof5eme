@@ -7,10 +7,10 @@ import { useAppState } from "../state/AppContext.jsx";
 
 export default function BankView() {
   const { state, dispatch } = useAppState();
-  const { bankSubj, bankTopic, bankIdx, bankShowHint, bankShowAnswer,
+  const { subj, topic, bankIdx, bankShowHint, bankShowAnswer,
           bankAnswerMode, bankAnswer, bankPhoto, bankFeedback, bankChecking } = state;
-  const list = EXERCISES[bankSubj][bankTopic];
-  const bp = P[bankSubj];
+  const list = EXERCISES[subj][topic];
+  const bp = P[subj];
   const ex = list[bankIdx];
   const lvlLabel = LVL[ex.lvl];
 
@@ -34,10 +34,16 @@ export default function BankView() {
       const writtenOk = d.well_written === true || d.well_written === "true";
       const ok   = resultOk && formulaOk && writtenOk;
       const half = !ok && resultOk;
-      recordAttempt({ mode: "bank", subject: bankSubj, topic: bankTopic, level: null,
+      recordAttempt({
+        mode: "bank", subject: subj, topic, level: null,
         question: ex.q, answer_mode: bankAnswerMode, result_ok: resultOk, is_half: half,
         formula_ok: formulaOk === true ? true : formulaOk === false ? false : null,
-        written_ok: writtenOk, points: 0 });
+        written_ok: writtenOk, points: 0,
+        student_answer: bankAnswerMode === "text" ? bankAnswer : null,
+        photo_data: bankAnswerMode === "photo" ? bankPhoto?.dataUrl : null,
+        feedback: d.feedback,
+        correct_answer: ex.a,
+      });
     } catch {
       dispatch({ type: "CHECK_BANK_ERROR" });
     }
@@ -49,8 +55,11 @@ export default function BankView() {
     <div style={{ minHeight: "100vh", background: "#F9FAFB", padding: "2rem 1.5rem", fontFamily: "system-ui, -apple-system, sans-serif" }}>
       <div style={{ maxWidth: 600, margin: "0 auto" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: "1.5rem", flexWrap: "wrap" }}>
-          <button onClick={() => dispatch({ type: "SET", payload: { screen: "bank" } })} style={{ background: "none", border: "none", color: "#6B7280", cursor: "pointer", fontSize: 13, fontFamily: "inherit", padding: 0 }}>← Retour</button>
-          <span style={{ background: bp.lit, color: bp.txt, border: `1px solid ${bp.med}`, borderRadius: 20, padding: "3px 12px", fontSize: 12, fontWeight: 600 }}>{bankTopic}</span>
+          <button onClick={() => dispatch({ type: "SET", payload: { screen: "topic" } })}
+            style={{ background: "none", border: "none", color: "#6B7280", cursor: "pointer", fontSize: 13, fontFamily: "inherit", padding: 0 }}>
+            ← Retour
+          </button>
+          <span style={{ background: bp.lit, color: bp.txt, border: `1px solid ${bp.med}`, borderRadius: 20, padding: "3px 12px", fontSize: 12, fontWeight: 600 }}>{topic}</span>
           <span style={{ background: "#F3F4F6", color: "#6B7280", borderRadius: 20, padding: "3px 10px", fontSize: 12 }}>{"●".repeat(ex.lvl)}{"○".repeat(3 - ex.lvl)} {lvlLabel}</span>
         </div>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
