@@ -13,7 +13,7 @@ Instructions : voir `PLAN_REVUE_CONTENU.md`. Statuts : ⬜ à faire · 🔶 en c
 | 4 | Maths D — mesures & données (Solides et volumes, Statistiques, Probabilités, Durées) | ✅ | 01/07/2026 | 1 (doublon de l'erreur Durées trouvé dans les exercices) | (voir git log) |
 | 5 | Physique A — matière & lumière (Lumière, États de la matière, Mélanges, Masse et volume, Acidité et pH, Composition de l'air) | ✅ | 01/07/2026 | 0 (69 exercices + 6 fiches conformes) | (voir git log) |
 | 6 | Physique B — énergie & signaux (Son, Électricité, Mouvement et vitesse, Énergie, Système solaire) | ✅ | 01/07/2026 | 1 (typo « merculienne » + phrase confuse) | (voir git log) |
-| 7 | Mixte (6 thèmes, exercices uniquement) | ⬜ | | | |
+| 7 | Mixte (6 thèmes, exercices uniquement) | ✅ | 01/07/2026 | 0 (90 exercices conformes) | (voir git log) |
 | 8 | Transversal & bilan | ⬜ | | | |
 
 ## Journal des corrections
