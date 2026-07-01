@@ -217,9 +217,10 @@ export const CARDS = {
     "États de la matière":{
       intro:"La matière peut exister sous trois états selon l'arrangement et l'agitation de ses molécules.",
       sections:[
-        {h:"Les trois états",b:"SOLIDE : forme ET volume fixes\n→ Molécules ordonnées, très proches, vibrant sur place\n\nLIQUIDE : volume fixe, forme variable (prend la forme du récipient)\n→ Molécules proches, désordonnées, glissant\n\nGAZ : forme ET volume variables (occupe tout l'espace)\n→ Molécules très éloignées, en mouvement rapide",fig:"etatsMatiereFig"},
+        {h:"Les trois états",b:"SOLIDE : forme ET volume fixes\n→ Molécules ordonnées, très proches, vibrant sur place\n\nLIQUIDE : volume fixe, forme variable (prend la forme du récipient)\n→ Molécules proches, désordonnées, glissant\n\nGAZ : forme ET volume variables (occupe tout l'espace)\n→ Molécules très éloignées, en mouvement rapide",fig:"etatsMatiereFig",table:[["État","Forme","Volume","Compressible ?"],["Solide","Fixe","Fixe","Non"],["Liquide","Variable","Fixe","Très peu"],["Gaz","Variable","Variable","Oui, facilement"]]},
         {h:"Changements d'état de l'eau",kind:"warning",b:"Fusion (solide→liquide) : 0°C\nSolidification (liquide→solide) : 0°C\nVaporisation (liquide→gaz) : 100°C\nLiquéfaction (gaz→liquide) : 100°C\nSublimation (solide→gaz directement)\n\n⚠ Température CONSTANTE pendant tout le changement d'état (palier)"},
-        {h:"Conservation de la masse",b:"Lors d'un changement d'état, la MASSE est CONSERVÉE.\n\n1 kg de glace → 1 kg d'eau liquide → 1 kg de vapeur\n\nSeuls l'arrangement et l'agitation des molécules changent.\n⚠ Le VOLUME, lui, peut changer (glace moins dense que l'eau)."}
+        {h:"Conservation de la masse",b:"Lors d'un changement d'état, la MASSE est CONSERVÉE.\n\n1 kg de glace → 1 kg d'eau liquide → 1 kg de vapeur\n\nSeuls l'arrangement et l'agitation des molécules changent.\n⚠ Le VOLUME, lui, peut changer (glace moins dense que l'eau)."},
+        {h:"Exemple",kind:"example",b:"On chauffe 100 g de glace à −10°C jusqu'à la vapeur.\n\n→ La température monte jusqu'à 0°C (la glace se réchauffe)\n→ Palier à 0°C : fusion (glace → eau liquide)\n→ La température remonte jusqu'à 100°C\n→ Palier à 100°C : vaporisation (eau → vapeur)\n\nÀ chaque étape, la masse reste 100 g (conservation de la masse)."}
       ],
       keypoints:["Solide : forme ET volume fixes","Température constante pendant les changements d'état (palier)","Masse conservée lors d'un changement d'état"]
     },
@@ -229,7 +230,8 @@ export const CARDS = {
         {h:"Types de mélanges",b:"Mélange HOMOGÈNE : une seule phase visible à l'œil nu\n→ Eau salée, eau sucrée, air, alliages (bronze=cuivre+étain)\n\nMélange HÉTÉROGÈNE : plusieurs phases visibles\n→ Eau + huile, eau + sable, vinaigrette, granit"},
         {h:"Solutions",b:"Solution = mélange homogène liquide\n\n• Solvant : ce qui dissout (souvent l'eau)\n• Soluté : ce qui se dissout\n• On dit que le soluté est dissous dans le solvant\n\nConcentration en masse : c = m ÷ V\n   m en g, V en L → c en g/L\n\nEx : 20g de sel dans 0,5 L → c = 20÷0,5 = 40 g/L"},
         {h:"Techniques de séparation",kind:"method",b:"Filtration → solides NON dissous (sable dans l'eau)\n\nDécantation → laisser sédimenter (eau+huile : l'huile monte)\n\nÉvaporation → éliminer le solvant (eau salée → sel)\n\nDistillation → séparer deux liquides de températures d'ébullition différentes\n\nChromatographie → séparer les colorants (feutres sur papier)"},
-        {h:"Solubilité et saturation",b:"On ne peut pas dissoudre une quantité illimitée de soluté !\n\nSolution SATURÉE : le soluté ne se dissout plus,\nun dépôt solide se forme au fond.\n\nSolubilité = masse maximale dissoluble dans 1 L de solvant\nEx : sel dans l'eau ≈ 360 g/L à 20°C\n\n💡 Chauffer permet souvent de dissoudre davantage"}
+        {h:"Solubilité et saturation",b:"On ne peut pas dissoudre une quantité illimitée de soluté !\n\nSolution SATURÉE : le soluté ne se dissout plus,\nun dépôt solide se forme au fond.\n\nSolubilité = masse maximale dissoluble dans 1 L de solvant\nEx : sel dans l'eau ≈ 360 g/L à 20°C\n\n💡 Chauffer permet souvent de dissoudre davantage"},
+        {h:"Exemple complet",kind:"example",b:"On dissout 15 g de sel dans de l'eau pour obtenir 250 mL de solution.\n\nConcentration : c = m÷V = 15÷0,25 = 60 g/L\n\n⚠ Erreur classique : le sel dissous n'a pas disparu !\nLa masse totale se conserve : m_solution = m_eau + m_sel.\nLe sel reste bien présent, invisible mais réel (on le retrouve par évaporation)."}
       ],
       keypoints:["Homogène = 1 seule phase visible ; Hétérogène = plusieurs phases","Solution = solvant + soluté dissous","Concentration c = m÷V en g/L"]
     },
@@ -248,7 +250,8 @@ export const CARDS = {
       sections:[
         {h:"L'échelle de pH",b:"pH < 7 : solution ACIDE (plus c'est bas, plus c'est acide)\npH = 7 : solution NEUTRE (eau pure à 25°C)\npH > 7 : solution BASIQUE (alcaline)\n\n⚠ L'échelle est logarithmique : pH 5 est 10× plus acide que pH 6",fig:"echellePHFig"},
         {h:"Exemples courants",b:"pH ≈ 1-2 : acide chlorhydrique, suc gastrique\npH ≈ 3 : jus de citron, vinaigre\npH ≈ 5 : café, pluie acide normale\npH ≈ 7 : eau pure, eau du robinet\npH ≈ 9 : bicarbonate de soude\npH ≈ 11 : ammoniaque\npH ≈ 14 : soude concentrée (NaOH)"},
-        {h:"Mesurer le pH",kind:"method",b:"Papier pH universel :\n→ Déposer une goutte de solution, comparer à la charte colorée\n→ Précision ≈ 1 unité de pH\n\npHmètre électronique :\n→ Bien plus précis (~0,01 unité)\n→ Nécessite étalonnage avec solutions tampons connues\n\nIndicateurs colorés (BBT, phénolphtaléine…) : virent à une couleur selon le pH"}
+        {h:"Mesurer le pH",kind:"method",b:"Papier pH universel :\n→ Déposer une goutte de solution, comparer à la charte colorée\n→ Précision ≈ 1 unité de pH\n\npHmètre électronique :\n→ Bien plus précis (~0,01 unité)\n→ Nécessite étalonnage avec solutions tampons connues\n\nIndicateurs colorés (BBT, phénolphtaléine…) : virent à une couleur selon le pH"},
+        {h:"Sécurité et dilution",kind:"warning",b:"⚠ Un produit très acide (pH proche de 0) ou très basique (pH proche de 14) est CORROSIF :\nrisque de brûlure chimique. Toujours porter gants et lunettes,\net ne JAMAIS mélanger deux produits sans avis d'un adulte.\n\nDiluer un acide dans l'eau fait REMONTER son pH vers 7 (moins acide) :\nEx : en versant beaucoup d'eau dans du vinaigre (pH 3), le pH se rapproche de 7\nsans jamais le dépasser."}
       ],
       keypoints:["pH < 7 = acide  ;  pH = 7 = neutre  ;  pH > 7 = basique","pH de l'eau pure = 7","Plus le pH est faible, plus la solution est acide"]
     },
@@ -257,7 +260,8 @@ export const CARDS = {
       sections:[
         {h:"Composition de l'air sec",b:"L'air est un MÉLANGE HOMOGÈNE de gaz.\n\nComposition approximative en volume :\n• Diazote N₂ : 78%\n• Dioxygène O₂ : 21%\n• Argon Ar et autres gaz rares : ~1%\n• Dioxyde de carbone CO₂ : ~0,04%\n\n⚠ L'air est un mélange, pas un corps pur",fig:"compositionAirFig"},
         {h:"Rôle des composants",b:"Dioxygène (O₂) :\n→ Indispensable à la respiration des êtres vivants\n→ Nécessaire à la combustion (feu)\n\nDiazote (N₂) :\n→ Gaz inerte (réagit peu), dilue le dioxygène\n→ Evite la combustion spontanée des matières\n\nDioxyde de carbone (CO₂) :\n→ Produit par respiration et combustions\n→ Utilisé par les plantes (photosynthèse)\n→ Gaz à effet de serre"},
-        {h:"Propriétés physiques",b:"Transparent et incolore\nMasse volumique : ρ(air) ≈ 1,2 g/L à 20°C\n(bien moins dense que l'eau : 1 000 g/L)\n\nL'air se comprime facilement (état gazeux)\n\nAir humide : contient aussi de la vapeur d'eau H₂O\n(proportion variable = humidité relative)"}
+        {h:"Propriétés physiques",b:"Transparent et incolore\nMasse volumique : ρ(air) ≈ 1,2 g/L à 20°C\n(bien moins dense que l'eau : 1 000 g/L)\n\nL'air se comprime facilement (état gazeux)\n\nAir humide : contient aussi de la vapeur d'eau H₂O\n(proportion variable = humidité relative)"},
+        {h:"Exemple",kind:"example",b:"Une pièce de 60 m³ est remplie d'air. Quels volumes de N₂ et de O₂ contient-elle ?\n\nVolume de N₂ : 78% × 60 = 0,78×60 = 46,8 m³\nVolume de O₂ : 21% × 60 = 0,21×60 = 12,6 m³\n\n💡 Ces deux volumes représentent déjà 99% de la pièce (46,8+12,6=59,4 m³) :\nil ne reste qu'1% pour l'argon et les autres gaz."}
       ],
       keypoints:["Air = 78% N₂ + 21% O₂ + ~1% autres gaz","O₂ : respiration + combustion","L'air est un mélange homogène, pas un corps pur"]
     },
@@ -265,6 +269,7 @@ export const CARDS = {
       intro:"Le son est une vibration mécanique qui se propage dans la matière. Contrairement à la lumière, il ne se propage PAS dans le vide.",
       sections:[
         {h:"Nature et propagation",b:"Le son = vibration qui comprime/dilate le milieu alternativement\n\nVitesse de propagation (à 20°C) :\n→ Dans l'air : v ≈ 340 m/s\n→ Dans l'eau : v ≈ 1500 m/s (plus rapide)\n→ Dans les solides : encore plus rapide\n\n⚠ Dans le vide : v = 0 (ne se propage pas)\nFormule clé : d = v × t"},
+        {h:"Exemple",kind:"example",b:"Pendant un orage, on voit l'éclair puis on entend le tonnerre 4 secondes plus tard.\n\nDistance = v × t = 340 × 4 = 1360 m, soit environ 1,36 km\n\n⚠ La lumière de l'éclair nous parvient quasi instantanément,\nmais le son met plusieurs secondes : contrairement à la lumière,\nle son NE PEUT PAS se propager dans le vide (il a besoin de matière)."},
         {h:"Hauteur et fréquence",kind:"bonus",b:"▶ APPROFONDISSEMENT — VU EN 4e ◀\n\nFréquence f (en Hertz Hz) = nombre de vibrations par seconde\n\nSon GRAVE ↔ faible fréquence (f < ~300 Hz)\nSon AIGU ↔ haute fréquence (f > ~2000 Hz)\n\nDomaine audible humain : 20 Hz à 20 000 Hz\nInfrasons : f < 20 Hz (inaudibles)\nUltrasons : f > 20 000 Hz (inaudibles, médecine, sonar)"},
         {h:"Intensité sonore",kind:"bonus",b:"▶ APPROFONDISSEMENT — VU EN 4e ◀\n\nIntensité mesurée en décibels (dB)\n\n0 dB → seuil d'audibilité\n30 dB → bibliothèque, chuchotement\n60 dB → conversation normale\n85 dB → seuil de risque (exposition longue → surdité)\n110 dB → concert, klaxon\n120 dB → seuil de douleur\n\n⚠ Porter des protections au-delà de 85 dB prolongé !"}
       ],
@@ -285,7 +290,8 @@ export const CARDS = {
       sections:[
         {h:"Décrire un mouvement",b:"Trajectoire : chemin décrit dans l'espace\n→ Rectiligne (droite)  ;  Circulaire (cercle)  ;  Curviligne (courbe)\n\nLe mouvement est RELATIF au référentiel :\nEx : passager dans un train = immobile/train, en mouvement/sol"},
         {h:"Vitesse moyenne",kind:"method",b:"v = d ÷ t\n\nv : vitesse (m/s ou km/h)\nd : distance parcourue (m ou km)\nt : durée (s ou h)\n\nEx : 150 m en 10 s → v = 150÷10 = 15 m/s\nEx : 300 km en 2,5 h → v = 300÷2,5 = 120 km/h\n\nConversions :\n1 m/s = 3,6 km/h  ;  1 km/h ≈ 0,278 m/s"},
-        {h:"Types de mouvement",b:"Mouvement UNIFORME : vitesse constante\n→ graphe d=f(t) = droite passant par l'origine\n→ proportionnalité entre d et t\n\nMouvement ACCÉLÉRÉ : vitesse qui augmente\nMouvement DÉCÉLÉRÉ : vitesse qui diminue"}
+        {h:"Types de mouvement",b:"Mouvement UNIFORME : vitesse constante\n→ graphe d=f(t) = droite passant par l'origine\n→ proportionnalité entre d et t\n\nMouvement ACCÉLÉRÉ : vitesse qui augmente\nMouvement DÉCÉLÉRÉ : vitesse qui diminue"},
+        {h:"Exemple",kind:"example",b:"Un cycliste roule à 72 km/h. Convertis en m/s, puis calcule la distance parcourue en 5 secondes.\n\nConversion : 72 ÷ 3,6 = 20 m/s\n⚠ Erreur classique : ne PAS diviser par 60 (72÷60=1,2 serait faux !)\nOn divise par 3,6 pour passer de km/h à m/s.\n\nDistance en 5 s : d = v×t = 20×5 = 100 m."}
       ],
       keypoints:["v = d÷t (vitesse = distance ÷ temps)","1 m/s = 3,6 km/h","Mouvement uniforme → d proportionnel à t"]
     },
@@ -302,9 +308,9 @@ export const CARDS = {
     "L'énergie":{
       intro:"L'énergie est ce qui permet de réaliser un travail ou de produire un effet. Elle se conserve, se convertit et se transfère sous différentes formes.",
       sections:[
-        {h:"Formes d'énergie",b:"• Mécanique (cinétique = mouvement + potentielle = altitude)\n• Thermique (chaleur)\n• Lumineuse (rayonnement, photons)\n• Électrique (courant)\n• Chimique (liaisons moléculaires : aliments, piles, combustibles)\n• Nucléaire (noyaux atomiques)\n• Rayonnante (ondes électromagnétiques, solaire)"},
+        {h:"Formes d'énergie",b:"• Mécanique (cinétique = mouvement + potentielle = altitude)\n• Thermique (chaleur)\n• Lumineuse (rayonnement, photons)\n• Électrique (courant)\n• Chimique (liaisons moléculaires : aliments, piles, combustibles)\n• Nucléaire (noyaux atomiques)\n• Rayonnante (ondes électromagnétiques, solaire)",table:[["Forme","Exemple concret"],["Cinétique","Vélo qui roule"],["Thermique","Radiateur qui chauffe"],["Lumineuse","Ampoule allumée"],["Chimique","Pile, aliment"],["Électrique","Courant dans un fil"]]},
         {h:"Sources d'énergie",b:"RENOUVELABLES (se reconstituent naturellement) :\n→ Solaire, éolien, hydraulique, géothermique, biomasse\n\nNON RENOUVELABLES (s'épuisent) :\n→ Charbon, pétrole, gaz naturel (fossiles)\n→ Uranium (nucléaire)"},
-        {h:"Chaîne énergétique",b:"SOURCE → CONVERTISSEUR → FORME UTILE\n\nEx : panneau solaire\n[Lumineuse] → [Cellule photovoltaïque] → [Électrique]\n\nEx : centrale thermique au gaz\n[Chimique] → [Combustion→Turbine] → [Électrique]\n\n💡 L'énergie TOTALE se conserve — mais une partie se dissipe en chaleur (pertes)"}
+        {h:"Chaîne énergétique",b:"SOURCE → CONVERTISSEUR → FORME UTILE\n\nEx : panneau solaire\n[Lumineuse] → [Cellule photovoltaïque] → [Électrique]\n\nEx : centrale thermique au gaz\n[Chimique] → [Combustion→Turbine] → [Électrique]\n\n⚠ Erreur classique : dire que l'énergie « se perd » est faux !\nL'énergie TOTALE se conserve toujours : elle se transforme,\net une partie se dissipe simplement en chaleur (pertes thermiques)."}
       ],
       keypoints:["L'énergie se conserve (ne se crée ni ne se détruit)","Renouvelables : solaire, éolien, hydraulique… / Non renouvelables : fossiles, uranium","Chaîne : source → convertisseur → forme utile (avec pertes thermiques)"]
     },
