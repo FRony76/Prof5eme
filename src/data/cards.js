@@ -152,8 +152,8 @@ export const CARDS = {
       sections:[
         {h:"Vocabulaire",b:"Population : ensemble étudié\nIndividu : élément de la population\nCaractère : ce qu'on observe (note, taille…)\nEffectif : nombre d'individus pour une modalité\nEffectif total N : nombre total\nFréquence = effectif ÷ N  (entre 0 et 1 ; ×100 pour %)"},
         {h:"Tableau d'effectifs et fréquences",b:"Exemple : 20 élèves notés",table:[["Note","10","14","16","Total"],["Effectif","4","8","8","20"],["Fréquence","0,20","0,40","0,40","1"]]},
-        {h:"Moyenne et étendue",kind:"method",b:"Moyenne = somme des valeurs ÷ effectif total\n\nNotes 12,15,11,14,13 : (12+15+11+14+13)÷5 = 65÷5 = 13\n\nMoyenne pondérée : Σ(valeur × effectif) ÷ N\n\nÉtendue = valeur max − valeur min"},
-        {h:"Médiane",kind:"method",b:"Médiane = valeur qui partage la série ordonnée en 2 moitiés\n⚠ Toujours ORDONNER d'abord !\n\nN impair (n=5) : 5,7,9,12,15 → médiane = 9 (3e)\nN pair (n=4) : 4,6,8,10 → médiane = (6+8)÷2 = 7"},
+        {h:"Moyenne et étendue",kind:"method",b:"Moyenne = somme des valeurs ÷ effectif total\n\nNotes 12,15,11,14,13 : (12+15+11+14+13)÷5 = 65÷5 = 13\n\nMoyenne pondérée : Σ(valeur × effectif) ÷ N (moyenne pondérée : vue en 4e)\n\nÉtendue = valeur max − valeur min"},
+        {h:"Médiane",kind:"bonus",b:"▶ APPROFONDISSEMENT — VU EN 4e ◀\n\nMédiane = valeur qui partage la série ordonnée en 2 moitiés\n⚠ Toujours ORDONNER d'abord !\n\nN impair (n=5) : 5,7,9,12,15 → médiane = 9 (3e)\nN pair (n=4) : 4,6,8,10 → médiane = (6+8)÷2 = 7"},
         {h:"Diagrammes",b:"Barres (bâtons) : effectifs ou fréquences\nCirculaire : secteur → angle = fréquence × 360°\n   20% → 0,20×360° = 72°\nLigne (courbe) : évolution dans le temps"}
       ],
       keypoints:["Moyenne = somme ÷ N","Médiane : ordonner puis trouver la valeur centrale","Somme des fréquences = 1 (100%)"]
