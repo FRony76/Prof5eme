@@ -186,8 +186,8 @@ export const CARDS = {
       sections:[
         {h:"Propagation",b:"• Se propage EN LIGNE DROITE dans un milieu homogène (rectilinéarité)\n• Vitesse dans le vide : c = 3×10⁸ m/s = 300 000 km/s\n\nSource primaire (lumineuse) : émet sa propre lumière\n→ Soleil, ampoule, bougie, écran\n\nObjet diffusant (éclairé) : renvoie la lumière reçue\n→ Lune, feuille, mur"},
         {h:"Ombres et éclipses",b:"Ombre propre : zone sombre de l'objet lui-même\nOmbre portée : zone sombre projetée derrière l'objet\nPénombre : zone partiellement éclairée (source étendue)\n\nÉclipse de Soleil : Lune entre Terre et Soleil\n→ La Lune projette son ombre sur la Terre\n\nÉclipse de Lune : Terre entre Soleil et Lune\n→ La Lune entre dans l'ombre de la Terre"},
-        {h:"Réflexion",kind:"method",b:"La lumière rebondit sur une surface.\n\nLoi de la réflexion :\nangle d'incidence (i) = angle réfléchi (r)\n(mesurés par rapport à la NORMALE à la surface)\n\nMiroir plan (surface polie) → réflexion spéculaire\nSurface rugueuse → réflexion diffuse",fig:"reflexion"},
-        {h:"Réfraction",b:"Changement de direction au passage d'un milieu transparent à un autre (air→eau, verre…)\n\n→ Se rapproche de la normale en entrant dans un milieu plus dense\n→ S'en éloigne en passant vers un milieu moins dense\n\nApplications : lunettes, lentilles, fibre optique"}
+        {h:"Réflexion",kind:"bonus",b:"▶ APPROFONDISSEMENT — VU EN 4e ◀\n\nLa lumière rebondit sur une surface.\n\nLoi de la réflexion :\nangle d'incidence (i) = angle réfléchi (r)\n(mesurés par rapport à la NORMALE à la surface)\n\nMiroir plan (surface polie) → réflexion spéculaire\nSurface rugueuse → réflexion diffuse",fig:"reflexion"},
+        {h:"Réfraction",kind:"bonus",b:"▶ APPROFONDISSEMENT — VU EN 4e ◀\n\nChangement de direction au passage d'un milieu transparent à un autre (air→eau, verre…)\n\n→ Se rapproche de la normale en entrant dans un milieu plus dense\n→ S'en éloigne en passant vers un milieu moins dense\n\nApplications : lunettes, lentilles, fibre optique"}
       ],
       keypoints:["Propagation rectiligne dans un milieu homogène","Réflexion : angle incident = angle réfléchi (par rapport à la normale)","Réfraction : changement de direction au passage entre deux milieux"]
     },
@@ -229,7 +229,7 @@ export const CARDS = {
       keypoints:["pH < 7 = acide  ;  pH = 7 = neutre  ;  pH > 7 = basique","pH de l'eau pure = 7","Plus le pH est faible, plus la solution est acide"]
     },
     "Composition de l'air":{
-      intro:"L'air est un mélange gazeux homogène composé principalement de diazote (78%) et de dioxygène (21%).",
+      intro:"▶ APPROFONDISSEMENT — VU EN 4e ◀ L'air est un mélange gazeux homogène composé principalement de diazote (78%) et de dioxygène (21%).",
       sections:[
         {h:"Composition de l'air sec",b:"L'air est un MÉLANGE HOMOGÈNE de gaz.\n\nComposition approximative en volume :\n• Diazote N₂ : 78%\n• Dioxygène O₂ : 21%\n• Argon Ar et autres gaz rares : ~1%\n• Dioxyde de carbone CO₂ : ~0,04%\n\n⚠ L'air est un mélange, pas un corps pur",fig:"compositionAirFig"},
         {h:"Rôle des composants",b:"Dioxygène (O₂) :\n→ Indispensable à la respiration des êtres vivants\n→ Nécessaire à la combustion (feu)\n\nDiazote (N₂) :\n→ Gaz inerte (réagit peu), dilue le dioxygène\n→ Evite la combustion spontanée des matières\n\nDioxyde de carbone (CO₂) :\n→ Produit par respiration et combustions\n→ Utilisé par les plantes (photosynthèse)\n→ Gaz à effet de serre"},
