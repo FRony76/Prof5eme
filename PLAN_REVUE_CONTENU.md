@@ -60,16 +60,62 @@ Une session = un lot complet. Si le contexte devient trop long avant la fin d'un
 - Manque de contenu (thème < 15 exercices, chapitre du programme absent) → consigner dans « Manques », **ne rien créer**.
 
 ### Session 8 — transversal
-1. **Couverture programme** : comparer les thèmes au programme officiel de 5ème (cycle 4, éduscol — vérifier via WebSearch). Points déjà repérés à confirmer : angles/triangles et périmètres-aires (couverts ou non par la fiche « Géométrie » ?) ; « Fonctions » est plutôt hors programme 5ème (à signaler, pas à supprimer).
+1. ~~Couverture programme~~ → **déjà faite en session 0** (voir section « Validation des fiches par rapport au programme » ci-dessous). Vérifier seulement que les marquages « approfondissement » demandés dans les sessions 1–6 ont bien été appliqués.
 2. **Thèmes incomplets** à lister : Divisibilité (9 ex), Symétrie axiale (8), Durées (8), Masse et volume (8), Acidité et pH (8), Composition de l'air (8), Système solaire (9) — vs standard de 15.
 3. Cohérence clés CARDS ↔ EXERCISES (les 6 thèmes mixtes n'ont pas de fiche : comportement attendu, vérifier que l'UI le gère).
 4. Rédiger le **bilan final** dans `REVUE_CONTENU_SUIVI.md`.
 5. Bumper `APP_VERSION` dans `src/constants.js`.
 
+## Validation des fiches par rapport au programme — ✅ FAITE (session 0, 01/07/2026)
+
+Références utilisées : **nouveau programme de mathématiques cycle 4 (BO du 5 mars 2026, applicable en 5ème à la rentrée 2026)** — en 5ème : relatifs (addition/soustraction), fractions (égalité, simplification, comparaison, addition/soustraction simples), priorités opératoires, initiation au calcul littéral (distributivité simple), équations `a+x=b` et `ax=b`, puissances **limitées au carré et au cube**, proportionnalité, statistiques (moyenne, fréquences, diagrammes), probabilités (équiprobabilité), repérage, symétrie centrale, angles et parallélisme, triangles (droites remarquables, inégalité triangulaire), parallélogrammes, prismes et cylindres, aires/durées/vitesse. Pour la **physique-chimie** : programme cycle 4 en vigueur + repères annuels de progression (le son détaillé, la composition de l'air et les lois électriques formalisées relèvent de la 4ème ; le pH de la 3ème).
+
+**Convention de marquage** : pour les contenus au-delà de la 5ème, ne PAS supprimer — ajouter en tête du `b` de la section le bandeau `▶ APPROFONDISSEMENT — VU EN 4e ◀` (ou 3e) avec `kind:"bonus"`, comme le font déjà les sections « Pythagore » (Géométrie) et « Loi d'Ohm » (Électricité).
+
+### Verdict par module (fiches `cards.js`)
+
+Légende : ✅ conforme 5ème (RAS) · 🟡 sections à marquer/compléter (voir « À revoir ») · 🔴 module entier en anticipation.
+
+| Module | Verdict | À revoir (à faire dans la session du lot) |
+|---|---|---|
+| Fractions | 🟡 | Section « Multiplication » + exemple « Recette » (division par une fraction) = 4ème → bandeau approfondissement. |
+| Nombres relatifs | 🟡 | Section « Multiplication et division » = 4ème → bandeau (y compris la remarque (−3)² dans « Exemple »). |
+| Divisibilité | ✅ | RAS. |
+| Puissances | 🟡 | En 5ème (2026) : carré et cube seulement. Sections « Puissances de 10 » (dont notation scientifique et 10⁻ⁿ) = 4ème → bandeau. Garder carrés/cubes et priorités. |
+| Calcul littéral | 🟡 | Section « Factoriser » (surtout 4x²+8x=4x(x+2)) = 4ème → bandeau. Distributivité simple, réduction, substitution : ✅. |
+| Équations | 🟡 | `x+b=c` et `ax=c` = cœur 5ème 2026 ✅. Section « Équation à deux opérations » (2x+3=11) = 4ème → bandeau. |
+| Proportionnalité | ✅ | RAS (« augmenter de p% → ×(1+p/100) » est en légère avance, tolérable ; notation `0,0p` corrigée en session 0). |
+| Fonctions | 🔴 | Notation f(x) et lecture graphique = 3ème. → À arbitrer (voir suivi) : bandeau global ou recentrage sur « graphiques et proportionnalité » (5ème). Ne rien changer sans décision. |
+| Repérage | ✅ | RAS (formule du milieu en légère avance, tolérable). |
+| Géométrie | 🟡 | Contenu conforme, Pythagore déjà en bonus ✅. **Manque 5ème : inégalité triangulaire + construction de triangles** → consigner dans « Manques » (ne rien créer). |
+| Symétrie centrale | ✅ | RAS. |
+| Symétrie axiale | ✅ | Rappel 6ème, pertinent en révision. RAS. |
+| Parallélogrammes | ✅ | RAS. |
+| Solides et volumes | 🟡 | **Manque 5ème : le prisme droit** (représentation + volume) → « Manques ». Pavé/cube (rappel cycle 3) et cylindre ✅. |
+| Statistiques | 🟡 | Sections « Médiane » et « moyenne pondérée » = 4ème → bandeau. Moyenne, fréquences, diagrammes ✅. |
+| Probabilités | ✅ | RAS (P(A ou B) pour incompatibles en légère avance, tolérable). |
+| Durées | ✅ | RAS (erreur 14h25+1h47 corrigée en session 0). |
+| La lumière | 🟡 | Propagation, sources, ombres, éclipses ✅ 5ème. Sections « Réflexion » (loi i=r) et « Réfraction » = au-delà du collège courant → bandeau approfondissement. |
+| États de la matière | ✅ | RAS. |
+| Mélanges et solutions | 🟡 | ✅ 5ème dans l'ensemble. **Manque 5ème : solubilité/saturation** → « Manques ». (Concentration c=m/V en légère avance, tolérable.) |
+| Masse et volume | ✅ | RAS (ρ=m/V formalisée plutôt en fin de cycle, tolérable en révision). |
+| Acidité et pH | 🔴 | pH = 3ème (repères). → Bandeau global « APPROFONDISSEMENT — VU EN 3e » sur les sections, ou décision utilisateur (voir « À arbitrer »). |
+| Composition de l'air | 🔴 | Composition de l'air = 4ème (repères). → Bandeau global « VU EN 4e ». |
+| Le son | 🟡 | Signaux sonores détaillés (fréquence, vitesse, dB) = 4ème → bandeau sur « Hauteur et fréquence » et « Intensité sonore » ; garder « Nature et propagation » comme sensibilisation. |
+| Électricité | 🟡 | Circuits série/dérivation qualitatifs ✅ 5ème. Lois formalisées I/U (I₁=I₂, U=U₁+U₂) = 4ème → mention dans les sections concernées ; loi d'Ohm déjà en bonus ✅. |
+| Mouvement et vitesse | ✅ | RAS. **Manque 5ème (thème « mouvement ET interactions ») : actions de contact / à distance** → « Manques ». |
+| L'énergie | ✅ | RAS. |
+| Le système solaire | ✅ | Rappel cycle 3 réinvesti en 5ème (thème Univers) : pertinent. RAS. |
+
+### Manques par rapport au programme de 5ème (à lister, ne rien créer)
+
+- **Maths** : fiche « Triangles » (inégalité triangulaire, constructions) ; volume du **prisme droit** ; fiche dédiée « Priorités opératoires / automatismes » (axe fort du programme 2026, aujourd'hui dispersé dans Puissances et Calcul littéral) ; notation **ratio** (a:b) ; algorithmique/Scratch (hors périmètre de l'appli — à acter).
+- **Physique** : **interactions** (actions de contact et à distance) ; **solubilité/saturation** dans Mélanges et solutions.
+
 ## Déroulé d'une session
 
 1. `git checkout fix/revue-contenu` ; lire ce fichier puis `REVUE_CONTENU_SUIVI.md` ; prendre la première session ⬜ (ou reprendre une session 🔶).
-2. Valider le lot thème par thème (fiche puis exercices) selon la méthode ci-dessus.
+2. Valider le lot thème par thème (fiche puis exercices) selon la méthode ci-dessus, **et appliquer les actions « À revoir » du tableau « Verdict par module » pour les modules du lot** (bandeaux approfondissement — sauf les cas « À arbitrer », à ne pas toucher).
 3. Mettre à jour le suivi : statut ✅ (ou 🔶), journal des corrections, manques, à arbitrer.
 4. Vérifications :
    - Parse : `node --input-type=module -e "const {EXERCISES}=await import('./src/data/exercises.js');const {CARDS}=await import('./src/data/cards.js');console.log(Object.keys(CARDS).length+' matieres CARDS OK, '+Object.values(EXERCISES).reduce((n,s)=>n+Object.values(s).flat().length,0)+' exercices')"` → attendu : 2 matières CARDS, 463 exercices (sauf réécritures signalées).

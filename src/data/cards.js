@@ -71,10 +71,10 @@ export const CARDS = {
       sections:[
         {h:"Tableau de proportionnalité",b:"Coefficient k = y÷x (constant pour chaque colonne)",table:[["x","2","5","8"],["y","6","15","24"]],},
         {h:"Vérification et règle de trois",kind:"method",b:"Vérification : produits en croix égaux\n2×15 = 5×6 = 30 ✓\n\nRègle de trois (valeur manquante ?) :\n3 correspond à 5 ; ? correspond à 20\n3×20 = 5×?  →  ? = 60÷5 = 12"},
-        {h:"Pourcentages",kind:"method",b:"p% de A = (p÷100)×A = 0,0p×A\n20% de 150 = 0,20×150 = 30\n\nAugmenter de p% → multiplier par (1 + p/100)\n   +15% → ×1,15  ;  200×1,15 = 230\n\nDiminuer de p% → multiplier par (1 − p/100)\n   −20% → ×0,80  ;  200×0,80 = 160"},
+        {h:"Pourcentages",kind:"method",b:"p% de A = (p÷100)×A\n20% de 150 = 0,20×150 = 30\n\nAugmenter de p% → multiplier par (1 + p/100)\n   +15% → ×1,15  ;  200×1,15 = 230\n\nDiminuer de p% → multiplier par (1 − p/100)\n   −20% → ×0,80  ;  200×0,80 = 160"},
         {h:"Échelle et vitesse moyenne",kind:"example",b:"Carte à l'échelle 1/50 000\nDistance carte = 3 cm  →  Réelle = 3×50 000 = 1,5 km\n\nVitesse moyenne : v = d÷t (proportionnelle si v const)\n150 km en 2h → v = 75 km/h"}
       ],
-      keypoints:["Coefficient k = y÷x (même pour toutes les colonnes)","Produits en croix pour vérifier ou trouver une valeur","p% = ×0,0p ; augmenter de p% = ×(1+p/100)"]
+      keypoints:["Coefficient k = y÷x (même pour toutes les colonnes)","Produits en croix pour vérifier ou trouver une valeur","p% de A = (p÷100)×A ; augmenter de p% = ×(1+p/100)"]
     },
     "Fonctions":{
       intro:"Une fonction décrit comment une grandeur dépend d'une autre. Elle associe à chaque valeur x une valeur unique y.",
@@ -174,7 +174,7 @@ export const CARDS = {
       sections:[
         {h:"Unités de temps",kind:"warning",b:"1 heure (h) = 60 minutes (min)\n1 minute (min) = 60 secondes (s)\n1 journée = 24 h  ;  1 semaine = 7 jours\n\n⚠ On N'écrit PAS 1h30 = 1,30h !\nC'est 1,5h (car 30min = 0,5h)"},
         {h:"Conversions",kind:"method",b:"h → min : × 60\nmin → h : ÷ 60 (quotient = h, reste = min)\n\nEx : 2h45min en minutes :\n2×60 + 45 = 165 min\n\nEx : 195 min en heures :\n195 ÷ 60 = 3 (h) reste 15 (min)\n→ 3h15min"},
-        {h:"Calculs d'horaires",kind:"method",b:"Pour additionner des durées :\nEx : Film démarre à 14h25, dure 1h47\nFin = 14h25 + 1h47 = 14h72 = 15h12\n(car 72min = 1h12min)\n\nEx : Durée entre 9h15 et 11h40\n11h40 − 9h15 = 2h25min"},
+        {h:"Calculs d'horaires",kind:"method",b:"Pour additionner des durées :\nEx : Film démarre à 14h25, dure 1h47\nFin = 14h25 + 1h47 = 15h72 = 16h12\n(car 72min = 1h12min)\n\nEx : Durée entre 9h15 et 11h40\n11h40 − 9h15 = 2h25min"},
         {h:"Vitesse et durée",b:"v = d ÷ t  (distance ÷ temps)\nÀ vitesse constante, distance et durée sont proportionnelles.\n\nEx : 300 km à 120 km/h\nt = d÷v = 300÷120 = 2,5h = 2h30min\n\nConversion : 1 m/s = 3,6 km/h  ;  1 km/h ≈ 0,278 m/s"}
       ],
       keypoints:["1h = 60min, 1min = 60s (base 60, pas base 10)","h→min : ×60  ;  min→h : ÷60 et regarder le reste","2h30min = 2,5h (et non 2,30h)"]
