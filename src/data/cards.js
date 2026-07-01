@@ -241,16 +241,16 @@ export const CARDS = {
       intro:"Le son est une vibration mécanique qui se propage dans la matière. Contrairement à la lumière, il ne se propage PAS dans le vide.",
       sections:[
         {h:"Nature et propagation",b:"Le son = vibration qui comprime/dilate le milieu alternativement\n\nVitesse de propagation (à 20°C) :\n→ Dans l'air : v ≈ 340 m/s\n→ Dans l'eau : v ≈ 1500 m/s (plus rapide)\n→ Dans les solides : encore plus rapide\n\n⚠ Dans le vide : v = 0 (ne se propage pas)\nFormule clé : d = v × t"},
-        {h:"Hauteur et fréquence",b:"Fréquence f (en Hertz Hz) = nombre de vibrations par seconde\n\nSon GRAVE ↔ faible fréquence (f < ~300 Hz)\nSon AIGU ↔ haute fréquence (f > ~2000 Hz)\n\nDomaine audible humain : 20 Hz à 20 000 Hz\nInfrasons : f < 20 Hz (inaudibles)\nUltrasons : f > 20 000 Hz (inaudibles, médecine, sonar)"},
-        {h:"Intensité sonore",kind:"warning",b:"Intensité mesurée en décibels (dB)\n\n0 dB → seuil d'audibilité\n30 dB → bibliothèque, chuchotement\n60 dB → conversation normale\n85 dB → seuil de risque (exposition longue → surdité)\n110 dB → concert, klaxon\n120 dB → seuil de douleur\n\n⚠ Porter des protections au-delà de 85 dB prolongé !"}
+        {h:"Hauteur et fréquence",kind:"bonus",b:"▶ APPROFONDISSEMENT — VU EN 4e ◀\n\nFréquence f (en Hertz Hz) = nombre de vibrations par seconde\n\nSon GRAVE ↔ faible fréquence (f < ~300 Hz)\nSon AIGU ↔ haute fréquence (f > ~2000 Hz)\n\nDomaine audible humain : 20 Hz à 20 000 Hz\nInfrasons : f < 20 Hz (inaudibles)\nUltrasons : f > 20 000 Hz (inaudibles, médecine, sonar)"},
+        {h:"Intensité sonore",kind:"bonus",b:"▶ APPROFONDISSEMENT — VU EN 4e ◀\n\nIntensité mesurée en décibels (dB)\n\n0 dB → seuil d'audibilité\n30 dB → bibliothèque, chuchotement\n60 dB → conversation normale\n85 dB → seuil de risque (exposition longue → surdité)\n110 dB → concert, klaxon\n120 dB → seuil de douleur\n\n⚠ Porter des protections au-delà de 85 dB prolongé !"}
       ],
       keypoints:["Son = vibration mécanique (impossible dans le vide)","Fréquence en Hz : grave = faible f, aigu = haute f","d = v × t  ;  v ≈ 340 m/s dans l'air"]
     },
     "Électricité":{
       intro:"Un circuit électrique doit être FERMÉ pour que le courant circule. Les dipôles peuvent être en série ou en dérivation (parallèle).",
       sections:[
-        {h:"Circuit en série",kind:"warning",b:"Tous les dipôles dans UNE seule boucle.\n\nLoi des intensités : I identique partout\n   I₁ = I₂ = I\n\nLoi des tensions : U se répartit\n   U = U₁ + U₂ + …\n\n⚠ Un dipôle défaillant → circuit ouvert → TOUT s'éteint !",fig:"circuitSerieFig"},
-        {h:"Circuit en dérivation",b:"Des dipôles sur des branches PARALLÈLES.\n\nLoi des tensions : U identique dans chaque branche\n   U₁ = U₂ = U\n\nLoi des intensités : I se répartit\n   I = I₁ + I₂ + …\n\n✓ Un dipôle défaillant → les autres continuent !",fig:"circuitDerivFig"},
+        {h:"Circuit en série",kind:"warning",b:"Tous les dipôles dans UNE seule boucle.\n\nLoi des intensités : I identique partout\n   I₁ = I₂ = I\n\nLoi des tensions : U se répartit\n   U = U₁ + U₂ + …\n\n⚠ Un dipôle défaillant → circuit ouvert → TOUT s'éteint !\n\n(Les lois en formules — I₁=I₂, U=U₁+U₂… — sont formalisées en 4e.)",fig:"circuitSerieFig"},
+        {h:"Circuit en dérivation",b:"Des dipôles sur des branches PARALLÈLES.\n\nLoi des tensions : U identique dans chaque branche\n   U₁ = U₂ = U\n\nLoi des intensités : I se répartit\n   I = I₁ + I₂ + …\n\n✓ Un dipôle défaillant → les autres continuent !\n\n(Les lois en formules — I₁=I₂, U=U₁+U₂… — sont formalisées en 4e.)",fig:"circuitDerivFig"},
         {h:"Loi d'Ohm",kind:"bonus",b:"▶ APPROFONDISSEMENT — VU EN 4e ◀\n\nU = R × I\n\nU : tension en Volts (V)\nR : résistance en Ohms (Ω)\nI : intensité en Ampères (A)\n\nEx : R=100 Ω, I=0,06 A → U = 100×0,06 = 6 V"},
         {h:"Sécurité",kind:"warning",b:"Réseau domestique = 230 V → DANGEREUX\n\nProtections :\n• Fusible : fond si courant trop fort (à remplacer)\n• Disjoncteur : se déclenche (réarmable)\n• Prise de terre : évacue les fuites de courant\n\nNe JAMAIS toucher les fils sous tension !"}
       ],
