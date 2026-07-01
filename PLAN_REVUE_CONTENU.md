@@ -47,11 +47,29 @@ Une session = un lot complet. Si le contexte devient trop long avant la fin d'un
 7. Physique : faits exacts et adaptés au niveau 5ème (v_lumière ≈ 300 000 km/s, v_son ≈ 340 m/s dans l'air, air ≈ 78 % N₂ / 21 % O₂, échelle pH 0–14, masse volumique de l'eau 1 g/cm³, ordre des planètes, etc.).
 
 ### Pour chaque fiche de cours
-1. Recalculer **tous les exemples numériques** de `intro`, `sections[].b` et `keypoints`.
-2. Définitions et formules exactes et conformes au niveau 5ème (pas de simplification fausse).
-3. `fig:` référencé existe dans `src/figures/index.jsx` (les 19 références actuelles sont valides — revérifier seulement si on modifie une référence).
-4. `keypoints` cohérents avec le contenu des sections.
-5. Cohérence fiche ↔ exercices du même thème (mêmes méthodes, mêmes notations).
+
+Une fiche = une entrée `CARDS.<matière>["<Thème>"]` dans `src/data/cards.js`, de la forme :
+
+```js
+"Fractions":{
+  intro:"Phrase d'introduction du thème.",
+  sections:[
+    {h:"Titre de section", b:"Corps de texte (retours à la ligne en \\n)", kind:"method", fig:"fractionBar"},
+    // kind (optionnel) : "method" | "example" | "warning" | "bonus" (= approfondissement hors 5ème)
+    // fig (optionnel) : nom d'une figure SVG de src/figures/index.jsx
+    // table (optionnel) : [["ligne1..."],["ligne2..."]]
+  ],
+  keypoints:["À retenir 1","À retenir 2","À retenir 3"]
+}
+```
+
+Vérifier, dans l'ordre :
+1. **Recalculer tous les exemples numériques**, chiffre par chiffre, dans `intro`, dans le `b` de CHAQUE section, et dans `keypoints`. Exemple d'erreur réelle trouvée en session 0 : la fiche Durées affirmait « 14h25 + 1h47 = 14h72 = 15h12 » — le bon calcul est 15h72 = 16h12. C'est ce niveau de relecture qui est attendu.
+2. Chaque **définition et formule** est exacte (pas de simplification fausse, pas de notation abusive — ex. corrigé en session 0 : « p% = ×0,0p », faux dès que p ≥ 10).
+3. Si la fiche a un `fig:`, le nom existe dans `src/figures/index.jsx` (les 19 références actuelles sont valides — revérifier seulement si on en modifie une).
+4. Les `keypoints` résument fidèlement les sections (pas de contradiction, pas de formule qui n'apparaît nulle part).
+5. Cohérence fiche ↔ exercices du même thème : mêmes méthodes, mêmes notations, mêmes formules.
+6. **Appliquer le marquage programme** prévu pour ce module : colonne « Action » du tableau « Verdict par module » (plus bas), en suivant le « Mode d'emploi du marquage ». Si le module est ✅, il n'y a rien à marquer.
 
 ### Règles de correction
 - Erreur de calcul/fait/typo → **corriger directement** + entrée au journal du suivi (avant → après).
@@ -70,42 +88,65 @@ Une session = un lot complet. Si le contexte devient trop long avant la fin d'un
 
 Références utilisées : **nouveau programme de mathématiques cycle 4 (BO du 5 mars 2026, applicable en 5ème à la rentrée 2026)** — en 5ème : relatifs (addition/soustraction), fractions (égalité, simplification, comparaison, addition/soustraction simples), priorités opératoires, initiation au calcul littéral (distributivité simple), équations `a+x=b` et `ax=b`, puissances **limitées au carré et au cube**, proportionnalité, statistiques (moyenne, fréquences, diagrammes), probabilités (équiprobabilité), repérage, symétrie centrale, angles et parallélisme, triangles (droites remarquables, inégalité triangulaire), parallélogrammes, prismes et cylindres, aires/durées/vitesse. Pour la **physique-chimie** : programme cycle 4 en vigueur + repères annuels de progression (le son détaillé, la composition de l'air et les lois électriques formalisées relèvent de la 4ème ; le pH de la 3ème).
 
-**Convention de marquage** : pour les contenus au-delà de la 5ème, ne PAS supprimer — ajouter en tête du `b` de la section le bandeau `▶ APPROFONDISSEMENT — VU EN 4e ◀` (ou 3e) avec `kind:"bonus"`, comme le font déjà les sections « Pythagore » (Géométrie) et « Loi d'Ohm » (Électricité).
+### Mode d'emploi du marquage « approfondissement »
+
+Principe : un contenu au-delà de la 5ème n'est **jamais supprimé** — il est signalé comme approfondissement. Trois cas :
+
+**Cas 1 — marquer UNE SECTION** (le cas général) : passer `kind` à `"bonus"` (l'ajouter s'il est absent, remplacer `"method"`/`"example"`/`"warning"` s'il est présent) et préfixer le `b` par le bandeau suivi de `\n\n`. Bandeau exact : `▶ APPROFONDISSEMENT — VU EN 4e ◀` (ou `VU EN 3e` selon le niveau indiqué dans le tableau). Avant/après réel :
+
+```js
+// AVANT
+{h:"Multiplication",kind:"method",b:"Numérateur × Numérateur\nDénominateur × Dénominateur\n..."}
+// APRÈS
+{h:"Multiplication",kind:"bonus",b:"▶ APPROFONDISSEMENT — VU EN 4e ◀\n\nNumérateur × Numérateur\nDénominateur × Dénominateur\n..."}
+```
+
+Modèles déjà en place dans `cards.js` : sections « Pythagore » (fiche Géométrie) et « Loi d'Ohm » (fiche Électricité) — s'y référer en cas de doute.
+
+**Cas 2 — marquer un MODULE ENTIER** (uniquement « Composition de l'air », session 5) : préfixer `intro` par `▶ APPROFONDISSEMENT — VU EN 4e ◀ ` et ne pas toucher aux sections.
+
+**Cas 3 — NE PAS TOUCHER** : fiches « Fonctions » et « Acidité et pH ». Elles sont en attente d'une décision utilisateur (section « À arbitrer » du suivi). Les valider pour l'exactitude uniquement — **aucun marquage, aucune restructuration**.
+
+Cas particulier « Électricité » (session 6) : ne PAS mettre les sections « Circuit en série » et « Circuit en dérivation » en bonus — les circuits qualitatifs sont bien au programme de 5ème. Ajouter seulement, à la fin du `b` de chacune de ces deux sections : `\n\n(Les lois en formules — I₁=I₂, U=U₁+U₂… — sont formalisées en 4e.)`
+
+Chaque marquage appliqué = une entrée dans le journal du suivi, préfixée « marquage programme : ».
 
 ### Verdict par module (fiches `cards.js`)
 
-Légende : ✅ conforme 5ème (RAS) · 🟡 sections à marquer/compléter (voir « À revoir ») · 🔴 module entier en anticipation.
+Légende : ✅ conforme 5ème (rien à marquer) · 🟡 sections précises à marquer (Cas 1) · 🔴 module entier en anticipation (Cas 2 ou Cas 3). La colonne « Session » indique QUI applique l'action ; les actions « bandeau » suivent le mode d'emploi ci-dessus.
 
-| Module | Verdict | À revoir (à faire dans la session du lot) |
-|---|---|---|
-| Fractions | 🟡 | Section « Multiplication » + exemple « Recette » (division par une fraction) = 4ème → bandeau approfondissement. |
-| Nombres relatifs | 🟡 | Section « Multiplication et division » = 4ème → bandeau (y compris la remarque (−3)² dans « Exemple »). |
-| Divisibilité | ✅ | RAS. |
-| Puissances | 🟡 | En 5ème (2026) : carré et cube seulement. Sections « Puissances de 10 » (dont notation scientifique et 10⁻ⁿ) = 4ème → bandeau. Garder carrés/cubes et priorités. |
-| Calcul littéral | 🟡 | Section « Factoriser » (surtout 4x²+8x=4x(x+2)) = 4ème → bandeau. Distributivité simple, réduction, substitution : ✅. |
-| Équations | 🟡 | `x+b=c` et `ax=c` = cœur 5ème 2026 ✅. Section « Équation à deux opérations » (2x+3=11) = 4ème → bandeau. |
-| Proportionnalité | ✅ | RAS (« augmenter de p% → ×(1+p/100) » est en légère avance, tolérable ; notation `0,0p` corrigée en session 0). |
-| Fonctions | 🔴 | Notation f(x) et lecture graphique = 3ème. → À arbitrer (voir suivi) : bandeau global ou recentrage sur « graphiques et proportionnalité » (5ème). Ne rien changer sans décision. |
-| Repérage | ✅ | RAS (formule du milieu en légère avance, tolérable). |
-| Géométrie | 🟡 | Contenu conforme, Pythagore déjà en bonus ✅. **Manque 5ème : inégalité triangulaire + construction de triangles** → consigner dans « Manques » (ne rien créer). |
-| Symétrie centrale | ✅ | RAS. |
-| Symétrie axiale | ✅ | Rappel 6ème, pertinent en révision. RAS. |
-| Parallélogrammes | ✅ | RAS. |
-| Solides et volumes | 🟡 | **Manque 5ème : le prisme droit** (représentation + volume) → « Manques ». Pavé/cube (rappel cycle 3) et cylindre ✅. |
-| Statistiques | 🟡 | Sections « Médiane » et « moyenne pondérée » = 4ème → bandeau. Moyenne, fréquences, diagrammes ✅. |
-| Probabilités | ✅ | RAS (P(A ou B) pour incompatibles en légère avance, tolérable). |
-| Durées | ✅ | RAS (erreur 14h25+1h47 corrigée en session 0). |
-| La lumière | 🟡 | Propagation, sources, ombres, éclipses ✅ 5ème. Sections « Réflexion » (loi i=r) et « Réfraction » = au-delà du collège courant → bandeau approfondissement. |
-| États de la matière | ✅ | RAS. |
-| Mélanges et solutions | 🟡 | ✅ 5ème dans l'ensemble. **Manque 5ème : solubilité/saturation** → « Manques ». (Concentration c=m/V en légère avance, tolérable.) |
-| Masse et volume | ✅ | RAS (ρ=m/V formalisée plutôt en fin de cycle, tolérable en révision). |
-| Acidité et pH | 🔴 | pH = 3ème (repères). → Bandeau global « APPROFONDISSEMENT — VU EN 3e » sur les sections, ou décision utilisateur (voir « À arbitrer »). |
-| Composition de l'air | 🔴 | Composition de l'air = 4ème (repères). → Bandeau global « VU EN 4e ». |
-| Le son | 🟡 | Signaux sonores détaillés (fréquence, vitesse, dB) = 4ème → bandeau sur « Hauteur et fréquence » et « Intensité sonore » ; garder « Nature et propagation » comme sensibilisation. |
-| Électricité | 🟡 | Circuits série/dérivation qualitatifs ✅ 5ème. Lois formalisées I/U (I₁=I₂, U=U₁+U₂) = 4ème → mention dans les sections concernées ; loi d'Ohm déjà en bonus ✅. |
-| Mouvement et vitesse | ✅ | RAS. **Manque 5ème (thème « mouvement ET interactions ») : actions de contact / à distance** → « Manques ». |
-| L'énergie | ✅ | RAS. |
-| Le système solaire | ✅ | Rappel cycle 3 réinvesti en 5ème (thème Univers) : pertinent. RAS. |
+| Module | Session | Verdict | Action à faire dans la session |
+|---|---|---|---|
+| Fractions | 1 | 🟡 | Cas 1, `VU EN 4e` sur les sections « Multiplication » et « Exemple » (la recette divise par une fraction = 4ème). |
+| Nombres relatifs | 1 | 🟡 | Cas 1, `VU EN 4e` sur la section « Multiplication et division ». |
+| Divisibilité | 1 | ✅ | Rien à marquer. |
+| Puissances | 1 | 🟡 | Cas 1, `VU EN 4e` sur la section « Puissances de 10 » (notation scientifique et 10⁻ⁿ incluses). En 5ème (programme 2026) : carré et cube seulement — garder telles quelles les sections carrés/cubes et priorités. |
+| Calcul littéral | 2 | 🟡 | Cas 1, `VU EN 4e` sur la section « Factoriser ». Le reste (distributivité simple, réduction, substitution) est conforme. |
+| Équations | 2 | 🟡 | Cas 1, `VU EN 4e` sur la section « Équation à deux opérations » (2x+3=11). Les sections x+b=c et ax=c sont le cœur du programme 5ème 2026 — ne pas y toucher. |
+| Proportionnalité | 2 | ✅ | Rien à marquer (« ×(1+p/100) » en légère avance : tolérable ; notation 0,0p déjà corrigée en session 0). |
+| Fonctions | 2 | 🔴 | **Cas 3 — NE PAS TOUCHER** (notation f(x) = 3ème ; décision utilisateur en attente). Valider l'exactitude seulement. |
+| Repérage | 3 | ✅ | Rien à marquer (formule du milieu en légère avance : tolérable). |
+| Géométrie | 3 | 🟡 | Rien à marquer (Pythagore est déjà en bonus). Consigner dans « Manques » du suivi : inégalité triangulaire + construction de triangles (attendus 5ème absents). |
+| Symétrie centrale | 3 | ✅ | Rien à marquer. |
+| Symétrie axiale | 3 | ✅ | Rien à marquer (rappel 6ème, pertinent en révision). |
+| Parallélogrammes | 3 | ✅ | Rien à marquer. |
+| Solides et volumes | 4 | 🟡 | Rien à marquer (pavé/cube = rappel cycle 3, cylindre = 5ème). Consigner dans « Manques » : le prisme droit (représentation + volume, attendu 5ème). |
+| Statistiques | 4 | 🟡 | Cas 1, `VU EN 4e` sur la section « Médiane ». Dans la section « Moyenne et étendue », marquer seulement la moyenne pondérée d'une parenthèse `(moyenne pondérée : vue en 4e)` — la moyenne simple et l'étendue restent 5ème. |
+| Probabilités | 4 | ✅ | Rien à marquer (P(A ou B) incompatibles en légère avance : tolérable). |
+| Durées | 4 | ✅ | Rien à marquer (erreur 14h25+1h47 déjà corrigée en session 0). |
+| La lumière | 5 | 🟡 | Cas 1, `VU EN 4e` sur les sections « Réflexion » et « Réfraction ». Propagation, sources, ombres, éclipses = 5ème, ne pas toucher. |
+| États de la matière | 5 | ✅ | Rien à marquer. |
+| Mélanges et solutions | 5 | 🟡 | Rien à marquer (concentration c=m/V en légère avance : tolérable). Consigner dans « Manques » : solubilité/saturation (attendu 5ème absent). |
+| Masse et volume | 5 | ✅ | Rien à marquer (ρ=m/V formalisée plutôt en fin de cycle : tolérable en révision). |
+| Acidité et pH | 5 | 🔴 | **Cas 3 — NE PAS TOUCHER** (pH = 3ème ; décision utilisateur en attente). Valider l'exactitude seulement. |
+| Composition de l'air | 5 | 🔴 | **Cas 2** : bandeau `VU EN 4e` en tête de l'`intro`, sections inchangées. |
+| Le son | 6 | 🟡 | Cas 1, `VU EN 4e` sur les sections « Hauteur et fréquence » et « Intensité sonore ». Garder « Nature et propagation » telle quelle (sensibilisation 5ème). |
+| Électricité | 6 | 🟡 | Cas particulier (voir mode d'emploi) : ajouter la parenthèse « lois formalisées en 4e » à la fin des sections « Circuit en série » et « Circuit en dérivation ». Ne PAS les passer en bonus. Loi d'Ohm déjà en bonus. |
+| Mouvement et vitesse | 6 | ✅ | Rien à marquer. Consigner dans « Manques » : les interactions (actions de contact / à distance, thème 5ème « mouvement et interactions »). |
+| L'énergie | 6 | ✅ | Rien à marquer. |
+| Le système solaire | 6 | ✅ | Rien à marquer (rappel cycle 3 réinvesti en 5ème, thème Univers). |
+
+> Les manques cités dans ce tableau sont **déjà consignés** dans `REVUE_CONTENU_SUIVI.md` (session 0) — ne pas les dupliquer ; ajouter seulement les manques NOUVEAUX découverts pendant la relecture.
 
 ### Manques par rapport au programme de 5ème (à lister, ne rien créer)
 
@@ -115,7 +156,7 @@ Légende : ✅ conforme 5ème (RAS) · 🟡 sections à marquer/compléter (voir
 ## Déroulé d'une session
 
 1. `git checkout fix/revue-contenu` ; lire ce fichier puis `REVUE_CONTENU_SUIVI.md` ; prendre la première session ⬜ (ou reprendre une session 🔶).
-2. Valider le lot thème par thème (fiche puis exercices) selon la méthode ci-dessus, **et appliquer les actions « À revoir » du tableau « Verdict par module » pour les modules du lot** (bandeaux approfondissement — sauf les cas « À arbitrer », à ne pas toucher).
+2. Valider le lot thème par thème (fiche puis exercices) selon la méthode ci-dessus, **et appliquer la colonne « Action » du tableau « Verdict par module » pour chaque module du lot** (bandeaux selon le mode d'emploi — sauf les modules « Cas 3 — NE PAS TOUCHER »).
 3. Mettre à jour le suivi : statut ✅ (ou 🔶), journal des corrections, manques, à arbitrer.
 4. Vérifications :
    - Parse : `node --input-type=module -e "const {EXERCISES}=await import('./src/data/exercises.js');const {CARDS}=await import('./src/data/cards.js');console.log(Object.keys(CARDS).length+' matieres CARDS OK, '+Object.values(EXERCISES).reduce((n,s)=>n+Object.values(s).flat().length,0)+' exercices')"` → attendu : 2 matières CARDS, 463 exercices (sauf réécritures signalées).
