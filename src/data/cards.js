@@ -50,7 +50,7 @@ export const CARDS = {
         {h:"Distributivité simple",b:"k(a + b) = ka + kb\nk(a − b) = ka − kb\n\n3(x + 4) = 3x + 12\n2(3x − 1) = 6x − 2\n−2(x + 3) = −2x − 6\n−(x − 5) = −x + 5"},
         {h:"Réduire une expression",kind:"method",b:"Regrouper les termes semblables (même variable, même exposant)\n\n3x + 5 + 2x − 1 = (3x+2x)+(5−1) = 5x + 4\n4a + 3b − a + 2b = 3a + 5b\n\n⚠ x et x² ne sont PAS des termes semblables !"},
         {h:"Substitution numérique",kind:"method",b:"Remplacer la lettre par sa valeur, respecter les priorités.\n\nPour x=4 :\n2x + 3 = 2×4 + 3 = 11\nx² − 2x = 16 − 8 = 8\n\nPour a=−3 :\na² + a = 9 + (−3) = 6"},
-        {h:"Factoriser",kind:"method",b:"Factoriser = mettre le facteur commun devant une parenthèse\n(inverse du développement)\n\n6x + 9 = 3(2x + 3)   [PGCD=3]\n4x² + 8x = 4x(x + 2) [PGCD=4x]"},
+        {h:"Factoriser",kind:"bonus",b:"▶ APPROFONDISSEMENT — VU EN 4e ◀\n\nFactoriser = mettre le facteur commun devant une parenthèse\n(inverse du développement)\n\n6x + 9 = 3(2x + 3)   [PGCD=3]\n4x² + 8x = 4x(x + 2) [PGCD=4x]"},
         {h:"Exemple complet",kind:"example",b:"Simplifier 3(2x−1) − 2(x+4)\n= 6x − 3 − 2x − 8\n= 4x − 11"}
       ],
       keypoints:["Développer : distribuer le facteur à chaque terme de la parenthèse","Réduire : regrouper les termes ayant la même variable et le même exposant","Substitution : remplacer la lettre, respecter les priorités opératoires"]
@@ -61,7 +61,7 @@ export const CARDS = {
         {h:"Vocabulaire",b:"• Équation : égalité avec une inconnue (souvent x)\n• Solution : valeur de x qui vérifie l'égalité\n• Vérification : remplacer x et contrôler des deux côtés\n\nEx : x + 5 = 12  →  x = 7  (7+5=12 ✓)"},
         {h:"Résoudre x + b = c",kind:"method",b:"Utiliser l'opération inverse (+) → (−)\n\nx + 8 = 15  →  x = 15 − 8 = 7\nVérif : 7 + 8 = 15 ✓\n\nx − 3 = 11  →  x = 11 + 3 = 14\nVérif : 14 − 3 = 11 ✓"},
         {h:"Résoudre ax = c",kind:"method",b:"Utiliser l'opération inverse (×) → (÷)\n\n4x = 28  →  x = 28 ÷ 4 = 7\nVérif : 4×7 = 28 ✓\n\nx/5 = 6  →  x = 6 × 5 = 30"},
-        {h:"Équation à deux opérations",kind:"method",b:"D'abord déplacer le terme constant, puis le coefficient.\n\n2x + 3 = 11\n2x = 11 − 3 = 8\nx = 8 ÷ 2 = 4\nVérif : 2×4+3 = 11 ✓\n\n3x − 5 = 10  →  3x = 15  →  x = 5"},
+        {h:"Équation à deux opérations",kind:"bonus",b:"▶ APPROFONDISSEMENT — VU EN 4e ◀\n\nD'abord déplacer le terme constant, puis le coefficient.\n\n2x + 3 = 11\n2x = 11 − 3 = 8\nx = 8 ÷ 2 = 4\nVérif : 2×4+3 = 11 ✓\n\n3x − 5 = 10  →  3x = 15  →  x = 5"},
         {h:"Mise en équation",kind:"example",b:"La somme de deux nombres consécutifs est 27.\nSoient n et n+1 ces nombres.\nn + (n+1) = 27  →  2n+1=27  →  2n=26  →  n=13\nLes nombres sont 13 et 14. Vérif : 13+14=27 ✓"}
       ],
       keypoints:["Opération inverse : +↔− et ×↔÷","Effectuer la même opération des deux côtés","Toujours vérifier la solution en substituant"]
