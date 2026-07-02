@@ -37,3 +37,9 @@ export async function fetchHistory() {
     return null;
   }
 }
+
+export async function fetchAttemptDetail(id) {
+  const res = await fetch(`/api/attempts?id=${encodeURIComponent(id)}`);
+  if (!res.ok) throw new Error(`API ${res.status}`);
+  return await res.json();
+}

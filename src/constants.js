@@ -1,4 +1,4 @@
-export const APP_VERSION = "2.3";
+export const APP_VERSION = "3.1";
 
 export const SUBS = {
   maths:   { label:"Mathématiques",   emoji:"📐", topics:["Fractions","Nombres relatifs","Divisibilité","Puissances","Priorités opératoires","Calcul littéral","Équations","Proportionnalité","Fonctions","Repérage","Géométrie","Triangles","Symétrie centrale","Symétrie axiale","Parallélogrammes","Solides et volumes","Statistiques","Probabilités","Durées"] },

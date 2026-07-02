@@ -61,10 +61,16 @@ JSON EXACT : {"question":"énoncé complet","hint":"indice utile sans donner la 
       const half = !ok && resultOk;
       const streakBonus = ok && state.streak >= 2 ? 5 : 0;
       const pts  = ok ? level * 10 + streakBonus + 2 : half ? level * 3 : 0;
-      recordAttempt({ mode: "quiz", subject: subj, topic, level, question: qData?.question,
+      recordAttempt({
+        mode: "quiz", subject: subj, topic, level, question: qData?.question,
         answer_mode: answerMode, result_ok: resultOk, is_half: half,
         formula_ok: formulaOk === true ? true : formulaOk === false ? false : null,
-        written_ok: writtenOk, points: pts });
+        written_ok: writtenOk, points: pts,
+        student_answer: answerMode === "text" ? answer : null,
+        photo_data: answerMode === "photo" ? photo?.dataUrl : null,
+        feedback: d.feedback,
+        correct_answer: d.correct_answer,
+      });
     } catch {
       dispatch({ type: "VALIDATE_ERROR" });
     }
@@ -77,7 +83,7 @@ JSON EXACT : {"question":"énoncé complet","hint":"indice utile sans donner la 
       <div style={{ maxWidth: 600, margin: "0 auto" }}>
         <style>{`@keyframes slideUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}@keyframes bounce{0%{transform:scale(0.97)}55%{transform:scale(1.03)}100%{transform:scale(1)}}`}</style>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1.25rem" }}>
-          <button onClick={() => dispatch({ type: "SET", payload: { screen: "setup" } })} style={{ background: "none", border: "none", color: "#6B7280", cursor: "pointer", fontSize: 13, fontFamily: "inherit", padding: 0 }}>← Thème</button>
+          <button onClick={() => dispatch({ type: "SET", payload: { screen: "topic" } })} style={{ background: "none", border: "none", color: "#6B7280", cursor: "pointer", fontSize: 13, fontFamily: "inherit", padding: 0 }}>← Retour</button>
           <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
             {streak >= 2 && <span style={{ background: P.warn.lit, border: `1px solid ${P.warn.pri}`, borderRadius: 20, padding: "3px 10px", fontSize: 12, fontWeight: 700, color: P.warn.txt }}>🔥 ×{streak}</span>}
             <span style={{ background: c.lit, border: `1.5px solid ${c.med}`, borderRadius: 20, padding: "4px 14px", fontSize: 14, fontWeight: 700, color: c.txt }}>{score} pts</span>
@@ -171,7 +177,7 @@ JSON EXACT : {"question":"énoncé complet","hint":"indice utile sans donner la 
               )}
             </div>
             <div style={{ display: "flex", gap: 8 }}>
-              <button onClick={() => dispatch({ type: "SET", payload: { screen: "setup" } })} style={{ padding: "10px 16px", background: "white", border: "1.5px solid #E5E7EB", borderRadius: 8, color: "#6B7280", cursor: "pointer", fontSize: 13, fontFamily: "inherit" }}>Changer</button>
+              <button onClick={() => dispatch({ type: "SET", payload: { screen: "topic" } })} style={{ padding: "10px 16px", background: "white", border: "1.5px solid #E5E7EB", borderRadius: 8, color: "#6B7280", cursor: "pointer", fontSize: 13, fontFamily: "inherit" }}>Retour</button>
               <button onClick={genQuestion} style={{ flex: 1, padding: "10px", background: c.pri, border: "none", borderRadius: 8, color: "white", fontWeight: 700, cursor: "pointer", fontSize: 14, fontFamily: "inherit" }}>Défi suivant →</button>
             </div>
           </div>
