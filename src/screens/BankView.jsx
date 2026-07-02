@@ -24,8 +24,8 @@ export default function BankView() {
         + (bankAnswerMode === "photo" ? " 3. RÉDACTION — la réponse est-elle rédigée avec étapes ? En mode photo : si la formule est présente mais illisible, réponds false à formula_recalled et mentionne-le dans le feedback." : " 3. RÉDACTION — la réponse est-elle rédigée avec étapes et non un simple résultat brut ?")
         + " JSON VALIDE UNIQUEMENT, zéro backtick.";
       const userMsg = bankAnswerMode === "photo"
-        ? `Exercice : "${ex.q}"\nCorrigé de référence : "${ex.a}"\nLa réponse de l'élève est la photo jointe (copie manuscrite). Analyse la démarche et le résultat visibles sur la photo, en te basant sur le corrigé de référence.\nJSON : {"result_correct":true,"formula_recalled":true,"well_written":true,"feedback":"2-3 phrases encourageantes qui disent précisément ce qui manque si nécessaire, précise si un passage était illisible"}`
-        : `Exercice : "${ex.q}"\nCorrigé de référence : "${ex.a}"\nRéponse élève : "${bankAnswer}"\nJSON : {"result_correct":true,"formula_recalled":true,"well_written":true,"feedback":"2-3 phrases encourageantes qui disent précisément ce qui manque si nécessaire"}`;
+        ? `Exercice : "${ex.q}"\nCorrigé de référence : "${ex.a}"\nLa réponse de l'élève est la photo jointe (copie manuscrite). Analyse la démarche et le résultat visibles sur la photo, en te basant sur le corrigé de référence.\nJSON : {"result_correct":true,"formula_recalled":true,"well_written":true,"feedback":"2-3 phrases encourageantes qui disent précisément ce qui manque si nécessaire, précise si un passage était illisible (une phrase par ligne, séparées par \\n)"}`
+        : `Exercice : "${ex.q}"\nCorrigé de référence : "${ex.a}"\nRéponse élève : "${bankAnswer}"\nJSON : {"result_correct":true,"formula_recalled":true,"well_written":true,"feedback":"2-3 phrases encourageantes qui disent précisément ce qui manque si nécessaire (une phrase par ligne, séparées par \\n)"}`;
       const d = await callGemini(system, userMsg, bankAnswerMode === "photo" ? bankPhoto.base64 : null, bankAnswerMode === "photo" ? bankPhoto.mediaType : undefined);
       dispatch({ type: "CHECK_BANK_DONE", d });
       // fire-and-forget
@@ -115,7 +115,7 @@ export default function BankView() {
                     <span style={{ fontSize: 16 }}>{bankFeedback._ok ? "✅" : bankFeedback._half ? "⚡" : "❌"}</span>
                     <span style={{ fontWeight: 700, color: fc.txt, fontSize: 13 }}>{bankFeedback._ok ? "Excellent !" : bankFeedback._half ? "Presque !" : "Pas tout à fait…"}</span>
                   </div>
-                  <p style={{ margin: 0, fontSize: 13, color: "#374151", lineHeight: 1.6, marginBottom: (!bankFeedback._formulaOk || !bankFeedback._writtenOk) ? 8 : 0 }}>{bankFeedback.feedback}</p>
+                  <p style={{ margin: 0, fontSize: 13, color: "#374151", lineHeight: 1.6, marginBottom: (!bankFeedback._formulaOk || !bankFeedback._writtenOk) ? 8 : 0, whiteSpace: "pre-wrap" }}>{bankFeedback.feedback}</p>
                   {(!bankFeedback._formulaOk || !bankFeedback._writtenOk) && (
                     <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
                       {!bankFeedback._formulaOk && <span style={{ fontSize: 12, color: P.warn.txt }}>⚠️ Pense à rappeler la ou les formules du cours.</span>}

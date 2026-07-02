@@ -26,10 +26,11 @@ Exigences :
 - L'élève doit identifier quels outils mathématiques utiliser dans quel contexte physique
 - ${level === 1 ? "2 étapes de raisonnement" : level === 2 ? "3 à 4 étapes, formule(s) physique ET calcul mathématique" : "4 à 5 étapes, raisonnement rigoureux, plusieurs formules, résultat avec unité"}
 - Le problème doit être RÉSOLVABLE avec le programme de 5ème uniquement
+- MISE EN FORME de "question" : va à la ligne (\\n) entre la mise en situation, chaque donnée importante et la ou les questions posées ; si plusieurs sous-questions, les écrire a) b) c) chacune sur sa propre ligne
 
 JSON EXACT : {"question":"énoncé complet avec toutes les données","hint":"quelle(s) formule(s) et méthode(s) utiliser","answer_guide":"formule(s) de cours utilisées + démarche complète rédigée pas à pas + résultat final avec unité"}`
       : `Génère 1 question de ${SUBS[subj].label} niveau ${level}/3 (${LVL[level]}: ${LVL_D[level]}) sur le thème "${topic}".
-JSON EXACT : {"question":"énoncé complet","hint":"indice utile sans donner la réponse","answer_guide":"formule(s) de cours attendue(s) + démarche rédigée pas à pas + résultat final avec unité"}`;
+JSON EXACT : {"question":"énoncé complet, avec un retour à la ligne (\\n) entre la situation, les données et la question ; sous-questions a) b) chacune sur sa ligne","hint":"indice utile sans donner la réponse","answer_guide":"formule(s) de cours attendue(s) + démarche rédigée pas à pas + résultat final avec unité"}`;
     try {
       const d = await callGemini(sys, msg);
       dispatch({ type: "QUIZ_LOADED", qData: d });
@@ -49,8 +50,8 @@ JSON EXACT : {"question":"énoncé complet","hint":"indice utile sans donner la 
         + (answerMode === "photo" ? " 3. RÉDACTION — la réponse est-elle rédigée avec étapes ? En mode photo : si la formule est présente mais illisible, réponds false à formula_recalled et mentionne-le dans le feedback." : " 3. RÉDACTION — la réponse est-elle rédigée avec étapes et non un simple résultat brut ?")
         + " JSON VALIDE UNIQUEMENT, zéro backtick.";
       const userMsg = answerMode === "photo"
-        ? `Question : "${qData.question}"\nGuide : "${qData.answer_guide}"\nLa réponse de l'élève est la photo jointe (copie manuscrite). Analyse la démarche et le résultat visibles sur la photo.\nJSON : {"result_correct":true,"formula_recalled":true,"well_written":true,"feedback":"2-3 phrases encourageantes qui disent précisément ce qui manque si nécessaire, précise si un passage était illisible","correct_answer":"rédaction modèle complète : formule(s) + étapes + résultat avec unité, si faux ou partiel"}`
-        : `Question : "${qData.question}"\nGuide : "${qData.answer_guide}"\nRéponse élève : "${answer}"\nJSON : {"result_correct":true,"formula_recalled":true,"well_written":true,"feedback":"2-3 phrases encourageantes qui disent précisément ce qui manque si nécessaire","correct_answer":"rédaction modèle complète : formule(s) + étapes + résultat avec unité, si faux ou partiel"}`;
+        ? `Question : "${qData.question}"\nGuide : "${qData.answer_guide}"\nLa réponse de l'élève est la photo jointe (copie manuscrite). Analyse la démarche et le résultat visibles sur la photo.\nJSON : {"result_correct":true,"formula_recalled":true,"well_written":true,"feedback":"2-3 phrases encourageantes qui disent précisément ce qui manque si nécessaire, précise si un passage était illisible (une phrase par ligne, séparées par \\n)","correct_answer":"rédaction modèle complète si faux ou partiel, avec un retour à la ligne (\\n) entre la formule, chaque étape du calcul et le résultat final avec unité"}`
+        : `Question : "${qData.question}"\nGuide : "${qData.answer_guide}"\nRéponse élève : "${answer}"\nJSON : {"result_correct":true,"formula_recalled":true,"well_written":true,"feedback":"2-3 phrases encourageantes qui disent précisément ce qui manque si nécessaire (une phrase par ligne, séparées par \\n)","correct_answer":"rédaction modèle complète si faux ou partiel, avec un retour à la ligne (\\n) entre la formule, chaque étape du calcul et le résultat final avec unité"}`;
       const d = await callGemini(system, userMsg, answerMode === "photo" ? photo.base64 : null, answerMode === "photo" ? photo.mediaType : undefined);
       dispatch({ type: "VALIDATE_DONE", d, level });
       // fire-and-forget : un échec ne bloque pas l'UX
@@ -100,9 +101,9 @@ JSON EXACT : {"question":"énoncé complet","hint":"indice utile sans donner la 
           {loading && !qData
             ? <div style={{ textAlign: "center", padding: "1.5rem 0" }}><div style={{ fontSize: 28, marginBottom: 8 }}>{S.emoji}</div><p style={{ color: "#9CA3AF", fontSize: 14, margin: 0 }}>Génération du défi…</p></div>
             : <>
-                <p style={{ fontSize: 15, lineHeight: 1.8, color: "#111827", margin: 0 }}>{qData?.question}</p>
+                <p style={{ fontSize: 15, lineHeight: 1.8, color: "#111827", margin: 0, whiteSpace: "pre-wrap" }}>{qData?.question}</p>
                 {showHint && qData?.hint && (
-                  <div style={{ marginTop: "1rem", borderLeft: `3px solid ${c.pri}`, padding: "8px 12px", fontSize: 13, color: c.txt, background: c.lit, borderRadius: "0 6px 6px 0", animation: "slideUp 0.2s ease" }}>
+                  <div style={{ marginTop: "1rem", borderLeft: `3px solid ${c.pri}`, padding: "8px 12px", fontSize: 13, color: c.txt, background: c.lit, borderRadius: "0 6px 6px 0", animation: "slideUp 0.2s ease", whiteSpace: "pre-wrap" }}>
                     💡 {qData.hint}
                   </div>
                 )}
@@ -162,7 +163,7 @@ JSON EXACT : {"question":"énoncé complet","hint":"indice utile sans donner la 
                 <span style={{ fontWeight: 700, color: fbc.txt, fontSize: 15 }}>{feedback._ok ? "Excellent !" : feedback._half ? "Presque !" : "Pas tout à fait…"}</span>
                 {feedback._pts > 0 && <span style={{ marginLeft: "auto", background: P.ok.pri, color: "white", borderRadius: 20, padding: "2px 12px", fontSize: 12, fontWeight: 700 }}>+{feedback._pts} pts</span>}
               </div>
-              <p style={{ color: "#374151", fontSize: 14, lineHeight: 1.7, margin: 0, marginBottom: ((!feedback._ok && feedback.correct_answer) || (!feedback._formulaOk || !feedback._writtenOk)) ? 10 : 0 }}>{feedback.feedback}</p>
+              <p style={{ color: "#374151", fontSize: 14, lineHeight: 1.7, margin: 0, marginBottom: ((!feedback._ok && feedback.correct_answer) || (!feedback._formulaOk || !feedback._writtenOk)) ? 10 : 0, whiteSpace: "pre-wrap" }}>{feedback.feedback}</p>
               {(!feedback._formulaOk || !feedback._writtenOk) && (
                 <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: (!feedback._ok && feedback.correct_answer) ? 8 : 0 }}>
                   {!feedback._formulaOk && <span style={{ fontSize: 12.5, color: P.warn.txt }}>⚠️ Pense à rappeler la ou les formules du cours.</span>}
@@ -171,8 +172,8 @@ JSON EXACT : {"question":"énoncé complet","hint":"indice utile sans donner la 
               )}
               {!feedback._ok && feedback.correct_answer && (
                 <div style={{ background: "rgba(0,0,0,0.04)", borderRadius: 6, padding: "10px 12px", fontSize: 13 }}>
-                  <span style={{ color: "#9CA3AF" }}>Réponse : </span>
-                  <span style={{ color: "#111827", fontWeight: 600 }}>{feedback.correct_answer}</span>
+                  <div style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 6, color: "#9CA3AF" }}>Réponse modèle</div>
+                  <p style={{ color: "#111827", fontWeight: 600, margin: 0, whiteSpace: "pre-wrap", lineHeight: 1.7 }}>{feedback.correct_answer}</p>
                 </div>
               )}
             </div>
