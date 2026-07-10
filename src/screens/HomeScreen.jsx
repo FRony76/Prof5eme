@@ -3,65 +3,113 @@ import { SUBS } from "../constants.js";
 import { useAppState } from "../state/AppContext.jsx";
 
 export default function HomeScreen() {
-  const { dispatch } = useAppState();
+  const { state, dispatch } = useAppState();
+  const { score, streak, historyData, user } = state;
+  const byTopic = historyData?.byTopic || [];
+  const recent = historyData?.recent || [];
+  const hasData = byTopic.length > 0;
 
-  const logout = async () => {
-    try { await fetch("/api/logout", { method: "POST" }); } catch { /* ignore */ }
-    dispatch({ type: "SET", payload: { authed: false } });
+  const subjectKeys = Object.keys(SUBS);
+  const firstKey = subjectKeys[0];
+
+  let sumCorrect = 0, sumTotal = 0;
+  byTopic.forEach(t => { sumCorrect += t.correct || 0; sumTotal += t.total || 0; });
+  const masteryGlobal = sumTotal > 0 ? Math.round((sumCorrect / sumTotal) * 100) : null;
+
+  const last = recent[0] || null;
+  const heroEntry = last ? byTopic.find(t => t.subject === last.subject && t.topic === last.topic) : null;
+  const heroPct = heroEntry && heroEntry.total > 0 ? Math.round((heroEntry.correct / heroEntry.total) * 100) : null;
+
+  const goContinue = () => {
+    if (last) dispatch({ type: "SET", payload: { subj: last.subject, topic: last.topic, screen: "topic" } });
+    else dispatch({ type: "SET", payload: { subj: firstKey, topic: null, screen: "topics" } });
   };
 
+  const openSubject = (k) => dispatch({ type: "SET", payload: { subj: k, topic: null, screen: "topics" } });
+
   return (
-    <div style={{ minHeight: "100vh", background: "#F9FAFB", padding: "2rem 1.5rem", fontFamily: "system-ui, -apple-system, sans-serif" }}>
-      <div style={{ maxWidth: 580, margin: "0 auto" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12 }}>
-          <h1 style={{ fontSize: 24, fontWeight: 700, color: "#111827", margin: "0 0 4px" }}>Défis d'apprentissage</h1>
-          <button onClick={logout} style={{ flexShrink: 0, marginTop: 2, padding: "6px 12px", background: "white", border: "1.5px solid #E5E7EB", borderRadius: 8, color: "#6B7280", cursor: "pointer", fontSize: 12, fontFamily: "inherit" }}>
-            Se déconnecter
-          </button>
-        </div>
-        <p style={{ fontSize: 13, color: "#6B7280", margin: "0 0 1.75rem" }}>Programme officiel 5ème — exercices générés et corrigés par IA</p>
+    <div style={{ animation: "revFade .4s ease both" }}>
+      <div style={{ fontFamily: "'Bricolage Grotesque'", fontWeight: 700, fontSize: 34, letterSpacing: "-1px", margin: 0 }}>Salut{user ? ` ${user}` : ""} 👋</div>
+      <div style={{ color: "#6B6B7B", fontSize: 16, marginTop: 6 }}>
+        {hasData ? <>Tu as travaillé <b style={{ color: "#191927" }}>{byTopic.length} thème{byTopic.length > 1 ? "s" : ""}</b>. On continue ?</> : "Choisis une matière pour commencer à réviser."}
+      </div>
 
-        <p style={{ fontSize: 11, fontWeight: 700, color: "#9CA3AF", textTransform: "uppercase", letterSpacing: "0.1em", margin: "0 0 10px" }}>Choisir une matière</p>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 12 }}>
-          {["maths", "physique"].map(k => {
-            const p = P[k]; const s = SUBS[k];
-            return (
-              <button key={k} onClick={() => dispatch({ type: "SET", payload: { subj: k, topic: null, screen: "topics" } })}
-                style={{ background: p.lit, border: `2px solid ${p.med}`, borderRadius: 12, padding: "1.25rem", cursor: "pointer", textAlign: "left", fontFamily: "inherit", transition: "all 0.15s" }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = p.pri; e.currentTarget.style.boxShadow = "0 4px 14px rgba(0,0,0,0.08)"; }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = p.med; e.currentTarget.style.boxShadow = "none"; }}>
-                <span style={{ fontSize: 28, display: "block", marginBottom: 10 }}>{s.emoji}</span>
-                <div style={{ fontSize: 15, fontWeight: 700, color: p.txt, marginBottom: 8 }}>{s.label}</div>
-                {s.topics.map(t => <div key={t} style={{ fontSize: 11, color: p.txt, opacity: 0.75, lineHeight: 1.9 }}>· {t}</div>)}
-              </button>
-            );
-          })}
-        </div>
-
-        <button onClick={() => dispatch({ type: "SET", payload: { subj: "mixte", topic: null, screen: "topics" } })}
-          style={{ width: "100%", background: P.mixte.lit, border: `2px solid ${P.mixte.med}`, borderRadius: 12, padding: "1.1rem 1.25rem", cursor: "pointer", textAlign: "left", fontFamily: "inherit", display: "flex", alignItems: "center", gap: 14, marginBottom: "1.5rem", transition: "all 0.15s" }}
-          onMouseEnter={e => { e.currentTarget.style.borderColor = P.mixte.pri; e.currentTarget.style.boxShadow = "0 4px 14px rgba(0,0,0,0.08)"; }}
-          onMouseLeave={e => { e.currentTarget.style.borderColor = P.mixte.med; e.currentTarget.style.boxShadow = "none"; }}>
-          <span style={{ fontSize: 28 }}>🔬</span>
-          <div>
-            <div style={{ fontSize: 15, fontWeight: 700, color: P.mixte.txt }}>Problèmes mixtes</div>
-            <div style={{ fontSize: 12, color: P.mixte.txt, opacity: 0.75, marginTop: 2 }}>Maths + Physique combinés · Problèmes complexes multi-étapes</div>
+      {/* Carte reprendre */}
+      <div className="rev-hero" style={{ marginTop: 26, background: "#5B5488", borderRadius: 22, padding: "30px 34px", color: "#F4F2EC", display: "flex", alignItems: "center", gap: 30, overflow: "hidden", position: "relative" }}>
+        <div style={{ position: "absolute", right: -40, top: -40, width: 220, height: 220, borderRadius: "50%", background: "radial-gradient(circle at 30% 30%,#5B4FE9,transparent 70%)", opacity: 0.55 }} />
+        <div style={{ flex: 1, position: "relative" }}>
+          <div style={{ fontSize: 13, fontWeight: 600, letterSpacing: ".5px", textTransform: "uppercase", color: "#9A9AAB" }}>
+            {last ? "Reprendre là où tu t'es arrêté(e)" : "Commence ta première session"}
           </div>
-        </button>
-
-        <button onClick={() => dispatch({ type: "SET", payload: { screen: "history" } })}
-          style={{ width: "100%", padding: "13px 20px", background: "white", border: "1.5px solid #E5E7EB", borderRadius: 12, cursor: "pointer", fontFamily: "inherit", display: "flex", alignItems: "center", justifyContent: "space-between", transition: "all 0.15s" }}
-          onMouseEnter={e => { e.currentTarget.style.borderColor = "#9CA3AF"; e.currentTarget.style.background = "#F9FAFB"; }}
-          onMouseLeave={e => { e.currentTarget.style.borderColor = "#E5E7EB"; e.currentTarget.style.background = "white"; }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <span style={{ fontSize: 22 }}>📊</span>
-            <div style={{ textAlign: "left" }}>
-              <div style={{ fontSize: 14, fontWeight: 600, color: "#111827" }}>Mon historique</div>
-              <div style={{ fontSize: 12, color: "#6B7280", marginTop: 1 }}>Score cumulé, progression par thème, dernières tentatives</div>
+          <div style={{ fontFamily: "'Bricolage Grotesque'", fontWeight: 700, fontSize: 26, marginTop: 8, letterSpacing: "-.5px" }}>
+            {last ? last.topic : SUBS[firstKey].label}
+          </div>
+          <div style={{ color: "#B9B9C6", fontSize: 14.5, marginTop: 4 }}>
+            {last ? SUBS[last.subject]?.label : "Découvre les thèmes disponibles"}
+          </div>
+          {heroPct != null && (
+            <div style={{ height: 8, background: "#7B74B2", borderRadius: 20, marginTop: 16, maxWidth: 340, overflow: "hidden" }}>
+              <div style={{ height: "100%", width: `${heroPct}%`, background: "#5B4FE9", borderRadius: 20 }} />
             </div>
-          </div>
-          <span style={{ color: "#9CA3AF", fontSize: 18 }}>→</span>
-        </button>
+          )}
+        </div>
+        <div onClick={goContinue}
+          style={{ flex: "none", background: "#5B4FE9", color: "#fff", fontWeight: 700, fontSize: 15, padding: "15px 26px", borderRadius: 14, cursor: "pointer", whiteSpace: "nowrap", transition: "background .15s" }}
+          onMouseEnter={e => e.currentTarget.style.background = "#4A3FD6"}
+          onMouseLeave={e => e.currentTarget.style.background = "#5B4FE9"}>
+          {last ? "Continuer →" : "Commencer →"}
+        </div>
+      </div>
+
+      {/* Stats */}
+      <div className="rev-grid3" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16, marginTop: 16 }}>
+        <div style={{ background: "#fff", border: "1px solid #EAE7DE", borderRadius: 18, padding: "20px 22px" }}>
+          <div style={{ fontSize: 13, color: "#6B6B7B", fontWeight: 600 }}>Points cumulés</div>
+          <div style={{ fontFamily: "'Bricolage Grotesque'", fontWeight: 700, fontSize: 28, marginTop: 6 }}>{score}</div>
+        </div>
+        <div style={{ background: "#fff", border: "1px solid #EAE7DE", borderRadius: 18, padding: "20px 22px" }}>
+          <div style={{ fontSize: 13, color: "#6B6B7B", fontWeight: 600 }}>Série en cours</div>
+          <div style={{ fontFamily: "'Bricolage Grotesque'", fontWeight: 700, fontSize: 28, marginTop: 6 }}>{streak} <span style={{ fontSize: 16, color: "#9A9AAB" }}>jours</span></div>
+        </div>
+        <div style={{ background: "#fff", border: "1px solid #EAE7DE", borderRadius: 18, padding: "20px 22px" }}>
+          <div style={{ fontSize: 13, color: "#6B6B7B", fontWeight: 600 }}>Maîtrise globale</div>
+          <div style={{ fontFamily: "'Bricolage Grotesque'", fontWeight: 700, fontSize: 28, marginTop: 6 }}>{masteryGlobal != null ? `${masteryGlobal}%` : "—"}</div>
+        </div>
+      </div>
+
+      {/* Matières */}
+      <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginTop: 34 }}>
+        <div style={{ fontFamily: "'Bricolage Grotesque'", fontWeight: 700, fontSize: 21 }}>Tes matières</div>
+      </div>
+      <div className="rev-grid3" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16, marginTop: 16 }}>
+        {subjectKeys.map(k => {
+          const s = SUBS[k];
+          const p = P[k];
+          let correct = 0, total = 0;
+          byTopic.forEach(t => { if (t.subject === k) { correct += t.correct || 0; total += t.total || 0; } });
+          const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
+          return (
+            <div key={k} onClick={() => openSubject(k)}
+              style={{ background: "#fff", border: "1px solid #EAE7DE", borderRadius: 18, padding: 20, cursor: "pointer", transition: "transform .15s,box-shadow .15s" }}
+              onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 12px 24px rgba(0,0,0,.07)"; }}
+              onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 13 }}>
+                <div style={{ flex: "none", width: 46, height: 46, borderRadius: 12, background: p.lit, color: p.pri, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 22 }}>{s.mono}</div>
+                <div>
+                  <div style={{ fontWeight: 700, fontSize: 16 }}>{s.label}</div>
+                  <div style={{ fontSize: 12.5, color: "#6B6B7B" }}>{s.topics.length} thèmes</div>
+                </div>
+              </div>
+              <div style={{ height: 7, background: "#EFECE3", borderRadius: 20, marginTop: 16, overflow: "hidden" }}>
+                <div style={{ height: "100%", width: `${pct}%`, background: p.pri, borderRadius: 20, animation: "revBar .7s ease both" }} />
+              </div>
+              <div style={{ display: "flex", justifyContent: "space-between", marginTop: 8, fontSize: 12.5, color: "#6B6B7B" }}>
+                <span>{total > 0 ? `${correct}/${total} réussies` : "Pas encore de données"}</span>
+                <span style={{ fontWeight: 700, color: "#191927" }}>{pct}%</span>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

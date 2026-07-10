@@ -4,38 +4,46 @@ import { useAppState } from "../state/AppContext.jsx";
 
 export default function TopicListScreen() {
   const { state, dispatch } = useAppState();
-  const { subj } = state;
+  const { subj, historyData } = state;
   const S = SUBS[subj];
   const c = P[subj];
+  const byTopic = historyData?.byTopic || [];
 
   return (
-    <div style={{ minHeight: "100vh", background: "#F9FAFB", padding: "2rem 1.5rem", fontFamily: "system-ui, -apple-system, sans-serif" }}>
-      <div style={{ maxWidth: 580, margin: "0 auto" }}>
-        <button onClick={() => dispatch({ type: "SET", payload: { screen: "home" } })}
-          style={{ background: "none", border: "none", color: "#6B7280", cursor: "pointer", fontSize: 13, fontFamily: "inherit", padding: "0 0 1.25rem", display: "flex", alignItems: "center", gap: 6 }}>
-          ← Retour
-        </button>
+    <div style={{ animation: "revFade .4s ease both" }}>
+      <div onClick={() => dispatch({ type: "SET", payload: { screen: "home" } })}
+        style={{ fontSize: 13.5, fontWeight: 600, color: "#6B6B7B", cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 6 }}>
+        ← Tableau de bord
+      </div>
 
-        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: "1.75rem" }}>
-          <span style={{ fontSize: 28 }}>{S.emoji}</span>
-          <div>
-            <h2 style={{ fontSize: 20, fontWeight: 700, color: "#111827", margin: 0 }}>{S.label}</h2>
-            <p style={{ fontSize: 13, color: "#6B7280", margin: "2px 0 0" }}>Choisis un thème pour accéder aux activités</p>
-          </div>
+      <div style={{ display: "flex", alignItems: "center", gap: 18, marginTop: 14 }}>
+        <div style={{ flex: "none", width: 60, height: 60, borderRadius: 16, background: c.lit, color: c.pri, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 28 }}>{S.mono}</div>
+        <div>
+          <div style={{ fontFamily: "'Bricolage Grotesque'", fontWeight: 700, fontSize: 30, letterSpacing: "-.8px" }}>{S.label}</div>
+          <div style={{ color: "#6B6B7B", fontSize: 15, marginTop: 2 }}>{S.topics.length} thèmes</div>
         </div>
+      </div>
 
-        <p style={{ fontSize: 11, fontWeight: 700, color: "#9CA3AF", textTransform: "uppercase", letterSpacing: "0.1em", margin: "0 0 10px" }}>Thèmes</p>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
-          {S.topics.map(t => (
-            <button key={t}
+      <div style={{ display: "flex", flexDirection: "column", gap: 12, marginTop: 26 }}>
+        {S.topics.map((t, i) => {
+          const entry = byTopic.find(bt => bt.subject === subj && bt.topic === t);
+          const pct = entry && entry.total > 0 ? Math.round((entry.correct / entry.total) * 100) : null;
+          return (
+            <div key={t}
               onClick={() => dispatch({ type: "SET", payload: { topic: t, screen: "topic" } })}
-              style={{ padding: "14px 16px", background: "white", border: `1.5px solid ${c.med}`, borderRadius: 10, cursor: "pointer", textAlign: "left", fontFamily: "inherit", transition: "all 0.15s" }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = c.pri; e.currentTarget.style.background = c.lit; }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = c.med; e.currentTarget.style.background = "white"; }}>
-              <div style={{ fontSize: 14, fontWeight: 600, color: c.txt }}>{t}</div>
-            </button>
-          ))}
-        </div>
+              style={{ display: "flex", alignItems: "center", gap: 16, background: "#fff", border: "1px solid #EAE7DE", borderRadius: 16, padding: "16px 18px", cursor: "pointer", transition: "border-color .15s" }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = c.pri; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = "#EAE7DE"; }}>
+              <div style={{ flex: "none", width: 44, height: 44, borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 17, background: c.lit, color: c.pri }}>{i + 1}</div>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontWeight: 700, fontSize: 16.5 }}>{t}</div>
+              </div>
+              {pct != null && (
+                <div style={{ fontWeight: 700, fontSize: 14, color: c.txt }}>{pct}%</div>
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

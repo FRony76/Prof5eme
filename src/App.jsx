@@ -3,6 +3,7 @@ import { APP_VERSION } from "./constants.js";
 import { fetchHistory } from "./lib/api.js";
 import { AppProvider, useAppState } from "./state/AppContext.jsx";
 import LoginScreen from "./components/LoginScreen.jsx";
+import AppShell from "./components/AppShell.jsx";
 import HomeScreen from "./screens/HomeScreen.jsx";
 import TopicListScreen from "./screens/TopicListScreen.jsx";
 import TopicHubScreen from "./screens/TopicHubScreen.jsx";
@@ -42,22 +43,26 @@ function AppInner() {
 
   if (authed === null) {
     return (
-      <div style={{ minHeight: "100vh", background: "#F9FAFB", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "system-ui, -apple-system, sans-serif", color: "#9CA3AF", fontSize: 14 }}>
+      <div style={{ minHeight: "100vh", background: "#F4F2EC", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'Figtree',system-ui,sans-serif", color: "#9A9AAB", fontSize: 14 }}>
         Chargement…
       </div>
     );
   }
-  if (!authed) return <LoginScreen onSuccess={() => dispatch({ type: "SET", payload: { authed: true } })} />;
+  if (!authed) return <LoginScreen onSuccess={(u) => dispatch({ type: "SET", payload: { authed: true, user: u } })} />;
 
-  if (screen === "topics")  return <TopicListScreen />;
-  if (screen === "topic")   return <TopicHubScreen />;
-  if (screen === "cards-view") return <CardsView />;
-  if (screen === "bank-view")  return <BankView />;
-  if (screen === "setup")   return <SetupScreen />;
-  if (screen === "history") return <HistoryScreen />;
-  if (screen === "attempt") return <AttemptDetailScreen />;
-  if (screen === "home")    return <HomeScreen />;
-  return <QuizScreen />;
+  return (
+    <AppShell>
+      {screen === "topics" ? <TopicListScreen />
+        : screen === "topic" ? <TopicHubScreen />
+        : screen === "cards-view" ? <CardsView />
+        : screen === "bank-view" ? <BankView />
+        : screen === "setup" ? <SetupScreen />
+        : screen === "history" ? <HistoryScreen />
+        : screen === "attempt" ? <AttemptDetailScreen />
+        : screen === "home" ? <HomeScreen />
+        : <QuizScreen />}
+    </AppShell>
+  );
 }
 
 export default function App() {
