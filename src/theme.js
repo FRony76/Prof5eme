@@ -1,15 +1,15 @@
 export const P = {
-  maths:   { pri:"#185FA5", lit:"#EBF3FD", med:"#B5D4F4", txt:"#0C447C" },
-  physique:{ pri:"#854F0B", lit:"#FDF3E3", med:"#FAC775", txt:"#633806" },
-  mixte:   { pri:"#7C3AED", lit:"#F5F3FF", med:"#DDD6FE", txt:"#5B21B6" },
-  ok:      { pri:"#0F6E56", lit:"#E1F5EE", txt:"#085041" },
-  warn:    { pri:"#B45309", lit:"#FFF8E1", txt:"#92400E" },
-  err:     { pri:"#A32D2D", lit:"#FCEBEB", txt:"#791F1F" }
+  maths:    { pri:"#5B4FE9", lit:"#ECEAFC", med:"#C9C4F5", txt:"#3D34B8" }, // indigo (accent)
+  physique: { pri:"#E0972B", lit:"#FBF0DC", med:"#F2D9AC", txt:"#A86D14" }, // orange
+  mixte:    { pri:"#1F9D6B", lit:"#E2F3EC", med:"#B6E3CE", txt:"#157A52" }, // vert
+  ok:       { pri:"#1F9D6B", lit:"#E9F6F0", txt:"#157A52" },
+  warn:     { pri:"#E0972B", lit:"#FBF0DC", txt:"#A86D14" },
+  err:      { pri:"#E8563F", lit:"#FCEAE6", txt:"#B93A28" }
 };
 
 export const KIND_STYLE = {
-  method:  { borderColor:"#185FA5", label:"Méthode",         labelColor:"#0C447C" },
-  example: { borderColor:"#059669", label:"Exemple",          labelColor:"#065F46" },
-  warning: { borderColor:"#D97706", label:"Attention",        labelColor:"#92400E" },
-  bonus:   { borderColor:"#7C3AED", label:"Approfondissement · vu en 4e", labelColor:"#5B21B6" },
+  method:  { borderColor:"#5B4FE9", label:"Méthode",   labelColor:"#3D34B8", bg:"#ECEAFC" },
+  example: { borderColor:"#1F9D6B", label:"Exemple",   labelColor:"#157A52", bg:"#E9F6F0" },
+  warning: { borderColor:"#E0972B", label:"Attention", labelColor:"#A86D14", bg:"#FBF0DC" },
+  bonus:   { borderColor:"#C74AA0", label:"Approfondissement · vu en 4e", labelColor:"#9C3379", bg:"#F8E6F2" },
 };

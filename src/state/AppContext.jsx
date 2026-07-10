@@ -2,6 +2,7 @@ import { createContext, useContext, useReducer, useEffect } from "react";
 
 const initialState = {
   authed: null,
+  user: null,
   screen: "home",
   subj: null, topic: null, level: 2,
   qData: null, answer: "", answerMode: "text", photo: null,
@@ -94,7 +95,7 @@ export function AppProvider({ children }) {
     let alive = true;
     fetch("/api/session", { headers: { Accept: "application/json" } })
       .then(r => (r.ok ? r.json() : { authed: false }))
-      .then(d => { if (alive) dispatch({ type: "SET", payload: { authed: !!d.authed } }); })
+      .then(d => { if (alive) dispatch({ type: "SET", payload: { authed: !!d.authed, user: d.user ?? null } }); })
       .catch(() => { if (alive) dispatch({ type: "SET", payload: { authed: false } }); });
     const onExpired = () => dispatch({ type: "SET", payload: { authed: false } });
     window.addEventListener("auth-expired", onExpired);

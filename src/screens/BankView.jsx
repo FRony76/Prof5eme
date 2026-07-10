@@ -1,9 +1,11 @@
 import { P } from "../theme.js";
-import { LVL } from "../constants.js";
+import { SUBS, LVL } from "../constants.js";
 import { EXERCISES } from "../data/exercises.js";
 import { callGemini, recordAttempt } from "../lib/api.js";
 import PhotoCapture from "../components/PhotoCapture.jsx";
 import { useAppState } from "../state/AppContext.jsx";
+
+const FB_BORDER = { ok: "#B6E3CE", half: "#F2D9AC", err: "#F2C9BF" };
 
 export default function BankView() {
   const { state, dispatch } = useAppState();
@@ -11,6 +13,7 @@ export default function BankView() {
           bankAnswerMode, bankAnswer, bankPhoto, bankFeedback, bankChecking } = state;
   const list = EXERCISES[subj][topic];
   const bp = P[subj];
+  const S = SUBS[subj];
   const ex = list[bankIdx];
   const lvlLabel = LVL[ex.lvl];
 
@@ -51,114 +54,113 @@ export default function BankView() {
 
   const nav = (idx) => dispatch({ type: "BANK_NAV", idx });
 
+  const fc = bankFeedback ? (bankFeedback._ok ? P.ok : bankFeedback._half ? P.warn : P.err) : null;
+  const fcBorder = bankFeedback ? (bankFeedback._ok ? FB_BORDER.ok : bankFeedback._half ? FB_BORDER.half : FB_BORDER.err) : null;
+
   return (
-    <div style={{ minHeight: "100vh", background: "#F9FAFB", padding: "2rem 1.5rem", fontFamily: "system-ui, -apple-system, sans-serif" }}>
-      <div style={{ maxWidth: 600, margin: "0 auto" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: "1.5rem", flexWrap: "wrap" }}>
-          <button onClick={() => dispatch({ type: "SET", payload: { screen: "topic" } })}
-            style={{ background: "none", border: "none", color: "#6B7280", cursor: "pointer", fontSize: 13, fontFamily: "inherit", padding: 0 }}>
-            ← Retour
-          </button>
-          <span style={{ background: bp.lit, color: bp.txt, border: `1px solid ${bp.med}`, borderRadius: 20, padding: "3px 12px", fontSize: 12, fontWeight: 600 }}>{topic}</span>
-          <span style={{ background: "#F3F4F6", color: "#6B7280", borderRadius: 20, padding: "3px 10px", fontSize: 12 }}>{"●".repeat(ex.lvl)}{"○".repeat(3 - ex.lvl)} {lvlLabel}</span>
+    <div style={{ animation: "revFade .4s ease both", maxWidth: 680, margin: "0 auto" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 20, flexWrap: "wrap" }}>
+        <div onClick={() => dispatch({ type: "SET", payload: { screen: "topic" } })}
+          style={{ fontSize: 13.5, fontWeight: 600, color: "#6B6B7B", cursor: "pointer" }}>
+          ← {S.label}
         </div>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
-          <p style={{ margin: 0, fontSize: 13, color: "#9CA3AF" }}>Exercice {bankIdx + 1} / {list.length}</p>
-          <div style={{ display: "flex", gap: 4, flexWrap: "wrap", maxWidth: 280, justifyContent: "flex-end" }}>
-            {list.map((_, i) => <div key={i} title={`Exercice ${i + 1}`} onClick={() => nav(i)} style={{ width: 8, height: 8, borderRadius: "50%", cursor: "pointer", background: i === bankIdx ? bp.pri : "#E5E7EB" }} />)}
-          </div>
+        <span style={{ background: bp.lit, color: bp.txt, fontWeight: 700, fontSize: 12.5, padding: "5px 12px", borderRadius: 20 }}>{topic}</span>
+        <span style={{ background: "#F1EFE8", color: "#6B6B7B", borderRadius: 20, padding: "5px 12px", fontSize: 12 }}>{"●".repeat(ex.lvl)}{"○".repeat(3 - ex.lvl)} {lvlLabel}</span>
+      </div>
+
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
+        <p style={{ margin: 0, fontSize: 13, color: "#9A9AAB" }}>Exercice {bankIdx + 1} / {list.length}</p>
+        <div style={{ display: "flex", gap: 6, flexWrap: "wrap", maxWidth: 280, justifyContent: "flex-end" }}>
+          {list.map((_, i) => <div key={i} title={`Exercice ${i + 1}`} onClick={() => nav(i)} style={{ width: 8, height: 8, borderRadius: "50%", cursor: "pointer", background: i === bankIdx ? bp.pri : "#E1DDD2" }} />)}
+        </div>
+      </div>
+
+      <div style={{ background: "white", border: "1px solid #EAE7DE", borderRadius: 18, padding: "26px", display: "flex", flexDirection: "column", gap: 18 }}>
+        <div>
+          <div style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: 10, color: "#9A9AAB" }}>📝 Exercice</div>
+          <p style={{ fontSize: 16.5, lineHeight: 1.72, color: "#191927", fontWeight: 600, margin: 0, whiteSpace: "pre-wrap" }}>{ex.q}</p>
         </div>
 
-        <div style={{ background: "white", border: "1.5px solid #E5E7EB", borderRadius: 12, padding: "1.75rem", display: "flex", flexDirection: "column", gap: 16 }}>
-          <div>
-            <div style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: 10, color: "#9CA3AF" }}>📝 Exercice</div>
-            <p style={{ fontSize: 16, lineHeight: 1.7, color: "#111827", fontWeight: 600, margin: 0, whiteSpace: "pre-wrap" }}>{ex.q}</p>
+        <div style={{ borderTop: "1px solid #EAE7DE", paddingTop: 18 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: 10, color: "#9A9AAB" }}>🔎 Vérifie ta réponse</div>
+          <div style={{ display: "flex", gap: 6, marginBottom: 10 }}>
+            <button onClick={() => dispatch({ type: "SET", payload: { bankAnswerMode: "text" } })}
+              style={{ padding: "8px 15px", background: bankAnswerMode === "text" ? bp.pri : "white", border: `1.5px solid ${bankAnswerMode === "text" ? bp.pri : "#E1DDD2"}`, borderRadius: 20, color: bankAnswerMode === "text" ? "white" : "#6B6B7B", fontWeight: 600, cursor: "pointer", fontSize: 12.5, fontFamily: "inherit" }}>
+              ✍️ Texte
+            </button>
+            <button onClick={() => dispatch({ type: "SET", payload: { bankAnswerMode: "photo" } })}
+              style={{ padding: "8px 15px", background: bankAnswerMode === "photo" ? bp.pri : "white", border: `1.5px solid ${bankAnswerMode === "photo" ? bp.pri : "#E1DDD2"}`, borderRadius: 20, color: bankAnswerMode === "photo" ? "white" : "#6B6B7B", fontWeight: 600, cursor: "pointer", fontSize: 12.5, fontFamily: "inherit" }}>
+              📷 Photo
+            </button>
           </div>
 
-          <div style={{ borderTop: "1.5px solid #F3F4F6", paddingTop: 16 }}>
-            <div style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: 10, color: "#9CA3AF" }}>🔎 Vérifie ta réponse</div>
-            <div style={{ display: "flex", gap: 6, marginBottom: 10 }}>
-              <button onClick={() => dispatch({ type: "SET", payload: { bankAnswerMode: "text" } })}
-                style={{ padding: "7px 14px", background: bankAnswerMode === "text" ? bp.pri : "white", border: `1.5px solid ${bankAnswerMode === "text" ? bp.pri : "#E5E7EB"}`, borderRadius: 20, color: bankAnswerMode === "text" ? "white" : "#6B7280", fontWeight: 600, cursor: "pointer", fontSize: 12, fontFamily: "inherit" }}>
-                ✍️ Texte
-              </button>
-              <button onClick={() => dispatch({ type: "SET", payload: { bankAnswerMode: "photo" } })}
-                style={{ padding: "7px 14px", background: bankAnswerMode === "photo" ? bp.pri : "white", border: `1.5px solid ${bankAnswerMode === "photo" ? bp.pri : "#E5E7EB"}`, borderRadius: 20, color: bankAnswerMode === "photo" ? "white" : "#6B7280", fontWeight: 600, cursor: "pointer", fontSize: 12, fontFamily: "inherit" }}>
-                📷 Photo
-              </button>
-            </div>
+          {bankAnswerMode === "text" ? (
+            <>
+              <textarea value={bankAnswer} onChange={e => dispatch({ type: "SET", payload: { bankAnswer: e.target.value } })}
+                placeholder="Écris ta réponse ici…" rows={3}
+                style={{ width: "100%", boxSizing: "border-box", background: "white", border: "1.5px solid #E1DDD2", borderRadius: 14, padding: "14px 16px", color: "#191927", fontSize: 14.5, resize: "vertical", outline: "none", fontFamily: "inherit", lineHeight: 1.65, marginBottom: 4 }}
+              />
+              <p style={{ margin: "0 0 10px", fontSize: 11.5, color: "#9A9AAB" }}>Rappelle la formule du cours et rédige ta démarche (résultat + unité).</p>
+            </>
+          ) : (
+            <PhotoCapture photo={bankPhoto} setPhoto={p => dispatch({ type: "SET", payload: { bankPhoto: p } })} color={bp.pri} />
+          )}
 
-            {bankAnswerMode === "text" ? (
-              <>
-                <textarea value={bankAnswer} onChange={e => dispatch({ type: "SET", payload: { bankAnswer: e.target.value } })}
-                  placeholder="Écris ta réponse ici…" rows={3}
-                  style={{ width: "100%", boxSizing: "border-box", background: "white", border: "1.5px solid #E5E7EB", borderRadius: 8, padding: "12px 14px", color: "#111827", fontSize: 14, resize: "vertical", outline: "none", fontFamily: "inherit", lineHeight: 1.65, marginBottom: 4 }}
-                />
-                <p style={{ margin: "0 0 10px", fontSize: 11.5, color: "#9CA3AF" }}>Rappelle la formule du cours et rédige ta démarche (résultat + unité).</p>
-              </>
-            ) : (
-              <PhotoCapture photo={bankPhoto} setPhoto={p => dispatch({ type: "SET", payload: { bankPhoto: p } })} color={bp.pri} />
-            )}
+          {(() => { const canSubmit = (bankAnswerMode === "text" ? !!bankAnswer.trim() : !!bankPhoto) && !bankChecking; return (
+            <button onClick={checkBankAnswer} disabled={!canSubmit}
+              style={{ width: "100%", padding: "12px", background: canSubmit ? bp.pri : "#C7C3B8", border: "none", borderRadius: 14, color: "white", fontWeight: 700, cursor: canSubmit ? "pointer" : "not-allowed", fontSize: 14.5, fontFamily: "inherit" }}>
+              {bankChecking ? (bankAnswerMode === "photo" ? "Lecture de ta copie…" : "Correction en cours…") : "✓ Faire corriger ma réponse"}
+            </button>
+          ); })()}
 
-            {(() => { const canSubmit = (bankAnswerMode === "text" ? !!bankAnswer.trim() : !!bankPhoto) && !bankChecking; return (
-              <button onClick={checkBankAnswer} disabled={!canSubmit}
-                style={{ width: "100%", padding: "10px", background: canSubmit ? bp.pri : "#E5E7EB", border: "none", borderRadius: 8, color: canSubmit ? "white" : "#9CA3AF", fontWeight: 700, cursor: canSubmit ? "pointer" : "not-allowed", fontSize: 14, fontFamily: "inherit" }}>
-                {bankChecking ? (bankAnswerMode === "photo" ? "Lecture de ta copie…" : "Correction en cours…") : "✓ Faire corriger ma réponse"}
-              </button>
-            ); })()}
-
-            {bankFeedback && (() => {
-              const fc = bankFeedback._ok ? P.ok : bankFeedback._half ? P.warn : P.err;
-              return (
-                <div style={{ background: fc.lit, border: `1.5px solid ${fc.pri}`, borderRadius: 8, padding: "12px 14px", marginTop: 10 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
-                    <span style={{ fontSize: 16 }}>{bankFeedback._ok ? "✅" : bankFeedback._half ? "⚡" : "❌"}</span>
-                    <span style={{ fontWeight: 700, color: fc.txt, fontSize: 13 }}>{bankFeedback._ok ? "Excellent !" : bankFeedback._half ? "Presque !" : "Pas tout à fait…"}</span>
-                  </div>
-                  <p style={{ margin: 0, fontSize: 13, color: "#374151", lineHeight: 1.6, marginBottom: (!bankFeedback._formulaOk || !bankFeedback._writtenOk) ? 8 : 0, whiteSpace: "pre-wrap" }}>{bankFeedback.feedback}</p>
-                  {(!bankFeedback._formulaOk || !bankFeedback._writtenOk) && (
-                    <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
-                      {!bankFeedback._formulaOk && <span style={{ fontSize: 12, color: P.warn.txt }}>⚠️ Pense à rappeler la ou les formules du cours.</span>}
-                      {!bankFeedback._writtenOk && <span style={{ fontSize: 12, color: P.warn.txt }}>⚠️ Rédige ta réponse : étapes + résultat avec l'unité.</span>}
-                    </div>
-                  )}
+          {bankFeedback && (
+            <div style={{ background: fc.lit, border: `1.5px solid ${fcBorder}`, borderRadius: 14, padding: "14px 16px", marginTop: 10 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
+                <span style={{ fontSize: 16 }}>{bankFeedback._ok ? "✅" : bankFeedback._half ? "⚡" : "❌"}</span>
+                <span style={{ fontWeight: 700, color: fc.txt, fontSize: 13 }}>{bankFeedback._ok ? "Excellent !" : bankFeedback._half ? "Presque !" : "Pas tout à fait…"}</span>
+              </div>
+              <p style={{ margin: 0, fontSize: 13, color: "#2A2A38", lineHeight: 1.6, marginBottom: (!bankFeedback._formulaOk || !bankFeedback._writtenOk) ? 8 : 0, whiteSpace: "pre-wrap" }}>{bankFeedback.feedback}</p>
+              {(!bankFeedback._formulaOk || !bankFeedback._writtenOk) && (
+                <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
+                  {!bankFeedback._formulaOk && <span style={{ fontSize: 12, color: P.warn.txt }}>⚠️ Pense à rappeler la ou les formules du cours.</span>}
+                  {!bankFeedback._writtenOk && <span style={{ fontSize: 12, color: P.warn.txt }}>⚠️ Rédige ta réponse : étapes + résultat avec l'unité.</span>}
                 </div>
-              );
-            })()}
-          </div>
-
-          <div style={{ display: "flex", gap: 8 }}>
-            <button onClick={() => dispatch({ type: "SET", payload: { bankShowHint: !bankShowHint } })} style={{ padding: "9px 14px", background: "white", border: "1.5px solid #E5E7EB", borderRadius: 8, color: "#6B7280", cursor: "pointer", fontSize: 13, fontFamily: "inherit" }}>
-              💡 {bankShowHint ? "Cacher l'indice" : "Voir l'indice"}
-            </button>
-            <button onClick={() => dispatch({ type: "SET", payload: { bankShowAnswer: !bankShowAnswer } })} style={{ padding: "9px 14px", background: bankShowAnswer ? bp.pri : "white", border: `1.5px solid ${bankShowAnswer ? bp.pri : "#E5E7EB"}`, borderRadius: 8, color: bankShowAnswer ? "white" : "#6B7280", cursor: "pointer", fontSize: 13, fontFamily: "inherit", fontWeight: bankShowAnswer ? 600 : 400 }}>
-              ✓ {bankShowAnswer ? "Cacher le corrigé" : "Voir le corrigé"}
-            </button>
-          </div>
-
-          {bankShowHint && (
-            <div style={{ borderLeft: `3px solid ${bp.pri}`, padding: "8px 12px", fontSize: 13, color: bp.txt, background: bp.lit, borderRadius: "0 6px 6px 0" }}>
-              💡 {ex.hint}
-            </div>
-          )}
-          {bankShowAnswer && (
-            <div style={{ borderTop: `1.5px solid ${bp.med}`, paddingTop: 16, background: bp.lit, margin: "0 -1.75rem -1.75rem", padding: "16px 1.75rem 1.75rem" }}>
-              <div style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: 10, color: bp.txt }}>✓ Corrigé</div>
-              <p style={{ fontSize: 13, lineHeight: 1.8, color: bp.txt, fontWeight: 400, margin: 0, whiteSpace: "pre-wrap" }}>{ex.a}</p>
+              )}
             </div>
           )}
         </div>
 
-        <div style={{ display: "flex", gap: 10, marginTop: "1.25rem" }}>
-          <button onClick={() => nav(Math.max(0, bankIdx - 1))} disabled={bankIdx === 0}
-            style={{ flex: 1, padding: "11px", background: "white", border: "1.5px solid #E5E7EB", borderRadius: 8, color: bankIdx === 0 ? "#D1D5DB" : "#374151", cursor: bankIdx === 0 ? "not-allowed" : "pointer", fontSize: 14, fontFamily: "inherit" }}>
-            ← Précédent
+        <div style={{ display: "flex", gap: 8 }}>
+          <button onClick={() => dispatch({ type: "SET", payload: { bankShowHint: !bankShowHint } })} style={{ padding: "10px 16px", background: "white", border: "1.5px solid #E1DDD2", borderRadius: 14, color: "#6B6B7B", cursor: "pointer", fontSize: 13, fontFamily: "inherit" }}>
+            💡 {bankShowHint ? "Cacher l'indice" : "Voir l'indice"}
           </button>
-          <button onClick={() => nav(Math.min(list.length - 1, bankIdx + 1))} disabled={bankIdx === list.length - 1}
-            style={{ flex: 1, padding: "11px", background: bankIdx === list.length - 1 ? "#E5E7EB" : bp.pri, border: "none", borderRadius: 8, color: bankIdx === list.length - 1 ? "#9CA3AF" : "white", cursor: bankIdx === list.length - 1 ? "not-allowed" : "pointer", fontSize: 14, fontWeight: 600, fontFamily: "inherit" }}>
-            Suivant →
+          <button onClick={() => dispatch({ type: "SET", payload: { bankShowAnswer: !bankShowAnswer } })} style={{ padding: "10px 16px", background: bankShowAnswer ? bp.pri : "white", border: `1.5px solid ${bankShowAnswer ? bp.pri : "#E1DDD2"}`, borderRadius: 14, color: bankShowAnswer ? "white" : "#6B6B7B", cursor: "pointer", fontSize: 13, fontFamily: "inherit", fontWeight: bankShowAnswer ? 600 : 400 }}>
+            ✓ {bankShowAnswer ? "Cacher le corrigé" : "Voir le corrigé"}
           </button>
         </div>
+
+        {bankShowHint && (
+          <div style={{ borderLeft: `3px solid ${bp.pri}`, padding: "10px 14px", fontSize: 13.5, color: bp.txt, background: bp.lit, borderRadius: "0 10px 10px 0" }}>
+            💡 {ex.hint}
+          </div>
+        )}
+        {bankShowAnswer && (
+          <div style={{ borderTop: `1px solid ${bp.med}`, paddingTop: 18, background: bp.lit, margin: "0 -26px -26px", padding: "18px 26px 26px", borderRadius: "0 0 18px 18px" }}>
+            <div style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: 10, color: bp.txt }}>✓ Corrigé</div>
+            <p style={{ fontSize: 14, lineHeight: 1.8, color: bp.txt, fontWeight: 400, margin: 0, whiteSpace: "pre-wrap" }}>{ex.a}</p>
+          </div>
+        )}
+      </div>
+
+      <div style={{ display: "flex", gap: 10, marginTop: 20 }}>
+        <button onClick={() => nav(Math.max(0, bankIdx - 1))} disabled={bankIdx === 0}
+          style={{ flex: 1, padding: "12px", background: "white", border: "1.5px solid #E1DDD2", borderRadius: 14, color: bankIdx === 0 ? "#C7C3B8" : "#191927", cursor: bankIdx === 0 ? "not-allowed" : "pointer", fontSize: 14, fontFamily: "inherit" }}>
+          ← Précédent
+        </button>
+        <button onClick={() => nav(Math.min(list.length - 1, bankIdx + 1))} disabled={bankIdx === list.length - 1}
+          style={{ flex: 1, padding: "12px", background: bankIdx === list.length - 1 ? "#EFECE3" : bp.pri, border: "none", borderRadius: 14, color: bankIdx === list.length - 1 ? "#9A9AAB" : "white", cursor: bankIdx === list.length - 1 ? "not-allowed" : "pointer", fontSize: 14, fontWeight: 600, fontFamily: "inherit" }}>
+          Suivant →
+        </button>
       </div>
     </div>
   );
